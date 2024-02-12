@@ -1,8 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import Main from "./pages/Main";
+import './css/styles.css';
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      타임트리스 초기세팅
-    </h1>
+    <div className="App container">
+      <Routes>
+        <Route path='/' element={<Main />} />
+      </Routes>
+    </div>
   );
 }
 
