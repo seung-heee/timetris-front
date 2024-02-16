@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Main from "./pages/Main";
+import Main from "./pages/main/Main";
 import Login from "./pages/Login/Login"
 import MyPage from "./pages/MyPage/MyPage"
 import './css/styles.css';
