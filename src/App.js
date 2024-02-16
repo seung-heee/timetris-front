@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import NavbarNotLogin from "./components/NavbarNotLogin";
 import GlobalStyle from './styles/GlobalStyle'
 import { useState } from 'react'
+import TempCategory from "./pages/TempCategory";
 
 function App() {
   let [login, setLogin] = useState(true)
@@ -22,6 +23,7 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
           <Route path='/mypage' element={<MyPage />} />
+          <Route path='/tempcategory' element={<TempCategory />} />
         </Routes>
       </div>
     </div>
