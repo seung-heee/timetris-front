@@ -15,4 +15,6 @@ export const images = {
     PLAN: PATH + '/img/main/plan.png',
     DO: PATH + '/img/main/do.png',
     SEE: PATH + '/img/main/see.png',
+    mainCategory: PATH + '/img/main/mainCategory.png',
+    eyes: PATH + '/img/main/eyes.png',
 }

@@ -4,6 +4,8 @@ import '../css/main.css'
 import MainFirst from '../components/main/MainFirst';
 import MainSecond from '../components/main/MainSecond';
 import MainThird from '../components/main/MainThird';
+import MainFourth from '../components/main/MainFourth';
+import MainLast from '../components/main/MainLast';
 
 const Main = () => {
     return (
@@ -11,6 +13,8 @@ const Main = () => {
             <MainFirst />
             <MainSecond />
             <MainThird />
+            <MainFourth />
+            <MainLast />
         </div>
     );
 };
