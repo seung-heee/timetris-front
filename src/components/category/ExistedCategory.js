@@ -34,7 +34,7 @@ const ExistedCategory = () => {
                 {categoryInfo.map((category)=>{
                     return (
                     <div className='flex items-center'>
-                        <div className={`w-[15px] h-[15px] rounded-[50px] mr-3 bg-[${category.colorCode}]`}></div>
+                        <div style={{ backgroundColor: category.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
                         <div>{category.name}</div>
                     </div>)
                 })}
