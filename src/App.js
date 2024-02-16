@@ -17,7 +17,7 @@ function App() {
       {
         login ? <Navbar /> : <NavbarNotLogin />
       }
-      <div className="App container">
+      <div className="App">
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
