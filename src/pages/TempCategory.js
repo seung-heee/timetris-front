@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Category from '../components/category/Category';
 import '../css/category.css';
-import { AddCategory } from '../components/category/AddCategory';
 import { CategoryContext } from '../context/CategoryContext';
-import { FixCategory } from '../components/category/FixCategory';
+
+import AddModal from '../components/category/categoryModal/AddModal';
+import FixModal from '../components/category/categoryModal/FixModal';
 
 const TempCategory = () => {
     const categoryInfo = [
@@ -32,6 +33,7 @@ const TempCategory = () => {
             "colorCode": "#EEA1B3",
         }
     ]
+    
     const [isOpen, setIsOpen] = useState(false);
     const [isFixedOpen, setIsFixedOpen] = useState(false);
 
@@ -44,10 +46,10 @@ const TempCategory = () => {
     };
 
     return (
-        <CategoryContext.Provider value={{isOpen, setIsOpen, openModalHandler, categoryInfo }}>
-            <Category/>
-            <AddCategory />
-            <FixCategory openFixedModalHandler={openFixedModalHandler} isFixedOpen={isFixedOpen} setIsFixedOpen={setIsFixedOpen} />
+        <CategoryContext.Provider value={{isOpen, setIsOpen, openModalHandler, categoryInfo, isFixedOpen, setIsFixedOpen, openFixedModalHandler }}>
+            <Category />
+            <AddModal /><br />
+            <FixModal />
         </CategoryContext.Provider>
     );
 };
