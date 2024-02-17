@@ -7,7 +7,12 @@
     font-weight: 400;
     font-style: normal;
 }
+
 .App {
     margin: 0 auto;
+    font-family: 'Pretendard-Regular';
+}
+
+.font {
     font-family: 'Pretendard-Regular';
 }
