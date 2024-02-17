@@ -1,0 +1,12 @@
+.MainFirst {
+    background-image: url('../../public/img/main/tetris.png');
+    background-position: right center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+
+.MainSecond,
+.MainThird,
+.MainFourth {
+    background-color: #f6f6f6;
+}
