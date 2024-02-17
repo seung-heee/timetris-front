@@ -50,7 +50,6 @@ align-items : center;
 `;
 
 export const ModalView = styled.div.attrs((props) => ({
-  // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있다.
   role: 'dialog',
 }))`
   display: flex;
@@ -69,7 +68,6 @@ export const ModalView = styled.div.attrs((props) => ({
 `;
 
 export const ModalTitle = styled.div.attrs((props) => ({
-    // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있다.
     role: 'dialog',
   }))`
     display: flex;
@@ -85,7 +83,6 @@ export const ModalTitle = styled.div.attrs((props) => ({
 `;
 
 export const ModalInput = styled.input.attrs((props) => ({
-    // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있다.
     role: 'dialog',
   }))`
     display: flex;
@@ -97,7 +94,6 @@ export const ModalInput = styled.input.attrs((props) => ({
 `;
 
 export const ShowColorCode = styled.div.attrs((props) => ({
-    // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있다.
     role: 'dialog',
   }))`
     display: flex;
@@ -110,35 +106,8 @@ export const ShowColorCode = styled.div.attrs((props) => ({
 `;
 
 export const AddCategory = () => {
-  const {isOpen, openModalHandler} = useContext(CategoryContext);
-
-  const categoryInfo = [
-    {
-        "name":"약속/일정/행사",
-        "colorCode": "#EEDC3A",
-    },
-    {
-        "name":"취미 생활",
-        "colorCode": "#A89292",
-    },
-    {
-        "name":"자기 계발",
-        "colorCode": "#96B3FE",
-    },
-    {
-        "name":"업무 및 스펙",
-        "colorCode": "#B8A7E9",
-    },
-    {
-        "name":"갑작스러운 일정",
-        "colorCode": "#A9BDB2",
-    },
-    {
-        "name":"잠",
-        "colorCode": "#EEA1B3",
-    }
-]
-
+  const {isOpen, openModalHandler, categoryInfo} = useContext(CategoryContext);
+  
   return (
     <>
       <ModalContainer>

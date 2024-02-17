@@ -4,8 +4,8 @@ import EmptyCategory from './EmptyCategory';
 import { CategoryContext } from '../../context/CategoryContext';
 
 const Category = () => {
-    const [isCategory, setIsCategory] = useState(true);
     const {isOpen, setIsOpen} = useContext(CategoryContext);
+    const [isCategory, setIsCategory] = useState(true);
 
     return (
         <div className='w-[500px] h-[236px] bg-[#F6F6F6] rounded-md p-5'>
