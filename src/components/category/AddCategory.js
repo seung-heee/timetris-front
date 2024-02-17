@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { CategoryContext } from '../../context/CategoryContext';
 
 export const ModalContainer = styled.div`
   // Modal을 구현하는데 전체적으로 필요한 CSS를 구현
@@ -108,7 +109,9 @@ export const ShowColorCode = styled.div.attrs((props) => ({
         }
 `;
 
-export const AddCategory = ({isOpen, setIsOpen, openModalHandler}) => {
+export const AddCategory = () => {
+  const {isOpen, openModalHandler} = useContext(CategoryContext);
+
   const categoryInfo = [
     {
         "name":"약속/일정/행사",

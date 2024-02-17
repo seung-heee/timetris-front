@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Category from '../components/category/Category';
 import '../css/category.css';
 import { AddCategory } from '../components/category/AddCategory';
+import { CategoryContext } from '../context/CategoryContext';
 
 const TempCategory = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,10 +12,10 @@ const TempCategory = () => {
     };
 
     return (
-        <div>
-            <Category isOpen={isOpen} setIsOpen={setIsOpen} openModalHandler={openModalHandler} />
-            <AddCategory isOpen={isOpen} setIsOpen={setIsOpen} openModalHandler={openModalHandler} />
-        </div>
+        <CategoryContext.Provider value={{isOpen, setIsOpen, openModalHandler}}>
+            <Category/>
+            <AddCategory />
+        </CategoryContext.Provider>
     );
 };
 
