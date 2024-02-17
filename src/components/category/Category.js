@@ -4,7 +4,7 @@ import EmptyCategory from './EmptyCategory';
 import { CategoryContext } from '../../context/CategoryContext';
 
 const Category = () => {
-    const {isOpen, setIsOpen, isFixedOpen, setIsFixedOpen} = useContext(CategoryContext);
+    const { ModalHandler } = useContext(CategoryContext);
     const [isCategory, setIsCategory] = useState(true);
 
     return (
@@ -13,9 +13,9 @@ const Category = () => {
             <div className='flex justify-between items-center'>
                 <div className='flex items-center'>
                     <span>나의 카테고리</span>
-                    <button onClick={()=> {setIsOpen(!isOpen)}} className='addDiamond origin-center rotate-45 w-[11px] h-[11px] bg-[#888888] ml-2'></button>
+                    <button onClick={()=>{ModalHandler("isAddOpen")}} className='addDiamond origin-center rotate-45 w-[11px] h-[11px] bg-[#888888] ml-2'></button>
                 </div>
-                <button onClick={()=>{setIsFixedOpen(!isFixedOpen)}}className='fixSquare w-[14px] h-[14px] bg-[#888888]'></button>
+                <button onClick={()=>{ModalHandler("isAddOpen")}}className='fixSquare w-[14px] h-[14px] bg-[#888888]'></button>
             </div>
 
             {isCategory ? <ExistedCategory /> : <EmptyCategory />}

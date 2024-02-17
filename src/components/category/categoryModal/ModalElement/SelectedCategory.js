@@ -3,7 +3,7 @@ import { CategoryContext } from '../../../../context/CategoryContext';
 import { ExitBtn } from './FooterModal';
 
 const SelectedCategory = () => {
-    const { categoryInfo, openModalHandler } = useContext(CategoryContext);
+    const { categoryInfo, ModalHandler } = useContext(CategoryContext);
 
     return (
         <div className='flex flex-col justify-start w-10/12 flex-grow'>
@@ -19,7 +19,7 @@ const SelectedCategory = () => {
                     )
                 })}
                 </div>
-                <ExitBtn className='self-end' onClick={openModalHandler}>추가</ExitBtn>
+                <ExitBtn className='self-end' onClick={()=>{ModalHandler("isAddOpen")}}>카테고리 추가</ExitBtn>
             </div>
         </div>
     );

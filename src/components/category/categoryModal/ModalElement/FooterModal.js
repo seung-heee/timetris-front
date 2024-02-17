@@ -8,21 +8,22 @@ export const ExitBtn = styled.button`
     border-radius: 50px;
     text-decoration: none;
     margin: 10px;
-    padding: 5px 10px;
-    width: 90px;
+    padding: 5px 20px;
     height: 40px;
     display : flex;
     justify-content : center;
     align-items : center;
 `;
 
-const FooterModal = () => { 
-    const { isOpen, openModalHandler } = useContext(CategoryContext);
+const FooterModal = ({type}) => { 
+    const { ModalHandler } = useContext(CategoryContext);
 
     return (
         <div className='flex'>
-            <ExitBtn onClick={openModalHandler}>취소</ExitBtn>
-            <ExitBtn onClick={openModalHandler}>추가</ExitBtn>
+            <ExitBtn onClick={()=>{ModalHandler(`is${type}Open`)}}>취소</ExitBtn>
+            <ExitBtn onClick={()=>{ModalHandler(`is${type}Open`)}}>
+                {type === "Add" ? '추가' : type === "Fix" ? '수정' : "등록"}
+            </ExitBtn>
         </div>
     );
 };

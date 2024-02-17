@@ -33,20 +33,21 @@ const TempCategory = () => {
             "colorCode": "#EEA1B3",
         }
     ]
-    
-    const [isOpen, setIsOpen] = useState(false);
-    const [isFixedOpen, setIsFixedOpen] = useState(false);
 
-    const openModalHandler = () => {
-        setIsOpen(!isOpen) 
-    };
+    const [state, setState] = useState({
+        isAddOpen: false,
+        isFixOpen: false,
+    })
 
-    const openFixedModalHandler = () => {
-        setIsFixedOpen(!isFixedOpen) 
-    };
+    const ModalHandler = (openState) => {
+        setState(prevState => ({
+            ...prevState,
+            [openState]: !prevState[openState]
+        }));
+    }
 
     return (
-        <CategoryContext.Provider value={{isOpen, setIsOpen, openModalHandler, categoryInfo, isFixedOpen, setIsFixedOpen, openFixedModalHandler }}>
+        <CategoryContext.Provider value={{categoryInfo, state, setState, ModalHandler }}>
             <Category />
             <AddModal /><br />
             <FixModal />
