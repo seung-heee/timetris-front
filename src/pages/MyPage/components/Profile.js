@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
 const ProfileContainer = styled.div`
     display : flex;
@@ -63,16 +64,43 @@ const Email = styled.div`
 `
 
 const Profile = () => {
+
+    const userInfo = {
+        name: "홍길동",
+        email: "exgample@gmail.com"
+    }
+
+    if (!(localStorage.getItem('name'))) {
+        localStorage.setItem('name', userInfo.name)
+    }
+
+    const [nicName, setNicName] = useState(localStorage.getItem('name'))
+    const [activeBtn, setActiveBtn] = useState(false)
+
+    const ChangeName = (e) => {
+        if (e.target.value) {
+            setActiveBtn(true)
+        } else {
+            setActiveBtn(false)
+        }
+        setNicName(e.target.value)
+    }
+
+    const SubmitInfo = () => {
+        localStorage.setItem('name', nicName)
+        setActiveBtn(false)
+    }
+
     return (
         <ProfileContainer>
             <Title>프로필 변경</Title>
             <SubTitle px="30px">이름</SubTitle>
             <Form>
-                <InputName type="text" placeholder="홍길동" />
-                <AlterBtn background="#616161">변경</AlterBtn>
+                <InputName type="text" placeholder={nicName} onChange={ChangeName} />
+                <AlterBtn background={activeBtn ? "#6BB8FF" : "#616161"} onClick={SubmitInfo}>변경</AlterBtn>
             </Form>
             <SubTitle px="46px">이메일</SubTitle>
-            <Email>exgample@gmail.com</Email>
+            <Email>{userInfo.email}</Email>
         </ProfileContainer>
     )
 }
