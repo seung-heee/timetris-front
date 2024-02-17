@@ -5,6 +5,8 @@ import { CategoryContext } from '../context/CategoryContext';
 
 import AddModal from '../components/category/categoryModal/AddModal';
 import FixModal from '../components/category/categoryModal/FixModal';
+import PlanModal from '../components/category/categoryModal/PlanModal';
+import DoModal from '../components/category/categoryModal/DoModal';
 
 const TempCategory = () => {
     const categoryInfo = [
@@ -37,6 +39,8 @@ const TempCategory = () => {
     const [state, setState] = useState({
         isAddOpen: false,
         isFixOpen: false,
+        isPlanOpen: false,
+        isDoOpen: false,
     })
 
     const ModalHandler = (openState) => {
@@ -47,10 +51,12 @@ const TempCategory = () => {
     }
 
     return (
-        <CategoryContext.Provider value={{categoryInfo, state, setState, ModalHandler }}>
+        <CategoryContext.Provider value={{ state, setState, ModalHandler, categoryInfo}}>
             <Category />
-            <AddModal /><br />
-            <FixModal />
+            <AddModal /><br /><br/><br/>
+            <FixModal /><br/><br/><br/>
+            <PlanModal /><br/><br/><br/>
+            <DoModal />
         </CategoryContext.Provider>
     );
 };

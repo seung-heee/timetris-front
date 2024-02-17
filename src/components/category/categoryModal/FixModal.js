@@ -16,7 +16,7 @@ const FixModal = () => {
                 <button onClick={(e) => e.stopPropagation()} className='flex flex-col justify-start items-center rounded-[20px] p-[30px] w-[800px] bg-[#fff]'>
                     <HeaderModal title={'나의 카테고리'} type={'Fix'} />
                     <div className='flex justify-between w-11/12 items-center'>
-                        <CategoryListBox />
+                        <CategoryListBox text={'수정할 카테고리를 선택해주세요.'}/>
                         <SelectedCategory />
                     </div>
                     <FooterModal type={'Fix'} />
