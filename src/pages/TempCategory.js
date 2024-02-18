@@ -60,10 +60,11 @@ const TempCategory = () => {
             console.log('기존', categoryId);
 
             if (type === 'Fix') { // 카테고리 수정
-                const response = await axios.put(`url/category/${categoryId}`, addCategory);
+                const response = await axios.put(`http://43.203.6.58:8080/category/5`, addCategory);
                 const addData = response.data;
+                console.log(addData)
             } else if (type === 'Delete') { // 카테고리 삭제
-                await axios.delete(`url/category/${categoryId}`);
+                await axios.delete(`http://43.203.6.58:8080/category/11`);
             }
             // else if (type === 'Plan') {
             //     const response = await axios.post('url/plan', 
@@ -76,19 +77,21 @@ const TempCategory = () => {
             //     );
             // } 
             else { // 카테고리 작성
-                const response = await axios.post('url/category', addCategory);
+                const response = await axios.post('http://43.203.6.58:8080/category', addCategory);
                 const addData = response.data;
+                
+                categoryInfo = [...categoryInfo, addData];
+                console.log('응답데이터', categoryInfo);
             }
 
             // 카테고리 목록에 추가
-            // categoryInfo = [...categoryInfo, addData];
 
             // 추가한 카테고리 이름, colorCode 초기화
             setAddCategory({
                 name: '',
                 colorCode: '',
             })
-            categoryId('')
+            setCategoryId('')
             
         } catch(error) {
             console.log('에러:', error)

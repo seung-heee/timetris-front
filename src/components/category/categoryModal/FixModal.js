@@ -5,6 +5,7 @@ import HeaderModal from './ModalElement/HeaderModal';
 import FooterModal, { ExitBtn } from './ModalElement/FooterModal';
 import SelectedCategory from './ModalElement/SelectedCategory';
 import { BsTrash3 } from "react-icons/bs";
+import axios from 'axios';
 
 const FixModal = () => {
     const { state, ModalHandler } = useContext(CategoryContext);
@@ -36,16 +37,26 @@ const FixModal = () => {
 export default FixModal;
 
 const CategoryFixList = () => {
-    const {categoryInfo, setAddCategory, categoryId, setCategoryId, HandleAddCategory} = useContext(CategoryContext);
+    const {categoryInfo, addCategory, setAddCategory, categoryId, setCategoryId, HandleAddCategory} = useContext(CategoryContext);
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.put(`http://43.203.6.58:8080/category/4`, addCategory);
+                const addData = response.data;
+                // addData 변수를 사용할 수 있음
+            } catch (error) {
+                // 에러 처리
+            }
+        };
+        fetchData();
     }, [categoryInfo])
-    
+
     return (
         <div className='flex flex-col justify-between w-[40%] mr-10 text-start'>
             <div className='mb-3'>수정할 카테고리를 선택해주세요.</div>
             <div className="bg-[#f1f1f1] p-[20px] h-[280px] rounded-[20px]">
-                {categoryInfo.map((category)=>{
+                {categoryInfo.map((category, idx)=>{
                     return (
                     <button key={category.name} 
                         onClick={(e)=>{
