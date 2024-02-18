@@ -15,7 +15,7 @@ const Category = () => {
                     <span>나의 카테고리</span>
                     <button onClick={()=>{ModalHandler("isAddOpen")}} className='addDiamond origin-center rotate-45 w-[11px] h-[11px] bg-[#888888] ml-2'></button>
                 </div>
-                <button onClick={()=>{ModalHandler("isAddOpen")}}className='fixSquare w-[14px] h-[14px] bg-[#888888]'></button>
+                <button onClick={()=>{ModalHandler("isFixOpen")}}className='fixSquare w-[14px] h-[14px] bg-[#888888]'></button>
             </div>
 
             {isCategory ? <ExistedCategory /> : <EmptyCategory />}

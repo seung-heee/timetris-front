@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import CategoryListBox from './ModalElement/CategoryListBox';
 import { CategoryContext } from '../../../context/CategoryContext';
 import HeaderModal from './ModalElement/HeaderModal';
@@ -7,6 +7,10 @@ import SelectedCategory from './ModalElement/SelectedCategory';
 
 const FixModal = () => {
     const { state, ModalHandler } = useContext(CategoryContext);
+    const [FixCategory, setFixCategory]= useState({
+        name: "",
+        colorCode: ""
+    })
 
     return (
         <>

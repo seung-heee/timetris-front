@@ -7,11 +7,11 @@ import AddModal from '../components/category/categoryModal/AddModal';
 import FixModal from '../components/category/categoryModal/FixModal';
 import PlanModal from '../components/category/categoryModal/PlanModal';
 import DoModal from '../components/category/categoryModal/DoModal';
+import axios from 'axios';
 
 const TempCategory = () => {
-    const selectColorCode = [, "#EEDC3A","#EEA1B3","#96B3FE","#A89292","#B8A7E9","#FFDA7A","#A9BDB2","#E4B7FF","#A8DFD5","#C7FF81","#528DFF", "#5C5C5C"]
-    
-    const categoryInfo = [
+    const selectColorCode = ["#EEDC3A","#EEA1B3","#96B3FE","#A89292","#B8A7E9","#FFDA7A","#A9BDB2","#E4B7FF","#A8DFD5","#C7FF81","#528DFF", "#5C5C5C"]
+    let categoryInfo = [
         {
             "name":"약속/일정/행사",
             "colorCode": "#EEDC3A",
@@ -38,12 +38,55 @@ const TempCategory = () => {
         }
     ]
 
+    // 모달 띄우기 state
     const [state, setState] = useState({
         isAddOpen: false,
         isFixOpen: false,
         isPlanOpen: false,
         isDoOpen: false,
     })
+    // 카테고리 추가
+    const [addCategory, setAddCategory]= useState({
+        name: "",
+        colorCode: ""
+    })
+    // 반복 일정
+    const [selectedDay, setSelectedDay] = useState(null);
+    const [categoryId, setCategoryId] = useState(null);
+
+    const HandleAddCategory = async (type, categoryId) => {
+        try {
+            console.log(addCategory, type);
+
+            // if (type ==='Fix') {
+            //     const response = await axios.post(`url/category/${categoryId}`, addCategory);
+            //     const addData = response.data;
+            // } else {
+            //     const response = await axios.post('url/category', addCategory);
+            //     const addData = response.data;
+            // }
+
+            // 카테고리 목록에 추가
+            // categoryInfo = [...categoryInfo, addData];
+            // 추가한 카테고리 이름, colorCode 초기화
+            setAddCategory({
+                name: '',
+                colorCode: '',
+            })
+            
+        } catch(error) {
+            console.log('에러:', error)
+        }
+        
+    }
+
+
+    const handleRepeatCheck = (e) => {
+        const { value } = e.target;
+
+        setSelectedDay(prevSelectedDay => prevSelectedDay !== value ? value : null);
+    };
+
 
     const ModalHandler = (openState) => {
         setState(prevState => ({
@@ -53,7 +96,12 @@ const TempCategory = () => {
     }
 
     return (
-        <CategoryContext.Provider value={{ state, setState, ModalHandler, categoryInfo, selectColorCode}}>
+        <CategoryContext.Provider 
+        value={{ state, setState, ModalHandler, 
+                categoryInfo, selectColorCode, 
+                addCategory, setAddCategory, HandleAddCategory,
+                selectedDay, handleRepeatCheck,
+                categoryId, setCategoryId}}>
             <Category />
             <AddModal /><br /><br/><br/>
             <FixModal /><br/><br/><br/>

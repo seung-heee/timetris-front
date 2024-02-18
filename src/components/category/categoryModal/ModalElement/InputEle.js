@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { CategoryContext } from '../../../../context/CategoryContext';
 
 const InputEle = ({type}) => {
     const text = type==='Plan' ? '할 일(Plan)' : '한 일(Do)'
@@ -25,106 +26,19 @@ const InputEle = ({type}) => {
 export default InputEle;
 
 const RepeatRadio = () => {
-    const [repeatDay, setRepeatDay] = useState({
-        everyDay: true,
-        mon: false,
-        tue: false,
-        wed: false,
-        thu: false,
-        fri: false,
-        sat: false,
-        sun: false,
-    })
-
-    const handleRepeatCheck = (e) => {
-        const { value, checked } = e.target;
-        setRepeatDay(prevState => ({
-            ...prevState,
-            [value]: checked,
-        }));
-    }
     
+    const { selectedDay, handleRepeatCheck } = useContext(CategoryContext);
     return (
         <div className='grid grid-cols-8 gap-5 pb-8'>
-            <label>
-                <input
-                    type="radio"
-                    name="repeat"
-                    value="everyDay"
-                    checked={repeatDay.everyDay}
-                    onChange={handleRepeatCheck}
-                />
-                <span className='ml-2'>매일</span>
-            </label>
-            <label>
-                <input
-                    type="radio"
-                    name="repeat"
-                    value="mon"
-                    checked={repeatDay.mon}
-                    onChange={handleRepeatCheck}
-                />
-                <span className='ml-2'>매주 월</span>
-            </label>
-            <label>
-                <input
-                    type="radio"
-                    name="repeat"
-                    value="tue"
-                    checked={repeatDay.tue}
-                    onChange={handleRepeatCheck}
-                />
-                <span className='ml-2'>매주 월</span>
-            </label>
-            <label>
-                <input
-                    type="radio"
-                    name="repeat"
-                    value="wed"
-                    checked={repeatDay.wed}
-                    onChange={handleRepeatCheck}
-                />
-                <span className='ml-2'>매주 화</span>
-            </label>
-            <label>
-                <input
-                    type="radio"
-                    name="repeat"
-                    value="thu"
-                    checked={repeatDay.thu}
-                    onChange={handleRepeatCheck}
-                />
-                <span className='ml-2'>매주 수</span>
-            </label>
-            <label>
-                <input
-                    type="radio"
-                    name="repeat"
-                    value="fri"
-                    checked={repeatDay.fri}
-                    onChange={handleRepeatCheck}
-                />
-                <span className='ml-2'>매주 목</span>
-            </label>
-            <label>
-                <input
-                    type="radio"
-                    name="repeat"
-                    value="sat"
-                    checked={repeatDay.sat}
-                    onChange={handleRepeatCheck}
-                />
-                <span className='ml-2'>매주 토</span>
-            </label><label>
-                <input
-                    type="radio"
-                    name="repeat"
-                    value="sun"
-                    checked={repeatDay.sun}
-                    onChange={handleRepeatCheck}
-                />
-                <span className='ml-2'>매주 일</span>
-            </label>
+            <label><input type="radio" name="repeatDay" value="everyDay" checked={selectedDay === "everyDay"} onChange={handleRepeatCheck} /> 매일</label>
+            <label><input type="radio" name="repeatDay" value="mon" checked={selectedDay === "mon"} onChange={handleRepeatCheck} /> 매주 월</label>
+            <label><input type="radio" name="repeatDay" value="tue" checked={selectedDay === "tue"} onChange={handleRepeatCheck} /> 매주 화</label>
+            <label><input type="radio" name="repeatDay" value="wed" checked={selectedDay === "wed"} onChange={handleRepeatCheck} /> 매주 수</label>
+            <label><input type="radio" name="repeatDay" value="thu" checked={selectedDay === "thu"} onChange={handleRepeatCheck} /> 매주 목</label>
+            <label><input type="radio" name="repeatDay" value="fri" checked={selectedDay === "fri"} onChange={handleRepeatCheck} /> 매주 금</label>
+            <label><input type="radio" name="repeatDay" value="sat" checked={selectedDay === "sat"} onChange={handleRepeatCheck} /> 매주 토</label>
+            <label><input type="radio" name="repeatDay" value="sun" checked={selectedDay === "sun"} onChange={handleRepeatCheck} /> 매주 일</label>
         </div>
-    )
+    );
+
 }

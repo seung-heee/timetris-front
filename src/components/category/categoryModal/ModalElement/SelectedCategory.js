@@ -2,9 +2,8 @@ import React, { useContext } from 'react';
 import { CategoryContext } from '../../../../context/CategoryContext';
 import { ExitBtn } from './FooterModal';
 
-const SelectedCategory = (props) => {
-    const { type, addCategory, setAddCategory } = props;
-    const { ModalHandler, selectColorCode } = useContext(CategoryContext);
+const SelectedCategory = ({type}) => {
+    const { HandleAddCategory, selectColorCode, addCategory, setAddCategory } = useContext(CategoryContext);
 
     return (
         <>
@@ -33,7 +32,7 @@ const SelectedCategory = (props) => {
                     )
                 })}
                 </div>
-                {type===!'Add' && <ExitBtn className='self-end' onClick={()=>{ModalHandler("isAddOpen")}}>카테고리 추가</ExitBtn>}
+                {type !== 'AddModal' && <ExitBtn className='self-end' onClick={()=>{HandleAddCategory(type)}}>카테고리 추가</ExitBtn>}
             </div>
         </div>
     </>
