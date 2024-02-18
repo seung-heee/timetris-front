@@ -9,6 +9,8 @@ import PlanModal from '../components/category/categoryModal/PlanModal';
 import DoModal from '../components/category/categoryModal/DoModal';
 
 const TempCategory = () => {
+    const selectColorCode = [, "#EEDC3A","#EEA1B3","#96B3FE","#A89292","#B8A7E9","#FFDA7A","#A9BDB2","#E4B7FF","#A8DFD5","#C7FF81","#528DFF", "#5C5C5C"]
+    
     const categoryInfo = [
         {
             "name":"약속/일정/행사",
@@ -51,7 +53,7 @@ const TempCategory = () => {
     }
 
     return (
-        <CategoryContext.Provider value={{ state, setState, ModalHandler, categoryInfo}}>
+        <CategoryContext.Provider value={{ state, setState, ModalHandler, categoryInfo, selectColorCode}}>
             <Category />
             <AddModal /><br /><br/><br/>
             <FixModal /><br/><br/><br/>

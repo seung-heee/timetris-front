@@ -15,14 +15,15 @@ export const ExitBtn = styled.button`
     align-items : center;
 `;
 
-const FooterModal = ({type}) => { 
+const FooterModal = (props) => { 
+    const { type, HandleAddCategory } = props;
     const { ModalHandler } = useContext(CategoryContext);
 
     return (
         <div className='flex'>
             {(type === "Add" || type === "Fix") && <>
             <ExitBtn onClick={()=>{ModalHandler(`is${type}Open`)}}>취소</ExitBtn></>}
-            <ExitBtn bgColor="#616161" color="white" onClick={()=>{ModalHandler(`is${type}Open`)}}>
+            <ExitBtn bgColor="#616161" color="white" onClick={()=>{HandleAddCategory()}}>
                 {type === "Add" ? '추가' : type === "Fix" ? '수정' : "등록"}
             </ExitBtn>
         </div>
