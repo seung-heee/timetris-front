@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import CategoryListBox from './ModalElement/CategoryListBox';
 import { CategoryContext } from '../../../context/CategoryContext';
 import HeaderModal from './ModalElement/HeaderModal';
-import FooterModal from './ModalElement/FooterModal';
+import FooterModal, { ExitBtn } from './ModalElement/FooterModal';
 import SelectedCategory from './ModalElement/SelectedCategory';
 
 const FixModal = () => {
@@ -20,8 +20,8 @@ const FixModal = () => {
                 <button onClick={(e) => e.stopPropagation()} className='flex flex-col justify-start items-center rounded-[20px] p-[30px] w-[800px] bg-[#fff]'>
                     <HeaderModal title={'나의 카테고리'} type={'Fix'} />
                     <div className='flex justify-between w-11/12 items-center'>
-                        <CategoryListBox text={'수정할 카테고리를 선택해주세요.'}/>
-                        <SelectedCategory />
+                        <CategoryFixList />
+                        <SelectedFixCategory />
                     </div>
                     <FooterModal type={'Fix'} />
                 </button>
@@ -33,3 +33,73 @@ const FixModal = () => {
 };
 
 export default FixModal;
+
+const CategoryFixList = () => {
+    const {categoryInfo, setAddCategory, setCategoryId} = useContext(CategoryContext);
+
+    useEffect(() => {
+    }, [categoryInfo])
+    
+    return (
+        <div className='flex flex-col justify-between w-[40%] mr-10 text-start'>
+            <div className='mb-3'>수정할 카테고리를 선택해주세요.</div>
+            <div className="bg-[#f1f1f1] p-[20px] h-[280px] rounded-[20px]">
+                {categoryInfo.map((category)=>{
+                    return (
+                    <button key={category.name} 
+                        onClick={(e)=>{
+                            setCategoryId(category.name)
+                            setAddCategory(prevState => ({
+                                ...prevState,
+                                name: category.name,
+                            }));
+                        }}
+                        className='flex items-center mb-1'>
+                        <div style={{ backgroundColor: category.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
+                        <div>{category.name}</div>
+                    </button>)
+                })}
+            </div>
+        </div>
+    );
+};
+
+
+const SelectedFixCategory = ({type}) => {
+    const { HandleAddCategory, categoryInfo, selectColorCode, addCategory, categoryId, setCategoryId, setAddCategory } = useContext(CategoryContext);
+
+    return (
+        <>
+        <div className='flex flex-col justify-start w-10/12 flex-grow'>
+            <input type="text" placeholder='카테고리 이름' value={addCategory.name} onChange={(e)=>{
+                setAddCategory(prevState => ({
+                    ...prevState,
+                    name: e.target.value,
+                }));
+            }}
+            className='flex justify-between w-full mb-[30px] pb-[3px] border-solid border-b-[1px] border-[#cfcfcf]' />
+            
+            <div className='flex flex-col justify-between w-full'>
+                <div className='text-[16px] text-start'>색상 선택</div>
+                <div className='flex items-center flex-wrap my-4'>
+                {selectColorCode
+                    .filter(colorCode => !categoryInfo.some(category => category.colorCode === colorCode))
+                    .map((colorCode)=>{
+                    return (
+                        <button value={colorCode} onClick={(e)=>{
+                            setAddCategory(prevState => ({
+                                ...prevState,
+                                colorCode: e.target.value
+                              }));
+                        }}
+                            style={{ backgroundColor: colorCode }} 
+                            className={`w-[45px] h-[45px] rounded-[50px] mr-2 my-1`}></button>
+                    )
+                })}
+                </div>
+                {type !== 'AddModal' && <ExitBtn className='self-end' onClick={()=>{HandleAddCategory(type)}}>카테고리 추가</ExitBtn>}
+            </div>
+        </div>
+    </>
+    );
+};

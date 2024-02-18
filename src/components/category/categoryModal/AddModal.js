@@ -3,7 +3,6 @@ import HeaderModal from './ModalElement/HeaderModal';
 import FooterModal from './ModalElement/FooterModal';
 import SelectedCategory from './ModalElement/SelectedCategory';
 import { CategoryContext } from '../../../context/CategoryContext';
-import axios from 'axios';
 
 const AddModal = () => {
     const {state, ModalHandler} = useContext(CategoryContext);

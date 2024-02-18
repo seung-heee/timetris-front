@@ -37,7 +37,6 @@ const TempCategory = () => {
             "colorCode": "#EEA1B3",
         }
     ]
-
     // 모달 띄우기 state
     const [state, setState] = useState({
         isAddOpen: false,
@@ -54,20 +53,34 @@ const TempCategory = () => {
     const [selectedDay, setSelectedDay] = useState(null);
     const [categoryId, setCategoryId] = useState(null);
 
-    const HandleAddCategory = async (type, categoryId) => {
+    
+    const HandleAddCategory = async (type) => {
         try {
-            console.log(addCategory, type);
+            console.log('변경된거', addCategory, type);
+            console.log('기존', categoryId);
 
-            // if (type ==='Fix') {
-            //     const response = await axios.post(`url/category/${categoryId}`, addCategory);
-            //     const addData = response.data;
-            // } else {
-            //     const response = await axios.post('url/category', addCategory);
-            //     const addData = response.data;
-            // }
+            if (type === 'Fix') {
+                const response = await axios.post(`url/category/${categoryId}`, addCategory);
+                const addData = response.data;
+            } 
+            // else if (type === 'Plan') {
+            //     const response = await axios.post('url/plan', 
+            //         "userDateId": userDateId,
+            //         "startTime" :
+            //         "endTime":
+            //         "title":
+            //         "cycle":
+            //         "categoryId":
+            //     );
+            // } 
+            else {
+                const response = await axios.post('url/category', addCategory);
+                const addData = response.data;
+            }
 
             // 카테고리 목록에 추가
             // categoryInfo = [...categoryInfo, addData];
+
             // 추가한 카테고리 이름, colorCode 초기화
             setAddCategory({
                 name: '',
@@ -79,15 +92,11 @@ const TempCategory = () => {
         }
         
     }
-
-
     const handleRepeatCheck = (e) => {
         const { value } = e.target;
 
         setSelectedDay(prevSelectedDay => prevSelectedDay !== value ? value : null);
     };
-
-
     const ModalHandler = (openState) => {
         setState(prevState => ({
             ...prevState,

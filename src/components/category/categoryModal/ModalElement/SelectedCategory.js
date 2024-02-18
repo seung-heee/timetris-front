@@ -3,7 +3,7 @@ import { CategoryContext } from '../../../../context/CategoryContext';
 import { ExitBtn } from './FooterModal';
 
 const SelectedCategory = ({type}) => {
-    const { HandleAddCategory, selectColorCode, addCategory, setAddCategory } = useContext(CategoryContext);
+    const { HandleAddCategory, categoryInfo, selectColorCode, addCategory, setAddCategory } = useContext(CategoryContext);
 
     return (
         <>
@@ -19,7 +19,9 @@ const SelectedCategory = ({type}) => {
             <div className='flex flex-col justify-between w-full'>
                 <div className='text-[16px] text-start'>색상 선택</div>
                 <div className='flex items-center flex-wrap my-4'>
-                {selectColorCode.map((colorCode)=>{
+                {selectColorCode
+                    .filter(colorCode => !categoryInfo.some(category => category.colorCode === colorCode))
+                    .map((colorCode)=>{
                     return (
                         <button value={colorCode} onClick={(e)=>{
                             setAddCategory(prevState => ({
