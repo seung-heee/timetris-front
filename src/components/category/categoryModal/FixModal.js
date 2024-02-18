@@ -4,6 +4,7 @@ import { CategoryContext } from '../../../context/CategoryContext';
 import HeaderModal from './ModalElement/HeaderModal';
 import FooterModal, { ExitBtn } from './ModalElement/FooterModal';
 import SelectedCategory from './ModalElement/SelectedCategory';
+import { BsTrash3 } from "react-icons/bs";
 
 const FixModal = () => {
     const { state, ModalHandler } = useContext(CategoryContext);
@@ -35,7 +36,7 @@ const FixModal = () => {
 export default FixModal;
 
 const CategoryFixList = () => {
-    const {categoryInfo, setAddCategory, setCategoryId} = useContext(CategoryContext);
+    const {categoryInfo, setAddCategory, categoryId, setCategoryId, HandleAddCategory} = useContext(CategoryContext);
 
     useEffect(() => {
     }, [categoryInfo])
@@ -54,9 +55,19 @@ const CategoryFixList = () => {
                                 name: category.name,
                             }));
                         }}
-                        className='flex items-center mb-1'>
+                        className={`flex items-center mb-1 w-full
+                        ${categoryId === category.name?
+                        'bg-[#E4E4E4] py-[0.8px] pl-1'
+                        :''}`}>
                         <div style={{ backgroundColor: category.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
-                        <div>{category.name}</div>
+                        <div className='flex justify-between items-center grow'>
+                            <div>{category.name}</div>
+                            {categoryId === category.name ? 
+                            <BsTrash3 size={15} onClick={()=>{
+                                HandleAddCategory("Delete")
+                            }} /> 
+                            : ''}
+                        </div>
                     </button>)
                 })}
             </div>
