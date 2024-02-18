@@ -59,10 +59,12 @@ const TempCategory = () => {
             console.log('변경된거', addCategory, type);
             console.log('기존', categoryId);
 
-            if (type === 'Fix') {
-                const response = await axios.post(`url/category/${categoryId}`, addCategory);
+            if (type === 'Fix') { // 카테고리 수정
+                const response = await axios.put(`url/category/${categoryId}`, addCategory);
                 const addData = response.data;
-            } 
+            } else if (type === 'Delete') { // 카테고리 삭제
+                await axios.delete(`url/category/${categoryId}`);
+            }
             // else if (type === 'Plan') {
             //     const response = await axios.post('url/plan', 
             //         "userDateId": userDateId,
@@ -73,7 +75,7 @@ const TempCategory = () => {
             //         "categoryId":
             //     );
             // } 
-            else {
+            else { // 카테고리 작성
                 const response = await axios.post('url/category', addCategory);
                 const addData = response.data;
             }
@@ -86,6 +88,7 @@ const TempCategory = () => {
                 name: '',
                 colorCode: '',
             })
+            categoryId('')
             
         } catch(error) {
             console.log('에러:', error)
