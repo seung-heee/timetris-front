@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import * as API from "../../../api/API"
 
 const ProfileContainer = styled.div`
     display : flex;
@@ -65,17 +66,28 @@ const Email = styled.div`
 
 const Profile = () => {
 
-    const userInfo = {
-        name: "홍길동",
-        email: "exgample@gmail.com"
-    }
+    // const userInfo = {
+    //     name: "홍길동",
+    //     email: "exgample@gmail.com"
+    // }
 
-    if (!(localStorage.getItem('name'))) {
-        localStorage.setItem('name', userInfo.name)
-    }
+    // if (!(localStorage.getItem('name'))) {
+    //     localStorage.setItem('name', userInfo.name)
+    // }
 
     const [nicName, setNicName] = useState(localStorage.getItem('name'))
+    const [email, setEmail] = useState("")
     const [activeBtn, setActiveBtn] = useState(false)
+
+    const getUSerInfo = async () => {
+        const data = await API.get('/mypage')
+        setNicName(data.result.name)
+        setEmail(data.result.email)
+        // console.log(data.result)
+    }
+    useEffect(() => {
+        getUSerInfo();
+    }, [])
 
     const ChangeName = (e) => {
         if (e.target.value) {
@@ -87,7 +99,7 @@ const Profile = () => {
     }
 
     const SubmitInfo = () => {
-        localStorage.setItem('name', nicName)
+        // localStorage.setItem('name', nicName)
         setActiveBtn(false)
     }
 
@@ -100,7 +112,7 @@ const Profile = () => {
                 <AlterBtn background={activeBtn ? "#6BB8FF" : "#616161"} onClick={SubmitInfo}>변경</AlterBtn>
             </Form>
             <SubTitle px="46px">이메일</SubTitle>
-            <Email>{userInfo.email}</Email>
+            <Email>{email}</Email>
         </ProfileContainer>
     )
 }
