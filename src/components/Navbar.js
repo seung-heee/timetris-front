@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { PC, SmallPC } from "../utils/mediaQuery";
 
 const NavBarContainer = styled.nav`
     width : 100vw;
@@ -35,20 +36,39 @@ const Navbar = () => {
         <NavBarContainer>
             {/* Profile dropdown */}
             <Menu>
-                <img src="/img/mainLogo.svg" onClick={() => navigate('/')} style={{ cursor: "pointer" }} />
-                <Menus>
-                    <img src="/img/지난기록들.svg" style={{ cursor: "pointer" }} />
-                    <Menu.Button className="relative flex rounded-full">
-                        <span className="absolute -inset-1.5" />
-                        <span className="sr-only">Open user menu</span>
-                        <img
-                            className="h-8 w-8 rounded-full"
-                            src="/img/프로필아이콘.svg"
-                            alt="프로필 아이콘"
-                            style={{ width: "45px", height: "45px" }}
-                        />
-                    </Menu.Button>
-                </Menus>
+                <SmallPC>
+                    <img src="/img/mainLogo.svg" onClick={() => navigate('/')} style={{ cursor: "pointer", width: "100px" }} />
+                    <Menus>
+                        <img src="/img/지난기록들.svg" style={{ cursor: "pointer", width: "90px" }} />
+                        <Menu.Button className="relative flex rounded-full">
+                            <span className="absolute -inset-1.5" />
+                            <span className="sr-only">Open user menu</span>
+                            <img
+                                className="h-8 w-8 rounded-full"
+                                src="/img/프로필아이콘.svg"
+                                alt="프로필 아이콘"
+                                style={{ width: "30px", height: "30px" }}
+                            />
+                        </Menu.Button>
+                    </Menus>
+                </SmallPC>
+
+                <PC>
+                    <img src="/img/mainLogo.svg" onClick={() => navigate('/')} style={{ cursor: "pointer" }} />
+                    <Menus>
+                        <img src="/img/지난기록들.svg" style={{ cursor: "pointer" }} />
+                        <Menu.Button className="relative flex rounded-full">
+                            <span className="absolute -inset-1.5" />
+                            <span className="sr-only">Open user menu</span>
+                            <img
+                                className="h-8 w-8 rounded-full"
+                                src="/img/프로필아이콘.svg"
+                                alt="프로필 아이콘"
+                                style={{ width: "45px", height: "45px" }}
+                            />
+                        </Menu.Button>
+                    </Menus>
+                </PC>
                 <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
