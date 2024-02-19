@@ -46,7 +46,9 @@ const Login = () => {
             <img src="/img/mainLogo.svg" style={{ width: "278.165px", height: "57.899px" }} />
             <LoginHello>타임트리스에 오신 것을 환영합니다.</LoginHello>
             <Loginstart>시작하려면 로그인하세요.</Loginstart>
-            <GoogleBtn src="/img/구글로그인버튼.svg" />
+            <a href="http://ec2-43-203-6-58.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
+                <GoogleBtn />
+            </a>
         </LoginContainer>
     )
 }
