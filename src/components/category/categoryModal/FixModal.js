@@ -37,7 +37,7 @@ const FixModal = () => {
 export default FixModal;
 
 const CategoryFixList = () => {
-    const {categoryInfo, addCategory, setAddCategory, categoryId, setCategoryId, HandleAddCategory} = useContext(CategoryContext);
+    const {categoryInfo, addCategory, setAddCategory, categoryId, setCategoryId, HandleAddCategory, myCategory, setMyCategory, ShowCategoryList} = useContext(CategoryContext);
 
     useEffect(() => {
         const fetchData = async () => {

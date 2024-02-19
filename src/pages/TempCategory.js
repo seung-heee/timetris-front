@@ -53,9 +53,22 @@ const TempCategory = () => {
     // 반복 일정
     const [selectedDay, setSelectedDay] = useState(null);
     const [categoryId, setCategoryId] = useState(null);
+    // 카테고리 조회
+    const [myCategory, setMyCategory] = useState([]);
+    
+    const ShowCategoryList = async () => {
+        const response = await axios.get(`http://43.203.6.58:8080/category`, {
+            headers: {
+                'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
+            }
+        });
+        setMyCategory(response.data.result);
+    }
+
 
     
     const HandleAddCategory = async (type) => {
+        console.log(addCategory);
         try {
             if (type === 'Fix') { // 카테고리 수정
                 const response = await axios.put(`http://43.203.6.58:8080/category/5`, addCategory);
@@ -74,10 +87,17 @@ const TempCategory = () => {
             //     );
             // } 
             else { // 카테고리 작성
-                const response = await axios.post('http://43.203.6.58:8080/category', addCategory);
-                const addData = response.data;
-                
-                categoryInfo = [...categoryInfo, addData];
+                const response = await axios.post('http://43.203.6.58:8080/category', addCategory, {
+                    headers: {
+                    'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
+                  }});
+
+                setAddCategory({
+                    name:  response.data.result.name,
+                    colorCode:  response.data.result.colorCode
+                })
+                console.log('응답 데이터', response.data.result.colorCode);
+                // categoryInfo = [...categoryInfo, addCategory];
             }
 
             // 카테고리 목록에 추가
@@ -112,7 +132,8 @@ const TempCategory = () => {
                 categoryInfo, selectColorCode, 
                 addCategory, setAddCategory, HandleAddCategory,
                 selectedDay, handleRepeatCheck,
-                categoryId, setCategoryId}}>
+                categoryId, setCategoryId,
+                myCategory, setMyCategory, ShowCategoryList}}>
             <Category />
             <AddModal /><br /><br/><br/>
             <FixModal /><br/><br/><br/>

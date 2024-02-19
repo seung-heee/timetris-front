@@ -3,39 +3,16 @@ import { CategoryContext } from '../../context/CategoryContext';
 import axios from 'axios';
 
 const ExistedCategory = () => {
-    const {categoryInfo} = useContext(CategoryContext);
-    
-    const [updatedCategoryInfo, setUpdatedCategoryInfo] = useState(categoryInfo);
+    const {myCategory, setMyCategory, ShowCategoryList} = useContext(CategoryContext);
 
     useEffect(() => {
         ShowCategoryList();
     }, []);
 
-    const ShowCategoryList = () =>{
-        // const response = await axios.get(`http://43.203.6.58:8080/category`);
-        // const addData = response.data
-
-        const addData =  [
-            {
-                "id":1,
-                "name": "개발",
-                "colorCode": "#ff2fff"
-            },
-            {
-                "id":2,
-                "name": "알바",
-                "colorCode": "#14f5d2"
-            }
-        ];
-    
-        const updatedInfo = [...categoryInfo, ...addData];
-        setUpdatedCategoryInfo(updatedInfo);
-    }
-
     return (
         <div className='flex justify-start items-center h-full px-3'>
             <div className='grid grid-cols-3 gap-y-3 gap-x-6'>
-                {updatedCategoryInfo.map((category)=>{
+                {myCategory.map((category)=>{
                     return (
                     <div key={category.id} className='flex items-center'>
                         <div style={{ backgroundColor: category.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
