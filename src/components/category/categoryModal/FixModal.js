@@ -54,7 +54,7 @@ const CategoryFixList = () => {
 
     return (
         <div className='flex flex-col justify-between w-[40%] mr-10 text-start'>
-            <div className='mb-3'>수정할 카테고리를 선택해주세요.</div>
+            <div className='mb-3'>수정할 카테고리를 선택해주세요</div>
             <div className="bg-[#f1f1f1] p-[20px] h-[280px] rounded-[20px]">
                 {categoryInfo.map((category, idx)=>{
                     return (

@@ -17,10 +17,12 @@ const ExistedCategory = () => {
 
         const addData =  [
             {
+                "id":1,
                 "name": "개발",
                 "colorCode": "#ff2fff"
             },
             {
+                "id":2,
                 "name": "알바",
                 "colorCode": "#14f5d2"
             }
@@ -35,7 +37,7 @@ const ExistedCategory = () => {
             <div className='grid grid-cols-3 gap-y-3 gap-x-6'>
                 {updatedCategoryInfo.map((category)=>{
                     return (
-                    <div className='flex items-center'>
+                    <div key={category.id} className='flex items-center'>
                         <div style={{ backgroundColor: category.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
                         <div>{category.name}</div>
                     </div>)

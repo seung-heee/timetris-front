@@ -13,28 +13,29 @@ const TempCategory = () => {
     const selectColorCode = ["#EEDC3A","#EEA1B3","#96B3FE","#A89292","#B8A7E9","#FFDA7A","#A9BDB2","#E4B7FF","#A8DFD5","#C7FF81","#528DFF", "#5C5C5C"]
     let categoryInfo = [
         {
+            "id":3,
             "name":"약속/일정/행사",
             "colorCode": "#EEDC3A",
         },
         {
+            "id":4,
             "name":"취미 생활",
             "colorCode": "#A89292",
         },
         {
+            "id":5,
             "name":"자기 계발",
             "colorCode": "#96B3FE",
         },
         {
+            "id":6,
             "name":"업무 및 스펙",
             "colorCode": "#B8A7E9",
         },
         {
+            "id":7,
             "name":"갑작스러운 일정",
             "colorCode": "#A9BDB2",
-        },
-        {
-            "name":"잠",
-            "colorCode": "#EEA1B3",
         }
     ]
     // 모달 띄우기 state
@@ -56,13 +57,9 @@ const TempCategory = () => {
     
     const HandleAddCategory = async (type) => {
         try {
-            console.log('변경된거', addCategory, type);
-            console.log('기존', categoryId);
-
             if (type === 'Fix') { // 카테고리 수정
                 const response = await axios.put(`http://43.203.6.58:8080/category/5`, addCategory);
                 const addData = response.data;
-                console.log(addData)
             } else if (type === 'Delete') { // 카테고리 삭제
                 await axios.delete(`http://43.203.6.58:8080/category/11`);
             }
@@ -81,7 +78,6 @@ const TempCategory = () => {
                 const addData = response.data;
                 
                 categoryInfo = [...categoryInfo, addData];
-                console.log('응답데이터', categoryInfo);
             }
 
             // 카테고리 목록에 추가
