@@ -9,10 +9,6 @@ import axios from 'axios';
 
 const FixModal = () => {
     const { state, ModalHandler } = useContext(CategoryContext);
-    const [FixCategory, setFixCategory]= useState({
-        name: "",
-        colorCode: ""
-    })
 
     return (
         <>
@@ -37,43 +33,35 @@ const FixModal = () => {
 export default FixModal;
 
 const CategoryFixList = () => {
-    const {categoryInfo, addCategory, setAddCategory, categoryId, setCategoryId, HandleAddCategory, myCategory, setMyCategory, ShowCategoryList} = useContext(CategoryContext);
+    const {categoryInfo, addCategory, setAddCategory, fixCategory, setFixCategory, categoryId, setCategoryId, HandleAddCategory, myCategory, setMyCategory, ShowCategoryList} = useContext(CategoryContext);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.put(`http://43.203.6.58:8080/category/4`, addCategory);
-                const addData = response.data;
-                // addData 변수를 사용할 수 있음
-            } catch (error) {
-                // 에러 처리
-            }
-        };
-        fetchData();
-    }, [categoryInfo])
+        ShowCategoryList(); // 나의 카테고리 조회
+    }, [])
 
     return (
         <div className='flex flex-col justify-between w-[40%] mr-10 text-start'>
             <div className='mb-3'>수정할 카테고리를 선택해주세요</div>
             <div className="bg-[#f1f1f1] p-[20px] h-[280px] rounded-[20px]">
-                {categoryInfo.map((category, idx)=>{
+                {myCategory.map((myCategory)=>{
                     return (
-                    <button key={category.name} 
-                        onClick={(e)=>{
-                            setCategoryId(category.name)
-                            setAddCategory(prevState => ({
+                    <button key={myCategory.id}
+                        // 카테고리 pick
+                        onClick={()=>{
+                            setCategoryId(myCategory.id)
+                            setFixCategory(prevState => ({
                                 ...prevState,
-                                name: category.name,
+                                name: myCategory.name
                             }));
                         }}
                         className={`flex items-center mb-1 w-full
-                        ${categoryId === category.name?
+                        ${categoryId === myCategory.id?
                         'bg-[#E4E4E4] py-[0.8px] pl-1'
                         :''}`}>
-                        <div style={{ backgroundColor: category.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
+                        <div style={{ backgroundColor: myCategory.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
                         <div className='flex justify-between items-center grow'>
-                            <div>{category.name}</div>
-                            {categoryId === category.name ? 
+                            <div>{myCategory.name}</div>
+                            {categoryId === myCategory.id ? 
                             <BsTrash3 size={15} onClick={()=>{
                                 HandleAddCategory("Delete")
                             }} /> 
@@ -88,13 +76,14 @@ const CategoryFixList = () => {
 
 
 const SelectedFixCategory = ({type}) => {
-    const { HandleAddCategory, categoryInfo, selectColorCode, addCategory, categoryId, setCategoryId, setAddCategory } = useContext(CategoryContext);
+    const { HandleAddCategory, myCategory, categoryInfo, selectColorCode, addCategory, categoryId, setCategoryId, setAddCategory, fixCategory, setFixCategory } = useContext(CategoryContext);
 
     return (
         <>
         <div className='flex flex-col justify-start w-10/12 flex-grow'>
-            <input type="text" placeholder='카테고리 이름' value={addCategory.name} onChange={(e)=>{
-                setAddCategory(prevState => ({
+            <input type="text" placeholder='카테고리 이름' value={fixCategory.name} onChange={(e)=>{
+                // 수정된 카테고리 이름 업데이트
+                setFixCategory(prevState => ({
                     ...prevState,
                     name: e.target.value,
                 }));
@@ -105,11 +94,12 @@ const SelectedFixCategory = ({type}) => {
                 <div className='text-[16px] text-start'>색상 선택</div>
                 <div className='flex items-center flex-wrap my-4'>
                 {selectColorCode
-                    .filter(colorCode => !categoryInfo.some(category => category.colorCode === colorCode))
+                    .filter(colorCode => !myCategory.some(category => category.colorCode === colorCode))
                     .map((colorCode)=>{
                     return (
                         <button value={colorCode} onClick={(e)=>{
-                            setAddCategory(prevState => ({
+                            // 수정된 카테고리 색상 업데이트
+                            setFixCategory(prevState => ({
                                 ...prevState,
                                 colorCode: e.target.value
                               }));

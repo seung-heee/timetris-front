@@ -50,54 +50,55 @@ const TempCategory = () => {
         name: "",
         colorCode: ""
     })
-    // 반복 일정
-    const [selectedDay, setSelectedDay] = useState(null);
-    const [categoryId, setCategoryId] = useState(null);
-    // 카테고리 조회
-    const [myCategory, setMyCategory] = useState([]);
-    
+    // 카테고리 수정
+    const [fixCategory, setFixCategory]= useState({
+        name: "",
+        colorCode: ""
+    })
+
+    const [categoryId, setCategoryId] = useState(0);
+    const [myCategory, setMyCategory] = useState([]); // 카테고리 조회
+    const [selectedDay, setSelectedDay] = useState(null); // 반복 일정
+
     const ShowCategoryList = async () => {
-        const response = await axios.get(`http://43.203.6.58:8080/category`, {
-            headers: {
-                'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
-            }
-        });
-        setMyCategory(response.data.result);
+        try {
+            const response = await axios.get(`http://43.203.6.58:8080/category`, {
+                headers: {
+                    'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
+                }
+            });
+            setMyCategory(response.data.result);
+        } catch (error) {
+            console.error('에러:', error);
+        }
     }
 
-
-    
     const HandleAddCategory = async (type) => {
         console.log(addCategory);
+        console.log(fixCategory);
         try {
             if (type === 'Fix') { // 카테고리 수정
-                const response = await axios.put(`http://43.203.6.58:8080/category/5`, addCategory);
-                const addData = response.data;
+                await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, {
+                    headers: {
+                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
+                    }
+                });
             } else if (type === 'Delete') { // 카테고리 삭제
-                await axios.delete(`http://43.203.6.58:8080/category/11`);
-            }
-            // else if (type === 'Plan') {
-            //     const response = await axios.post('url/plan', 
-            //         "userDateId": userDateId,
-            //         "startTime" :
-            //         "endTime":
-            //         "title":
-            //         "cycle":
-            //         "categoryId":
-            //     );
-            // } 
-            else { // 카테고리 작성
+                await axios.delete(`http://43.203.6.58:8080/category/${categoryId}`, {
+                    headers: {
+                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
+                    }
+                });
+            } else { // 카테고리 작성
                 const response = await axios.post('http://43.203.6.58:8080/category', addCategory, {
                     headers: {
                     'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
                   }});
 
-                setAddCategory({
-                    name:  response.data.result.name,
-                    colorCode:  response.data.result.colorCode
-                })
-                console.log('응답 데이터', response.data.result.colorCode);
-                // categoryInfo = [...categoryInfo, addCategory];
+                // setAddCategory({
+                //     name:  response.data.result.name,
+                //     colorCode:  response.data.result.colorCode
+                // })
             }
 
             // 카테고리 목록에 추가
@@ -133,7 +134,8 @@ const TempCategory = () => {
                 addCategory, setAddCategory, HandleAddCategory,
                 selectedDay, handleRepeatCheck,
                 categoryId, setCategoryId,
-                myCategory, setMyCategory, ShowCategoryList}}>
+                myCategory, setMyCategory, ShowCategoryList,
+                fixCategory, setFixCategory }}>
             <Category />
             <AddModal /><br /><br/><br/>
             <FixModal /><br/><br/><br/>
