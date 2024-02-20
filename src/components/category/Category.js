@@ -8,7 +8,7 @@ const Category = () => {
     const [isCategory, setIsCategory] = useState(true);
 
     return (
-        <div className='w-[500px] h-[236px] bg-[#F6F6F6] rounded-md p-5'>
+        <div className='w-[500px] h-[236px] bg-[#F6F6F6] rounded-md px-5 pt-5'>
             {/* title */}
             <div className='flex justify-between items-center'>
                 <div className='flex items-center'>

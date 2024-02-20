@@ -21,9 +21,10 @@ const SelectedCategory = ({type}) => {
                 <div className='flex items-center flex-wrap my-4'>
                 {selectColorCode
                     .filter(colorCode => !myCategory.some(category => category.colorCode === colorCode))
-                    .map((colorCode)=>{
+                    .map((colorCode, idx)=>{
                     return (
                         <button 
+                        key={colorCode+idx} 
                         value={colorCode} 
                         onClick={(e)=>{
                             setAddCategory(prevState => ({

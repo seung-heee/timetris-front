@@ -12,10 +12,10 @@ import axios from 'axios';
 const TempCategory = () => {
     // 토큰
     const headers = {
-        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODQ1MTE1NCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9._OQMOY7zHkCEuoGZ6D8NHWySsYbPpBGLa23pksMqdY1eKMVSFgOA7Q1dlBEYj8whbQf8I-h1apoXiNEtUzzshg`
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODQ1NTkyMSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.G2mQC9by4nt30bkbwyHNUuXxa_p06OQyidcbkAiMW5e8K9d-w53ISZuYUw-BkkasopReSKrBTHiI_tHLenJysw`
     };
     // 색상 코드
-    const selectColorCode = ["#EEDC3A","#EEA1B3","#96B3FE","#A89292","#B8A7E9","#FFDA7A","#A9BDB2","#E4B7FF","#A8DFD5","#C7FF81","#528DFF", "#5C5C5C"]
+    const selectColorCode = ["#e15d5e","#f0b0a9","#f3bec7","#ee82a1","#edb18c","#f49963","#f48068","#eccd85","#f3bd72", "#96d4bf","#79a5c8", "#4692bb", "#53bfcc", "#88d7da","#d0b8de"]
     // 모달 띄우기 state
     const [state, setState] = useState({
         isAddOpen: false,
@@ -96,10 +96,10 @@ const TempCategory = () => {
                 fixCategory, setFixCategory }}>
             <Category />
 
-            <AddModal /> {/* 카테고리 추가 */}
-            <FixModal /> {/* 카테고리 수정 */}
-            <PlanModal /> 
-            <DoModal />
+            <AddModal /><br /> {/* 카테고리 추가 */}
+            <FixModal /><br /> {/* 카테고리 수정 */}
+            <PlanModal /><br />
+            <DoModal /><br />
         </CategoryContext.Provider>
     );
 };

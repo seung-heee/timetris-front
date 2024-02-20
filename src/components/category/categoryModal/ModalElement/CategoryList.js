@@ -2,14 +2,15 @@ import React, { useContext, useEffect } from 'react';
 import { CategoryContext } from '../../../../context/CategoryContext';
 
 const CategoryList = () => {
-    const {categoryInfo, setCategoryId} = useContext(CategoryContext);
+    const {myCategory, ShowCategoryList, setCategoryId} = useContext(CategoryContext);
 
-    useEffect(() => {
-    }, [categoryInfo])
+    // useEffect(() => {
+    //     ShowCategoryList();
+    // })
     
     return (
         <div className="bg-[#f1f1f1] p-[20px] h-[280px] rounded-[20px]">
-            {categoryInfo.map((category)=>{
+            {myCategory.map((category)=>{
                 return (
                 <button key={category.name} 
                     onClick={()=>{setCategoryId(category.name);}}

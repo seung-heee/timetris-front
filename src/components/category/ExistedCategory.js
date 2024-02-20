@@ -10,11 +10,11 @@ const ExistedCategory = () => {
     }, [myCategory]);
 
     return (
-        <div className='flex justify-start items-center h-full px-3'>
-            <div className='grid grid-cols-3 gap-y-3 gap-x-6'>
+        <div className='flex justify-center items-center px-3 pt-3 my-2 h-3/4 overflow-auto'>
+            <div className='grid grid-cols-2 w-full'>
                 {myCategory.map((category)=>{
                     return (
-                    <div key={category.id} className='flex items-center'>
+                    <div key={category.id} className='flex items-center mb-1 ml-3'>
                         <div style={{ backgroundColor: category.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
                         <div>{category.name}</div>
                     </div>)

@@ -39,7 +39,7 @@ const CategoryFixList = () => {
     return (
         <div className='flex flex-col justify-between w-[40%] mr-10 text-start'>
             <div className='mb-3'>수정할 카테고리를 선택해주세요</div>
-            <div className="bg-[#f1f1f1] p-[20px] h-[280px] rounded-[20px]">
+            <div className="bg-[#f1f1f1] p-[20px] h-[280px] rounded-[20px] overflow-y-auto">
                 {myCategory.map((myCategory)=>{
                     return (
                     <button key={myCategory.id}
@@ -50,7 +50,6 @@ const CategoryFixList = () => {
                                 name: myCategory.name, 
                                 colorCode: myCategory.colorCode
                             }));
-                            console.log(fixCategory)
                         }}
                         className={`flex items-center mb-1 w-full
                         ${categoryId === myCategory.id?
@@ -98,9 +97,11 @@ const SelectedFixCategory = () => {
                 <div className='flex items-center flex-wrap my-4'>
                 {selectColorCode
                     .filter(colorCode => !myCategory.some(category => category.colorCode === colorCode))
-                    .map((colorCode)=>{
+                    .map((colorCode,idx)=>{
                     return (
-                        <button value={colorCode} onClick={(e)=>{
+                        <button
+                            key={colorCode+idx} 
+                            value={colorCode} onClick={(e)=>{
                             // 수정된 카테고리 색상 업데이트
                             setFixCategory(prevState => ({
                                 ...prevState,
