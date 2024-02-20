@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import CategoryListBox from './ModalElement/CategoryListBox';
 import { CategoryContext } from '../../../context/CategoryContext';
 import HeaderModal from './ModalElement/HeaderModal';
-import FooterModal, { ExitBtn } from './ModalElement/FooterModal';
-import SelectedCategory from './ModalElement/SelectedCategory';
+import FooterModal from './ModalElement/FooterModal';
 import { BsTrash3 } from "react-icons/bs";
-import axios from 'axios';
 
 const FixModal = () => {
     const { state, ModalHandler } = useContext(CategoryContext);
@@ -33,7 +30,7 @@ const FixModal = () => {
 export default FixModal;
 
 const CategoryFixList = () => {
-    const {categoryInfo, addCategory, setAddCategory, fixCategory, setFixCategory, categoryId, setCategoryId, HandleAddCategory, myCategory, setMyCategory, ShowCategoryList} = useContext(CategoryContext);
+    const { fixCategory, setFixCategory, categoryId, setCategoryId, HandleAddCategory, myCategory, ShowCategoryList} = useContext(CategoryContext);
 
     useEffect(() => {
         ShowCategoryList(); // 나의 카테고리 조회
@@ -62,7 +59,7 @@ const CategoryFixList = () => {
                         <div style={{ backgroundColor: myCategory.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
                         <div className='flex justify-between items-center grow'>
                             <div>{myCategory.name}</div>
-                            {/* 선택한 카테고리일 때 쓰레기통 아이콘 추가 */}
+                            {/* 선택한 카테고리 > 쓰레기통 추가 */}
                             {categoryId === myCategory.id ? 
                             <BsTrash3 size={15} onClick={()=>{
                                 const confirmDelete = window.confirm("해당 카테고리를 삭제하시겠습니까?");
@@ -81,8 +78,8 @@ const CategoryFixList = () => {
 };
 
 
-const SelectedFixCategory = ({type}) => {
-    const { HandleAddCategory, myCategory, categoryInfo, selectColorCode, addCategory, categoryId, setCategoryId, setAddCategory, fixCategory, setFixCategory } = useContext(CategoryContext);
+const SelectedFixCategory = () => {
+    const { myCategory, selectColorCode, fixCategory, setFixCategory } = useContext(CategoryContext);
 
     return (
         <>
@@ -117,16 +114,6 @@ const SelectedFixCategory = ({type}) => {
                     )
                 })}
                 </div>
-                {/* {type !== 'AddModal' && <ExitBtn className='self-end'
-                    style={{ backgroundColor: "#616161", color: "white" }} 
-                    onClick={()=>{
-                        if (fixCategory.name === '' || fixCategory.colorCode==='') {
-                            alert('카테고리 이름 또는 색상 코드를 입력하세요.');
-                        } else {
-                            HandleAddCategory('Fix')}
-                        }}>
-                        {'카테고리 추가'}
-                    </ExitBtn>} */}
             </div>
         </div>
     </>

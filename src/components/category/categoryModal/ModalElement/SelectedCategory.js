@@ -3,7 +3,7 @@ import { CategoryContext } from '../../../../context/CategoryContext';
 import { ExitBtn } from './FooterModal';
 
 const SelectedCategory = ({type}) => {
-    const { HandleAddCategory, categoryInfo, selectColorCode, addCategory, setAddCategory, myCategory } = useContext(CategoryContext);
+    const { HandleAddCategory, selectColorCode, addCategory, setAddCategory, myCategory } = useContext(CategoryContext);
 
     return (
         <>
