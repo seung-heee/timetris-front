@@ -3,11 +3,11 @@ import { CategoryContext } from '../../context/CategoryContext';
 import axios from 'axios';
 
 const ExistedCategory = () => {
-    const {myCategory, setMyCategory, ShowCategoryList} = useContext(CategoryContext);
+    const {myCategory, addCategory, setMyCategory, ShowCategoryList} = useContext(CategoryContext);
 
     useEffect(() => {
         ShowCategoryList();
-    }, []);
+    }, [myCategory]);
 
     return (
         <div className='flex justify-start items-center h-full px-3'>

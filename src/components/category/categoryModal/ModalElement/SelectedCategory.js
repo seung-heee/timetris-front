@@ -23,14 +23,19 @@ const SelectedCategory = ({type}) => {
                     .filter(colorCode => !myCategory.some(category => category.colorCode === colorCode))
                     .map((colorCode)=>{
                     return (
-                        <button value={colorCode} onClick={(e)=>{
+                        <button 
+                        value={colorCode} 
+                        onClick={(e)=>{
                             setAddCategory(prevState => ({
                                 ...prevState,
                                 colorCode: e.target.value
                               }));
-                        }}
+                            }   
+                    }
                             style={{ backgroundColor: colorCode }} 
-                            className={`w-[45px] h-[45px] rounded-[50px] mr-2 my-1`}></button>
+                            className={`w-[45px] h-[45px] rounded-[50px] mr-2 my-1
+                                ${colorCode === addCategory.colorCode ? 'w-[50px] h-[50px]' : ''} `}>
+                        </button>
                     )
                 })}
                 </div>

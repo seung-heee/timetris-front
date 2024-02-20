@@ -50,9 +50,10 @@ const CategoryFixList = () => {
                         onClick={()=>{
                             setCategoryId(myCategory.id)
                             setFixCategory(prevState => ({
-                                ...prevState,
-                                name: myCategory.name
+                                name: myCategory.name, 
+                                colorCode: myCategory.colorCode
                             }));
+                            console.log(fixCategory)
                         }}
                         className={`flex items-center mb-1 w-full
                         ${categoryId === myCategory.id?
@@ -61,9 +62,14 @@ const CategoryFixList = () => {
                         <div style={{ backgroundColor: myCategory.colorCode }} className={`w-[15px] h-[15px] rounded-[50px] mr-3`}></div>
                         <div className='flex justify-between items-center grow'>
                             <div>{myCategory.name}</div>
+                            {/* 선택한 카테고리일 때 쓰레기통 아이콘 추가 */}
                             {categoryId === myCategory.id ? 
                             <BsTrash3 size={15} onClick={()=>{
-                                HandleAddCategory("Delete")
+                                const confirmDelete = window.confirm("해당 카테고리를 삭제하시겠습니까?");
+                                // 사용자가 확인을 누른 경우에 삭제 함수 실행
+                                if (confirmDelete) {
+                                HandleAddCategory("Delete");
+                            }
                             }} /> 
                             : ''}
                         </div>
@@ -101,15 +107,26 @@ const SelectedFixCategory = ({type}) => {
                             // 수정된 카테고리 색상 업데이트
                             setFixCategory(prevState => ({
                                 ...prevState,
-                                colorCode: e.target.value
+                                colorCode: colorCode,
                               }));
                         }}
                             style={{ backgroundColor: colorCode }} 
-                            className={`w-[45px] h-[45px] rounded-[50px] mr-2 my-1`}></button>
+                            className={`w-[45px] h-[45px] rounded-[50px] mr-2 my-1
+                                ${colorCode === fixCategory.colorCode ? 'w-[50px] h-[50px]' : ''} 
+                            `}></button>
                     )
                 })}
                 </div>
-                {type !== 'AddModal' && <ExitBtn className='self-end' onClick={()=>{HandleAddCategory(type)}}>카테고리 추가</ExitBtn>}
+                {/* {type !== 'AddModal' && <ExitBtn className='self-end'
+                    style={{ backgroundColor: "#616161", color: "white" }} 
+                    onClick={()=>{
+                        if (fixCategory.name === '' || fixCategory.colorCode==='') {
+                            alert('카테고리 이름 또는 색상 코드를 입력하세요.');
+                        } else {
+                            HandleAddCategory('Fix')}
+                        }}>
+                        {'카테고리 추가'}
+                    </ExitBtn>} */}
             </div>
         </div>
     </>

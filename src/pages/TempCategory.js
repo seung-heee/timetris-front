@@ -10,6 +10,11 @@ import DoModal from '../components/category/categoryModal/DoModal';
 import axios from 'axios';
 
 const TempCategory = () => {
+    // 토큰
+    const headers = {
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODQ0NzQ2MywiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.Z4kKw5qUCTIXxLKHcYvDfBj1-_nmAM76rvkenON7Kwae_BL2so2DCEuKQwJHdY3lzBFRmP7okNhMzcdaqL3dqw`
+    };
+
     const selectColorCode = ["#EEDC3A","#EEA1B3","#96B3FE","#A89292","#B8A7E9","#FFDA7A","#A9BDB2","#E4B7FF","#A8DFD5","#C7FF81","#528DFF", "#5C5C5C"]
     let categoryInfo = [
         {
@@ -62,11 +67,7 @@ const TempCategory = () => {
 
     const ShowCategoryList = async () => {
         try {
-            const response = await axios.get(`http://43.203.6.58:8080/category`, {
-                headers: {
-                    'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
-                }
-            });
+            const response = await axios.get(`http://43.203.6.58:8080/category`, { headers });
             setMyCategory(response.data.result);
         } catch (error) {
             console.error('에러:', error);
@@ -74,40 +75,25 @@ const TempCategory = () => {
     }
 
     const HandleAddCategory = async (type) => {
-        console.log(addCategory);
-        console.log(fixCategory);
         try {
             if (type === 'Fix') { // 카테고리 수정
-                await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, {
-                    headers: {
-                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
-                    }
-                });
+                await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, { headers });
+
+                setFixCategory({
+                    name: '',
+                    colorCode: '',
+                })
             } else if (type === 'Delete') { // 카테고리 삭제
-                await axios.delete(`http://43.203.6.58:8080/category/${categoryId}`, {
-                    headers: {
-                        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
-                    }
-                });
+                await axios.delete(`http://43.203.6.58:8080/category/${categoryId}`, { headers });
             } else { // 카테고리 작성
-                const response = await axios.post('http://43.203.6.58:8080/category', addCategory, {
-                    headers: {
-                    'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM2NTEzMCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjl9.YJxiq313eu2-t6Twq-3W-z6kU7cEYW10VUyadRvUJHS6A34rMScQ-TThojZOWD3zrLOVkyZUICITNLu57CDijA`
-                  }});
+                await axios.post('http://43.203.6.58:8080/category', addCategory, { headers });
 
-                // setAddCategory({
-                //     name:  response.data.result.name,
-                //     colorCode:  response.data.result.colorCode
-                // })
+                setAddCategory({
+                    name: '',
+                    colorCode: '',
+                })
             }
-
-            // 카테고리 목록에 추가
-
-            // 추가한 카테고리 이름, colorCode 초기화
-            setAddCategory({
-                name: '',
-                colorCode: '',
-            })
+           
             setCategoryId('')
             
         } catch(error) {

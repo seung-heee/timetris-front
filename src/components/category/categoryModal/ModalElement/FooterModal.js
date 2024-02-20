@@ -16,13 +16,22 @@ export const ExitBtn = styled.button`
 `;
 
 const FooterModal = ({type}) => {
-    const { ModalHandler, HandleAddCategory } = useContext(CategoryContext);
+    const { ModalHandler, HandleAddCategory, addCategory, fixCategory} = useContext(CategoryContext);
 
     return (
         <div className='flex'>
             {(type === "Add" || type === "Fix") && <>
             <ExitBtn onClick={()=>{ModalHandler(`is${type}Open`)}}>취소</ExitBtn></>}
-            <ExitBtn style={{ backgroundColor: "#616161", color: "white" }} onClick={()=>{HandleAddCategory(type)}}>
+            <ExitBtn 
+            style={{ backgroundColor: "#616161", color: "white" }} 
+            onClick={()=>{
+                if ( type === 'Add' && (addCategory.name === '' || addCategory.colorCode==='')) {
+                    alert('추가할 카테고리 이름 또는 색상 코드를 입력하세요.');
+                } else if (type === 'Fix' && (fixCategory.name === '' || fixCategory.colorCode==='')) {
+                    alert('수정할 카테고리 이름 또는 색상 코드를 입력하세요.');
+                } else {
+                    HandleAddCategory(type)}
+                }}>
                 {type === "Add" ? '추가' : type === "Fix" ? '수정' : "등록"}
             </ExitBtn>
         </div>

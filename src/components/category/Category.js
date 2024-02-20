@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ExistedCategory from './ExistedCategory';
 import EmptyCategory from './EmptyCategory';
 import { CategoryContext } from '../../context/CategoryContext';
