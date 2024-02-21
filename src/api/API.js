@@ -8,8 +8,8 @@ instance.defaults.baseURL = 'http://43.203.6.58:8080';
 
 instance.interceptors.request.use(
     (config) => {
-        // const accessToken = getAccessToken();
-        const accessToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM1MDkzMCwiZW1haWwiOiJqaWV1bjc3NjEyMUBnbWFpbC5jb20iLCJtZW1iZXJJZCI6Nn0.dWYS-QhpwDm6xs49Ke82Te-8okWHRyoQ5cGaYQHWOaZKwK92EdzhCEGljICu1lgv5Nj_MTFdpxHrxutk4-NCHg";
+        const accessToken = getAccessToken();
+        // const accessToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM1MDkzMCwiZW1haWwiOiJqaWV1bjc3NjEyMUBnbWFpbC5jb20iLCJtZW1iZXJJZCI6Nn0.dWYS-QhpwDm6xs49Ke82Te-8okWHRyoQ5cGaYQHWOaZKwK92EdzhCEGljICu1lgv5Nj_MTFdpxHrxutk4-NCHg";
 
         if (!accessToken) {
             window.location.href = '/login';
@@ -109,4 +109,14 @@ const put = async (url, put) => {
     }
 };
 
-export { get, del as delete, post, put };
+const patch = async (url, patch) => {
+    try {
+        const { data } = await instance.patch(url, patch);
+        return data;
+    } catch (error) {
+        if (error instanceof Error)
+            throw new Error(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${error.message}`);
+    }
+};
+
+export { get, del as delete, post, put, patch };
