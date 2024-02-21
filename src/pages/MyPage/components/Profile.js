@@ -66,16 +66,7 @@ const Email = styled.div`
 
 const Profile = () => {
 
-    // const userInfo = {
-    //     name: "홍길동",
-    //     email: "exgample@gmail.com"
-    // }
-
-    // if (!(localStorage.getItem('name'))) {
-    //     localStorage.setItem('name', userInfo.name)
-    // }
-
-    const [nicName, setNicName] = useState(localStorage.getItem('name'))
+    const [nicName, setNicName] = useState('이름 변경')
     const [email, setEmail] = useState("")
     const [activeBtn, setActiveBtn] = useState(false)
 
@@ -83,7 +74,6 @@ const Profile = () => {
         const data = await API.get('/mypage')
         setNicName(data.result.name)
         setEmail(data.result.email)
-        // console.log(data.result)
     }
     useEffect(() => {
         getUSerInfo();
@@ -98,8 +88,10 @@ const Profile = () => {
         setNicName(e.target.value)
     }
 
-    const SubmitInfo = () => {
-        // localStorage.setItem('name', nicName)
+    const SubmitInfo = async () => {
+        const data = await API.patch('/mypage', { nickname: nicName })
+        console.log(data)
+        alert('프로필 이름이 변경되었습니다!')
         setActiveBtn(false)
     }
 
