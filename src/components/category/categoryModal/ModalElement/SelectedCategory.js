@@ -40,7 +40,17 @@ const SelectedCategory = ({type}) => {
                     )
                 })}
                 </div>
-                {type !== 'AddModal' && <ExitBtn className='self-end' onClick={()=>{HandleAddCategory(type)}}>카테고리 추가</ExitBtn>}
+                {type !== 'AddModal' &&
+                <ExitBtn className='self-end' onClick={()=>{
+                    const isAddNameExists = myCategory.some(category => category.name === addCategory.name);
+                    if (addCategory.name === '' || addCategory.colorCode==='') {
+                        alert('추가할 카테고리 이름 또는 색상 코드를 입력하세요.');
+                    } else if (isAddNameExists) {
+                        alert('이미 존재하는 카테고리로 추가할 수 없습니다.');
+                    } else {
+                        HandleAddCategory('Add')
+                    }
+                    }}>카테고리 추가</ExitBtn>}
             </div>
         </div>
     </>

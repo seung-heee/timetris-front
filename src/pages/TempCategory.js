@@ -8,11 +8,12 @@ import FixModal from '../components/category/categoryModal/FixModal';
 import PlanModal from '../components/category/categoryModal/PlanModal';
 import DoModal from '../components/category/categoryModal/DoModal';
 import axios from 'axios';
+import InputEle from '../components/category/categoryModal/ModalElement/InputEle';
 
 const TempCategory = () => {
     // 토큰
     const headers = {
-        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODUyNzQ2OSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.nxCEcyF7ayUSuiiBtwMDhSmjGlH5uBaNu4dM9IvjfNWE3h9hxsWtJpH9hLgA-A_qN3x4izrJx5LbiRLtpW2iIw`
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODU0NDc4NSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.YZ1oGyr5f7WGHqs68ECoMeQGjzI_iG90Ycv5PUo6L4m2uTavPUoqsR5FYT35PbBe6oPBshFiEgukzwrqX5jB8w`
     };
     // 색상 코드
     const selectColorCode = ["#e15d5e","#f0b0a9","#f3bec7","#ee82a1","#edb18c","#f49963","#f48068","#eccd85","#f3bd72", "#96d4bf","#79a5c8", "#4692bb", "#53bfcc", "#88d7da","#d0b8de"]
@@ -33,11 +34,33 @@ const TempCategory = () => {
         name: "",
         colorCode: ""
     })
-
     const [categoryId, setCategoryId] = useState(0);
     const [myCategory, setMyCategory] = useState([]); // 카테고리 조회
+    
+    // Plan 등록
+    const [addPlan, setAddPlan] = useState({
+        planRequestDTO: {
+            title: "",
+            startTime: "",
+            endTime: "",
+            categoryId: 0
+        },
+        cycleRequestDTO: {
+            cycling: [
+                ""
+            ]
+        }
+    });
 
-    const [selectedDay, setSelectedDay] = useState(null); // 반복 일정
+    // Do 등록
+    const [doPlan, setDoPlan] = useState({
+        title: "",
+        startTime: "",
+        endTime: "",
+        categoryId: 0
+    })
+    
+    const [selectedDay, setSelectedDay] = useState();
 
     // 모달 창 열고 닫기
     const ModalHandler = (openState) => {
@@ -59,21 +82,50 @@ const TempCategory = () => {
     // API 연동 함수
     const HandleAddCategory = async (type) => {
         try {
-            if (type === 'Fix') { // 카테고리 수정
-                await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, { headers });
-                setFixCategory({
-                    name: '',
-                    colorCode: '',
-                })
-            } else if (type === 'Delete') { // 카테고리 삭제
-                await axios.delete(`http://43.203.6.58:8080/category/${categoryId}`, { headers });
-            } else { // 카테고리 작성
-                await axios.post('http://43.203.6.58:8080/category', addCategory, { headers });
-                setAddCategory({
-                    name: '',
-                    colorCode: '',
-                })
+            switch(type) {
+                case 'Fix':
+                    await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, { headers });
+                    setFixCategory({
+                        name: '',
+                        colorCode: '',
+                    });
+                    break;
+                case 'Delete':
+                    await axios.delete(`http://43.203.6.58:8080/category/${categoryId}`, { headers });
+                    break;
+                case 'Add':
+                case 'AddModal':
+                    await axios.post('http://43.203.6.58:8080/category', addCategory, { headers });
+                    setAddCategory({
+                        name: '',
+                        colorCode: '',
+                    });
+                    break;
+                case 'Plan':
+                    await axios.post('http://43.203.6.58:8080/plan', addPlan, { headers });
+                    setAddPlan({
+                        planRequestDTO: {
+                            title: "",
+                            startTime: "",
+                            endTime: "",
+                            categoryId: 0
+                        },
+                        cycleRequestDTO: {
+                            cycling: [""]
+                        }
+                    });
+                    break;
+                default:
+                    await axios.post('http://43.203.6.58:8080/do', doPlan, { headers });
+                    setDoPlan({
+                        title: "",
+                        startTime: "",
+                        endTime: "",
+                        categoryId: 0
+                    });
+                    break;
             }
+
             setCategoryId('')
             
         } catch(error) {
@@ -93,7 +145,9 @@ const TempCategory = () => {
                 selectedDay, handleRepeatCheck,
                 categoryId, setCategoryId,
                 myCategory, setMyCategory, ShowCategoryList,
-                fixCategory, setFixCategory }}>
+                fixCategory, setFixCategory,
+                addPlan, setAddPlan,
+                doPlan, setDoPlan }}>
             <Category />
             <AddModal />
             <FixModal />
