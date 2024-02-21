@@ -35,7 +35,7 @@ export const ModalBtn = styled.button`
   cursor: grab;
 `;
 
-export const ExitBtn = styled(ModalBtn) `
+export const ExitBtn = styled(ModalBtn)`
 background-color : #F1F1F1;
 color: #A8A8A8;
 border-radius: 50px;
@@ -68,8 +68,8 @@ export const ModalView = styled.div.attrs((props) => ({
 `;
 
 export const ModalTitle = styled.div.attrs((props) => ({
-    role: 'dialog',
-  }))`
+  role: 'dialog',
+}))`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -83,8 +83,8 @@ export const ModalTitle = styled.div.attrs((props) => ({
 `;
 
 export const ModalInput = styled.input.attrs((props) => ({
-    role: 'dialog',
-  }))`
+  role: 'dialog',
+}))`
     display: flex;
     justify-content: space-between;
     width: 90%;
@@ -94,8 +94,8 @@ export const ModalInput = styled.input.attrs((props) => ({
 `;
 
 export const ShowColorCode = styled.div.attrs((props) => ({
-    role: 'dialog',
-  }))`
+  role: 'dialog',
+}))`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -106,39 +106,39 @@ export const ShowColorCode = styled.div.attrs((props) => ({
 `;
 
 export const AddCategory = () => {
-  const {isOpen, openModalHandler, categoryInfo} = useContext(CategoryContext);
-  
+  const { isOpen, openModalHandler, categoryInfo } = useContext(CategoryContext);
+
   return (
     <>
       <ModalContainer>
         <ModalBtn onClick={openModalHandler}>카테고리 추가하기</ModalBtn>
 
-        {isOpen ? 
-        <ModalBackdrop onClick={openModalHandler}>
+        {isOpen ?
+          <ModalBackdrop onClick={openModalHandler}>
             <ModalView onClick={(e) => e.stopPropagation()}>
-                <ModalTitle>
-                    <div className='titleStyle'>새로운 카테고리 추가하기</div>
-                    <ExitBtn onClick={openModalHandler}>닫기</ExitBtn>
-                </ModalTitle>
+              <ModalTitle>
+                <div className='titleStyle'>새로운 카테고리 추가하기</div>
+                <ExitBtn onClick={openModalHandler}>닫기</ExitBtn>
+              </ModalTitle>
 
-                {/* Input 창 */}
-                <ModalInput placeholder="카테고리 이름"></ModalInput>
+              {/* Input 창 */}
+              <ModalInput placeholder="카테고리 이름"></ModalInput>
 
-                <ShowColorCode>
-                    <div className='colorCodeTitle'>색상 선택</div>
-                    <div className='flex items-center'>
-                    {categoryInfo.map((category)=>{
-                        return (
-                            <button style={{ backgroundColor: category.colorCode }} className={`w-[45px] h-[45px] rounded-[50px] mr-3 my-5`}></button>
-                        )
-                    })}
-                    </div>
-                </ShowColorCode>
-
-                <div className='flex'>
-                    <ExitBtn onClick={openModalHandler}>취소</ExitBtn>
-                    <ExitBtn onClick={openModalHandler}>추가</ExitBtn>
+              <ShowColorCode>
+                <div className='colorCodeTitle'>색상 선택</div>
+                <div className='flex items-center'>
+                  {categoryInfo.map((category) => {
+                    return (
+                      <button style={{ backgroundColor: category.colorCode }} className={`w-[45px] h-[45px] rounded-[50px] mr-3 my-5`}></button>
+                    )
+                  })}
                 </div>
+              </ShowColorCode>
+
+              <div className='flex'>
+                <ExitBtn onClick={openModalHandler}>취소</ExitBtn>
+                <ExitBtn onClick={openModalHandler}>추가</ExitBtn>
+              </div>
             </ModalView>
           </ModalBackdrop>
           : null
