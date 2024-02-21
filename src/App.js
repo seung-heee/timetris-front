@@ -6,12 +6,26 @@ import './css/styles.css';
 import Navbar from "./components/Navbar";
 import NavbarNotLogin from "./components/NavbarNotLogin";
 import GlobalStyle from './styles/GlobalStyle'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TempCategory from "./pages/TempCategory";
 import AddCategory from "./components/category/AddCategory";
+import DragNDrop from "./pages/DragNDrop";
 
 function App() {
-  let [login, setLogin] = useState(true)
+  let [login, setLogin] = useState(false)
+
+  const isLogin = () => {
+    if (sessionStorage.getItem('Authorization')) {
+      setLogin(true)
+    } else {
+      setLogin(false)
+    }
+  }
+
+  useEffect(() => {
+    isLogin();
+  }, [])
+
 
   return (
     <div className="App">
@@ -25,6 +39,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/mypage' element={<MyPage />} />
           <Route path='/tempcategory' element={<TempCategory />} />
+          <Route path='/dragNdrop' element={<DragNDrop />} />
         </Routes>
       </div>
     </div>
