@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import styled from "styled-components";
@@ -32,6 +32,9 @@ function classNames(...classes) {
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const logout = () => {
+        sessionStorage.removeItem('Authorization')
+    }
     return (
         <NavBarContainer>
             {/* Profile dropdown */}
@@ -93,8 +96,9 @@ const Navbar = () => {
                         <Menu.Item>
                             {({ active }) => (
                                 <MenuItem trbl="0 0 6px 6px"
-                                    href="#"
+                                    href="/"
                                     className={classNames(active ? 'bg-lightred' : '', 'block px-[39px] py-[15px] text-sm[16px] text-red')}
+                                    onClick={logout}
                                 >
                                     로그아웃
                                 </MenuItem>
