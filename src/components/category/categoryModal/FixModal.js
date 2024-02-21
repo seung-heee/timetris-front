@@ -9,7 +9,6 @@ const FixModal = () => {
 
     return (
         <>
-        <button onClick={()=>{ModalHandler("isFixOpen")}}>카테고리 수정</button>
         {state.isFixOpen ? 
             <button onClick={()=>{ModalHandler("isFixOpen")}} className='fixed z-10 flex justify-center items-center bg-[rgba(0,0,0,0.4)] rounded-[10px] top-0 left-0 right-0 bottom-0'>
                 <button onClick={(e) => e.stopPropagation()} className='flex flex-col justify-start items-center rounded-[20px] p-[30px] w-[800px] bg-[#fff]'>
@@ -101,7 +100,8 @@ const SelectedFixCategory = () => {
                     return (
                         <button
                             key={colorCode+idx} 
-                            value={colorCode} onClick={(e)=>{
+                            value={colorCode}
+                            onClick={(e)=>{
                             // 수정된 카테고리 색상 업데이트
                             setFixCategory(prevState => ({
                                 ...prevState,

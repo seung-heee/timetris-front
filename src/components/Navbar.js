@@ -2,7 +2,7 @@ import React from "react";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBarContainer = styled.nav`
     width : 100vw;
@@ -37,7 +37,7 @@ const Navbar = () => {
             <Menu>
                 <img src="/img/mainLogo.svg" onClick={() => navigate('/')} style={{ cursor: "pointer" }} />
                 <Menus>
-                    <img src="/img/지난기록들.svg" style={{ cursor: "pointer" }} />
+                    <Link to='/pastrecords' className="flex items-center"><img src="/img/지난기록들.svg" style={{ cursor: "pointer" }} /></Link>
                     <Menu.Button className="relative flex rounded-full">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>

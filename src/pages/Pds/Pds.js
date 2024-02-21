@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PdsLeft from './PdsLeft';
 import PdsMiddle from './PdsMiddle';
 import '../../css/pds.css'
 
 const Pds = () => {
     return (
-        <div >
+        <div>
             <PdsLeft/>
             <PdsMiddle/>
         </div>
