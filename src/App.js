@@ -9,11 +9,10 @@ import NavbarNotLogin from "./components/NavbarNotLogin";
 import GlobalStyle from './styles/GlobalStyle'
 import { useState } from 'react'
 import TempCategory from "./pages/TempCategory";
-import AddCategory from "./components/category/AddCategory";
 
 function App() {
   let [login, setLogin] = useState(true)
-
+  
   return (
     <div className="App">
       <GlobalStyle />
