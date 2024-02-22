@@ -1,5 +1,7 @@
 import React from 'react';
 import { images } from '../../utils/images';
+import Category from '../../components/category/Category';
+import TempCategory from './../TempCategory';
 
 const PdsLeft = () => {
     return (
@@ -12,6 +14,7 @@ const PdsLeft = () => {
                     <button className="text-center text-neutral-400 text-lg font-semibold bg-[#F1F1F1] text-[#A6A6A6] w-16 h-10 relative bg-zinc-100 rounded-3xl">다음</button>
                 </div>
             </div>
+            {/* 소은 작업 부분 
             <div className="w-96 h-60 relative bg-neutral-100 rounded-lg bg-[#F6F6F6] flex flex-col items-center justify-center">
                 <div className="mb-4 w-full">
                     <div className="flex justify-between w-full">
@@ -29,12 +32,9 @@ const PdsLeft = () => {
                 <div className="flex justify-center">
                     <button className="w-32 h-12 bg-neutral-200 rounded-3xl bg-[#E4E4E4] text-[#A6A6A6]">추가하기</button>
                 </div>
-            </div>
+            </div> */}
+            <TempCategory />
         </div>
-        
-        
-
-        
     );
 };
 

@@ -9,6 +9,7 @@ import NavbarNotLogin from "./components/NavbarNotLogin";
 import GlobalStyle from './styles/GlobalStyle'
 import { useState } from 'react'
 import TempCategory from "./pages/TempCategory";
+import PastRecords from "./pages/PastRecords";
 
 function App() {
   let [login, setLogin] = useState(true)
@@ -26,6 +27,7 @@ function App() {
           <Route path='/mypage' element={<MyPage />} />
           <Route path='/tempcategory' element={<TempCategory />} />
           <Route path='/pds' element={<Pds />} />
+          <Route path='/pastrecords' element={<PastRecords />} />
         </Routes>
       </div>
     </div>
