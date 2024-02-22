@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { PC, SmallPC } from "../utils/mediaQuery";
 
+
 const NavBarContainer = styled.nav`
     width : 100vw;
     display : flex;
@@ -39,6 +40,7 @@ const Navbar = () => {
         <NavBarContainer>
             {/* Profile dropdown */}
             <Menu>
+
                 <SmallPC>
                     <img src="/img/mainLogo.svg" onClick={() => navigate('/')} style={{ cursor: "pointer", width: "100px" }} />
                     <Menus>

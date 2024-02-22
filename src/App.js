@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import TempCategory from "./pages/TempCategory";
 import AddCategory from "./components/category/AddCategory";
 import DragNDrop from "./pages/DragNDrop";
+
 import PastRecords from "./pages/PastRecords";
 
 function App() {

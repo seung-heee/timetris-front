@@ -18,6 +18,10 @@ const PdsLeft = () => {
 
             {/* 오른쪽 */}
             {/* <div className="w-96 h-60 relative bg-neutral-100 rounded-lg bg-[#F6F6F6] flex flex-col items-center justify-center">
+
+            {/* 소은 작업 부분 
+            <div className="w-96 h-60 relative bg-neutral-100 rounded-lg bg-[#F6F6F6] flex flex-col items-center justify-center">
+
                 <div className="mb-4 w-full">
                     <div className="flex justify-between w-full">
                         <div className="flex items-center">
@@ -37,7 +41,6 @@ const PdsLeft = () => {
             </div> */}
             <TempCategory />
         </div>
-
     );
 };
 
