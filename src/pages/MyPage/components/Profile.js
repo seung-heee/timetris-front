@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import * as API from "../../../api/API"
 
 const ProfileContainer = styled.div`
     display : flex;
@@ -63,16 +65,46 @@ const Email = styled.div`
 `
 
 const Profile = () => {
+
+    const [nicName, setNicName] = useState('이름 변경')
+    const [email, setEmail] = useState("")
+    const [activeBtn, setActiveBtn] = useState(false)
+
+    const getUSerInfo = async () => {
+        const data = await API.get('/mypage')
+        setNicName(data.result.name)
+        setEmail(data.result.email)
+    }
+    useEffect(() => {
+        getUSerInfo();
+    }, [])
+
+    const ChangeName = (e) => {
+        if (e.target.value) {
+            setActiveBtn(true)
+        } else {
+            setActiveBtn(false)
+        }
+        setNicName(e.target.value)
+    }
+
+    const SubmitInfo = async () => {
+        const data = await API.patch('/mypage', { nickname: nicName })
+        console.log(data)
+        alert('프로필 이름이 변경되었습니다!')
+        setActiveBtn(false)
+    }
+
     return (
         <ProfileContainer>
             <Title>프로필 변경</Title>
             <SubTitle px="30px">이름</SubTitle>
             <Form>
-                <InputName type="text" placeholder="홍길동" />
-                <AlterBtn background="#616161">변경</AlterBtn>
+                <InputName type="text" placeholder={nicName} onChange={ChangeName} />
+                <AlterBtn background={activeBtn ? "#6BB8FF" : "#616161"} onClick={SubmitInfo}>변경</AlterBtn>
             </Form>
             <SubTitle px="46px">이메일</SubTitle>
-            <Email>exgample@gmail.com</Email>
+            <Email>{email}</Email>
         </ProfileContainer>
     )
 }

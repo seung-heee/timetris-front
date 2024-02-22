@@ -18,7 +18,7 @@ const MyPage = () => {
     };
 
     return (
-        <div>
+        <div className="App container" >
             <Profile />
             <Withdrawal showModal={showModal} />
             <WithdrawalModal closeModal={closeModal} dialogRef={dialogRef} />

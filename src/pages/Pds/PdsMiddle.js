@@ -35,58 +35,61 @@ const PdsMiddle = () => {
         // 이후에 색상 변경 등의 작업을 수행할 수 있습니다.
     };
 
-const Plan = ({ children }) => {
-    return (
-        <div className="w-96 h-20 left-0 top-0 relative border border-[#E4E4E4] bg-[#F6F6F6]">
-            {children}
-        </div>
-    );
-};
+    const Plan = ({ children }) => {
+        return (
+            <div className="w-96 h-20 left-0 top-0 relative border border-[#E4E4E4] bg-[#F6F6F6]">
+                {children}
+            </div>
+        );
+    };
 
-const Time = ({ time }) => {
-    return (
-        <div className="w-32 h-20 left-0 top-0 relative border border-[#E4E4E4] bg-[#F6F6F6] text-center text-zinc-600 text-2xl font-normal leading-10 flex justify-center items-center">
-            {time}
-        </div>
-    );
-};
+    const Time = ({ time }) => {
+        return (
+            <div className="w-32 h-20 left-0 top-0 relative border border-[#E4E4E4] bg-[#F6F6F6] text-center text-zinc-600 text-2xl font-normal leading-10 flex justify-center items-center">
+                {time}
+            </div>
+        );
+    };
 
-const Do = ({ doValue, isDragging }) => {
-    const handleDragStart = (event) => {
-        event.dataTransfer.setData("text/plain", doValue); // 드래그하는 동안 전달할 데이터 설정
+    const Do = ({ doValue, isDragging }) => {
+        const handleDragStart = (event) => {
+            event.dataTransfer.setData("text/plain", doValue); // 드래그하는 동안 전달할 데이터 설정
+        };
+
+        return (
+            <div className={`w-16 h-20 left-0 top-0 relative border border-[#E4E4E4] text-center text-zinc-600 text-2xl font-normal leading-10 flex justify-center items-center ${isDragging ? 'bg-[#111111]' : 'bg-[#F6F6F6]'}`}
+                draggable="true"
+                onDragStart={(event) => handleDragStart(event)}
+                onDragEnd={() => setIsDragging(false)}>
+                {doValue}
+            </div>
+        );
     };
 
     return (
-        <div className={`w-16 h-20 left-0 top-0 relative border border-[#E4E4E4] text-center text-zinc-600 text-2xl font-normal leading-10 flex justify-center items-center ${isDragging ? 'bg-[#111111]' : 'bg-[#F6F6F6]'}`}
-            draggable="true"
-            onDragStart={(event) => handleDragStart(event)}
-            onDragEnd={() => setIsDragging(false)}>
-            {doValue}
-        </div>
-    );
-};
-
-    return (
         <div>
-            <div className="flex  ml-64 mt-6 mb-2">
-            <img 
-                src={images.btn30} 
-                alt="안내버튼" 
-                onClick={handleButtonClick} // 버튼 클릭 이벤트 추가
-            />
-            {/* 알림이 보이는 경우에만 표시 */}
-            {showAlert && (
-                <div className=" ml-5 w-96 h-12 relative">
-                    <div className="w-96 h-12 left-0 top-0 absolute">
-                        <div className="opacity-30 w-96 h-12 left-0 top-0 absolute">
-                            <div className="w-96 h-12 left-0 top-0 absolute bg-[#9B9B9B] rounded-2xl" />
-                            <div className="w-96 h-12 left-0 top-0 absolute rounded-2xl" />
+            {/* 툴팁 */}
+            <div className="flex ml-[324px] mt-6 mb-2">
+                <img
+                    src={images.btn30}
+                    alt="안내버튼"
+                    onClick={handleButtonClick} // 버튼 클릭 이벤트 추가
+                />
+                {/* 알림이 보이는 경우에만 표시 */}
+                {showAlert && (
+                    <div className=" ml-5 w-96 h-12 relative">
+                        <div className="w-96 h-12 left-0 top-0 absolute">
+                            <div className="opacity-30 w-96 h-12 left-0 top-0 absolute">
+                                <div className="w-96 h-12 left-0 top-0 absolute bg-[#9B9B9B] rounded-2xl" />
+                                <div className="w-96 h-12 left-0 top-0 absolute rounded-2xl" />
+                            </div>
+                            <div className="left-[22px] top-[15px] absolute text-center text-neutral-700 text-base font-medium font-[#383838]">원하는 시간대를 드래그해서 일정을 작성해보세요!</div>
                         </div>
-                        <div className="left-[22px] top-[15px] absolute text-center text-neutral-700 text-base font-medium font-[#383838]">원하는 시간대를 드래그해서 일정을 작성해보세요!</div>
                     </div>
-                </div>
-            )}
+                )}
             </div>
+
+            {/* PDS TABLE */}
             <div className="flex justify-center">
                 <div>
                     <div className="w-96 h-12 bg-zinc-100 rounded-tl-lg border border-[#E4E4E4] text-center text-neutral-400 text-2xl font-semibold leading-10 bg-[#F1F1F1] text-[#A6A6A6] flex justify-center items-center ">PLAN</div>
@@ -114,8 +117,8 @@ const Do = ({ doValue, isDragging }) => {
                     <Plan />
                     <Plan />
 
-                    
-                    
+
+
                 </div>
 
                 <div>
@@ -148,34 +151,34 @@ const Do = ({ doValue, isDragging }) => {
                 <div>
                     <div className="w-96 h-12 bg-zinc-100 rounded-tr-lg border border-[#E4E4E4] text-center text-neutral-400 text-2xl font-semibold leading-10 bg-[#F1F1F1] text-[#A6A6A6] flex justify-center items-center">DO</div>
                     <div className="grid grid-cols-6 grid-rows-3">
-                    <Do doValue={1} isDragging={isDragging}/><Do doValue={2} isDragging={isDragging}/><Do doValue={3} isDragging={isDragging}/>
-                    <Do/><Do/><Do/>
+                        <Do doValue={1} isDragging={isDragging} /><Do doValue={2} isDragging={isDragging} /><Do doValue={3} isDragging={isDragging} />
+                        <Do /><Do /><Do />
 
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
-                    <Do/><Do/><Do/><Do/><Do/><Do/>
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
+                        <Do /><Do /><Do /><Do /><Do /><Do />
                     </div>
-                    
-                </div> 
+
+                </div>
             </div>
             <div className="flex justify-center items-center w-full h-full">
                 <div className="w-100 h-64 mb-32 border border-[#E4E4E4] bg-[#F6F6F6] text-center text-2xl font-normal leading-10 relative rounded-bl-lg rounded-br-lg">
@@ -191,9 +194,9 @@ const Do = ({ doValue, isDragging }) => {
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
         </div>
-        
+
     );
 };
 

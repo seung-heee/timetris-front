@@ -1,6 +1,10 @@
 import styled from "styled-components";
+import * as API from "../../../api/API"
 
-const ModalCotinaer = styled.div`
+const ModalConatiner = styled.div`
+`
+
+const ModalView = styled.div`
     width: 496px;
     height: 265px;
     border-radius: 8px;
@@ -33,18 +37,26 @@ const BtnContainer = styled.div`
 `
 
 const WithdrawalModal = (props) => {
+    const DeleteUserInfo = async () => {
+        const data = await API.post('/mypage')
+        console.log(data)
+        sessionStorage.removeItem('Authorization')
+        window.location.href = '/';
+    }
 
     return (
-        <dialog ref={props.dialogRef}>
-            <ModalCotinaer>
-                <Text size="24px" weight="600" margin="53px">정말로 탈퇴하시겠습니까?</Text>
-                <Text size="18px" weight="500" margin="16px">탈퇴하시면 작성한 모든 기록들이 사라지며,<br />모든 정보를 다시 설정해야 합니다.</Text>
-                <BtnContainer>
-                    <button style={{ color: "#EA7156" }}>탈퇴하기</button>
-                    <button style={{ color: "#CCC" }} onClick={props.closeModal}>취소하기</button>
-                </BtnContainer>
-            </ModalCotinaer>
-        </dialog>
+        <ModalConatiner onClick={props.closeModal}>
+            <dialog ref={props.dialogRef}>
+                <ModalView>
+                    <Text size="24px" weight="600" margin="53px">정말로 탈퇴하시겠습니까?</Text>
+                    <Text size="18px" weight="500" margin="16px">탈퇴하시면 작성한 모든 기록들이 사라지며,<br />모든 정보를 다시 설정해야 합니다.</Text>
+                    <BtnContainer onClick={(e) => { e.stopPropagation() }}>
+                        <button style={{ color: "#EA7156" }} onClick={DeleteUserInfo}>탈퇴하기</button>
+                        <button style={{ color: "#CCC" }} onClick={props.closeModal}>취소하기</button>
+                    </BtnContainer>
+                </ModalView>
+            </dialog>
+        </ModalConatiner>
     )
 }
 export default WithdrawalModal;

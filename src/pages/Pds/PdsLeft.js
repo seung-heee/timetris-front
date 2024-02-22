@@ -6,7 +6,8 @@ import TempCategory from './../TempCategory';
 const PdsLeft = () => {
     return (
         <div className="flex justify-center mt-24">
-            <div className="mr-12 mt-5"> 
+            {/* 왼쪽 */}
+            <div className="mr-12 mt-5">
                 <div className="text-neutral-700 text-2xl font-semibold leading-10">홍길동님, 오늘 하루는 어떻게 보내실 계획이신가요?</div>
                 <div className="flex">
                     <button className="text-center text-neutral-400 text-lg font-semibold bg-[#F1F1F1] text-[#A6A6A6] w-16 h-10 relative bg-zinc-100 rounded-3xl" >이전</button>
@@ -14,8 +15,13 @@ const PdsLeft = () => {
                     <button className="text-center text-neutral-400 text-lg font-semibold bg-[#F1F1F1] text-[#A6A6A6] w-16 h-10 relative bg-zinc-100 rounded-3xl">다음</button>
                 </div>
             </div>
+
+            {/* 오른쪽 */}
+            {/* <div className="w-96 h-60 relative bg-neutral-100 rounded-lg bg-[#F6F6F6] flex flex-col items-center justify-center">
+
             {/* 소은 작업 부분 
             <div className="w-96 h-60 relative bg-neutral-100 rounded-lg bg-[#F6F6F6] flex flex-col items-center justify-center">
+
                 <div className="mb-4 w-full">
                     <div className="flex justify-between w-full">
                         <div className="flex items-center">
