@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import TempCategory from "./pages/TempCategory";
 import AddCategory from "./components/category/AddCategory";
 import DragNDrop from "./pages/DragNDrop";
+import Footer from "./components/Footer";
 
 import PastRecords from "./pages/PastRecords";
 
@@ -47,7 +48,7 @@ function App() {
           <Route path='/pastrecords' element={<PastRecords />} />
         </Routes>
       </div>
-      <img src="/img/푸터.svg" style={{ width: "100vw" }} />
+      <Footer />
     </div>
   );
 }
