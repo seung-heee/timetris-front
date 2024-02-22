@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { images } from '../../utils/images';
 import Category from '../../components/category/Category';
 import TempCategory from './../TempCategory';
+import { PDSTableContext } from '../../context/PDSTableContext';
 
 const PdsLeft = () => {
+    // api > userName 가져오면, 
+    const { name } = useContext(PDSTableContext)
+
     return (
         <div className="flex justify-center mt-24">
             {/* 왼쪽 */}
             <div className="mr-12 mt-5">
-                <div className="text-neutral-700 text-2xl font-semibold leading-10">홍길동님, 오늘 하루는 어떻게 보내실 계획이신가요?</div>
+                <div className="text-neutral-700 text-2xl font-semibold leading-10">{name}님, 오늘 하루는 어떻게 보내실 계획이신가요?</div>
                 <div className="flex">
                     <button className="text-center text-neutral-400 text-lg font-semibold bg-[#F1F1F1] text-[#A6A6A6] w-16 h-10 relative bg-zinc-100 rounded-3xl" >이전</button>
                     <div className="text-neutral-700 text-4xl font-bold font-['Pretendard'] leading-10 mx-4">2024년 1월 31일 수요일</div>

@@ -6,7 +6,8 @@ const LoginContainer = styled.div`
     flex-direction : column;
     justify-content : center;
     align-items : center;
-    padding-top : 175px;
+    padding-top : 20px;
+    height : 84.6vh;
 `
 const LoginHello = styled.div`
     padding-top : 58.1px;
