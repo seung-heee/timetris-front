@@ -46,6 +46,7 @@ function App() {
           <Route path='/pastrecords' element={<PastRecords />} />
         </Routes>
       </div>
+      <img src="/img/푸터.svg" style={{ width: "100vw" }} />
     </div>
   );
 }
