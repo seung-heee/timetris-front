@@ -42,7 +42,7 @@ const Navbar = () => {
             <Menu>
 
                 <SmallPC>
-                    <img src="/img/mainLogo.svg" onClick={() => navigate('/')} style={{ cursor: "pointer", width: "100px" }} />
+                    <img src="/img/mainLogo.svg" onClick={() => navigate('/pds')} style={{ cursor: "pointer", width: "100px" }} />
                     <Menus>
                         <img src="/img/지난기록들.svg" style={{ cursor: "pointer", width: "90px" }} />
                         <Menu.Button className="relative flex rounded-full">
@@ -59,7 +59,7 @@ const Navbar = () => {
                 </SmallPC>
 
                 <PC>
-                    <img src="/img/mainLogo.svg" onClick={() => navigate('/')} style={{ cursor: "pointer" }} />
+                    <img src="/img/mainLogo.svg" onClick={() => navigate('/pds')} style={{ cursor: "pointer" }} />
                     <Menus>
                         <Link to='/pastrecords' className="flex items-center"><img src="/img/지난기록들.svg" style={{ cursor: "pointer" }} /></Link>
                         <Menu.Button className="relative flex rounded-full">
