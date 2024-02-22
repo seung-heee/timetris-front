@@ -4,9 +4,15 @@ import EmptyCategory from './EmptyCategory';
 import { CategoryContext } from '../../context/CategoryContext';
 
 const Category = () => {
-    // const { isOpen, setIsOpen } = useContext(CategoryContext);
-    const { ModalHandler } = useContext(CategoryContext);
-    const [isCategory, setIsCategory] = useState(true);
+    const { myCategory, ModalHandler, ShowCategoryList } = useContext(CategoryContext);
+    const [isCategory, setIsCategory] = useState();
+
+    useEffect(() => {
+        if (myCategory.length === 0) setIsCategory(false) // 카테고리 목록 비어있을 때 : EmptyCategory
+        else setIsCategory(true)
+
+        ShowCategoryList();
+    }, [myCategory])
 
     return (
         <div className='w-[500px] h-[236px] bg-[#F6F6F6] rounded-md px-5 pt-5'>

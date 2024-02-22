@@ -18,8 +18,6 @@ export const ExitBtn = styled.button`
 const FooterModal = ({type}) => {
     const { myCategory, ModalHandler, HandleAddCategory, addCategory, fixCategory} = useContext(CategoryContext);
 
-    
-
     return (
         <div className='flex'>
             {(type === "Add" || type === "Fix") && <>

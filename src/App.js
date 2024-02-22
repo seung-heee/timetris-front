@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import TempCategory from "./pages/TempCategory";
 import AddCategory from "./components/category/AddCategory";
 import DragNDrop from "./pages/DragNDrop";
+import PastRecords from "./pages/PastRecords";
 
 function App() {
   let [login, setLogin] = useState(false)
@@ -42,6 +43,7 @@ function App() {
           <Route path='/tempcategory' element={<TempCategory />} />
           <Route path='/dragNdrop' element={<DragNDrop />} />
           <Route path='/pds' element={<Pds />} />
+          <Route path='/pastrecords' element={<PastRecords />} />
         </Routes>
       </div>
     </div>
