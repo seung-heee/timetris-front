@@ -13,10 +13,10 @@ import InputEle from '../components/category/categoryModal/ModalElement/InputEle
 const TempCategory = () => {
     // 토큰
     const headers = {
-        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODU0NDc4NSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.YZ1oGyr5f7WGHqs68ECoMeQGjzI_iG90Ycv5PUo6L4m2uTavPUoqsR5FYT35PbBe6oPBshFiEgukzwrqX5jB8w`
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODYyMzU4OCwiZW1haWwiOiJqaWV1bjc3NjEyMUBnbWFpbC5jb20iLCJtZW1iZXJJZCI6Nn0.lon6QThTkqKlyGNtkOGdztIbOoC6_r2D7GNF5ZhpXT4LRTTUrl2jMYjRwUX73imPpFscz3RisxTeVjtmiB41Hg`
     };
     // 색상 코드
-    const selectColorCode = ["#e15d5e","#f0b0a9","#f3bec7","#ee82a1","#edb18c","#f49963","#f48068","#eccd85","#f3bd72", "#96d4bf","#79a5c8", "#4692bb", "#53bfcc", "#88d7da","#d0b8de"]
+    const selectColorCode = ["#e15d5e", "#f0b0a9", "#f3bec7", "#ee82a1", "#edb18c", "#f49963", "#f48068", "#eccd85", "#f3bd72", "#96d4bf", "#79a5c8", "#4692bb", "#53bfcc", "#88d7da", "#d0b8de"]
     // 모달 띄우기 state
     const [state, setState] = useState({
         isAddOpen: false,
@@ -25,18 +25,18 @@ const TempCategory = () => {
         isDoOpen: false,
     })
     // 카테고리 추가
-    const [addCategory, setAddCategory]= useState({
+    const [addCategory, setAddCategory] = useState({
         name: "",
         colorCode: ""
     })
     // 카테고리 수정
-    const [fixCategory, setFixCategory]= useState({
+    const [fixCategory, setFixCategory] = useState({
         name: "",
         colorCode: ""
     })
     const [categoryId, setCategoryId] = useState(0);
     const [myCategory, setMyCategory] = useState([]); // 카테고리 조회
-    
+
     // Plan 등록
     const [addPlan, setAddPlan] = useState({
         planRequestDTO: {
@@ -59,7 +59,7 @@ const TempCategory = () => {
         endTime: "",
         categoryId: 0
     })
-    
+
     const [selectedDay, setSelectedDay] = useState();
 
     // 모달 창 열고 닫기
@@ -73,7 +73,7 @@ const TempCategory = () => {
     const ShowCategoryList = async () => {
         try {
             const response = await axios.get(`http://43.203.6.58:8080/category`, { headers });
-            setMyCategory(response.data.result); 
+            setMyCategory(response.data.result);
         } catch (error) {
             console.error('에러:', error);
         }
@@ -82,7 +82,7 @@ const TempCategory = () => {
     // API 연동 함수
     const HandleAddCategory = async (type) => {
         try {
-            switch(type) {
+            switch (type) {
                 case 'Fix':
                     await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, { headers });
                     setFixCategory({
@@ -127,10 +127,10 @@ const TempCategory = () => {
             }
 
             setCategoryId('')
-            
-        } catch(error) {
+
+        } catch (error) {
             console.log('에러:', error)
-        }        
+        }
     }
     // 반복일정
     const handleRepeatCheck = (e) => {
@@ -139,15 +139,17 @@ const TempCategory = () => {
     };
 
     return (
-        <CategoryContext.Provider 
-        value={{ state, setState, ModalHandler, selectColorCode, 
+        <CategoryContext.Provider
+            value={{
+                state, setState, ModalHandler, selectColorCode,
                 addCategory, setAddCategory, HandleAddCategory,
                 selectedDay, handleRepeatCheck,
                 categoryId, setCategoryId,
                 myCategory, setMyCategory, ShowCategoryList,
                 fixCategory, setFixCategory,
                 addPlan, setAddPlan,
-                doPlan, setDoPlan }}>
+                doPlan, setDoPlan
+            }}>
             <Category />
             <AddModal />
             <FixModal />
