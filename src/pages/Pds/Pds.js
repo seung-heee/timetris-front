@@ -4,17 +4,9 @@ import PdsTable from './PdsTable';
 import '../../css/pds.css'
 import * as API from '../../api/API'
 import { PDSTableContext } from '../../context/PDSTableContext';
-import data from './api연습'
 import Footer from '../../components/Footer';
 
 const Pds = () => {
-    // 1. main data GET!
-    // data 박아놓기
-    console.log(data.result.doViewDTOList[0].title)
-    const planData = data.result.planViewDTOList[0]
-    const doData = data.result.doViewDTOList[0]
-    const seeData = data.result.seeViewDTO[0]
-    const name = data.result.userName
 
     const setToken = (key, token) => {
         if (token) {
@@ -22,23 +14,32 @@ const Pds = () => {
         }
     }
     const [accessToken, setAccessToken] = useState(sessionStorage.getItem('Authorization'));
+    const [planDatas, setPlanDatas] = useState([]);
+    const [doData, setDoData] = useState([]);
+    const [seeData, setSeeData] = useState([]);
+    const [name, setName] = useState('');
 
     useEffect(() => {
         const AuthorizationCode = new URL(window.location.href).searchParams.get('accessToken'); //url에서 AuthorizationCode를 가져옴
-
         setToken('Authorization', AuthorizationCode);
         setAccessToken(AuthorizationCode);
     }, [accessToken]);
 
-    const getToken = async () => {
-        const data = await API.get('/main')
-        console.log(data)
-    }
-    useEffect(() => { getToken() }, [])
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await API.get('/main');
+            setPlanDatas(data.result.planViewDTOList);
+            setDoData(data.result.doViewDTOList);
+            setSeeData(data.result.seeViewDTO);
+            setName(data.result.userName);
+        }
+        fetchData();
+    }, [planDatas, doData, seeData, name]);
+
     return (
         <PDSTableContext.Provider
             value={{
-                planData, doData, seeData, name
+                planDatas, doData, seeData, name
             }}
         >
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -46,7 +47,6 @@ const Pds = () => {
                     <PdsLeft />
                     <PdsTable />
                 </div>
-
             </div>
             <Footer />
         </PDSTableContext.Provider>
