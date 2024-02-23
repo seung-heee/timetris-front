@@ -46,6 +46,8 @@ const Pds = () => {
     // 색상 코드
     const selectColorCode = ["#e15d5e", "#f0b0a9", "#f3bec7", "#ee82a1", "#edb18c", "#f49963", "#f48068", "#eccd85", "#f3bd72", "#96d4bf", "#79a5c8", "#4692bb", "#53bfcc", "#88d7da", "#d0b8de"]
     
+    
+    
     // 모달 띄우기 state
     const [state, setState] = useState({
         isAddOpen: false,
@@ -65,6 +67,8 @@ const Pds = () => {
     })
     const [categoryId, setCategoryId] = useState(0);
     const [myCategory, setMyCategory] = useState([]); // 카테고리 조회
+    const [today, setToday] = useState();
+    const [timeData, setTimeData] = useState([0, 0]); // 시간 정보 저장
 
     // Plan 등록
     const [addPlan, setAddPlan] = useState({
@@ -82,10 +86,10 @@ const Pds = () => {
     });
 
     // Do 등록
-    const [doPlan, setDoPlan] = useState({
+    const [addDo, setAddDo] = useState({
         title: "",
-        startTime: "",
-        endTime: "",
+        startTime: timeData[0],
+        endTime: timeData[1],
         categoryId: 0
     })
 
@@ -107,6 +111,14 @@ const Pds = () => {
             console.error('에러:', error);
         }
     }
+
+    useEffect(() => {
+        setAddDo(prevAddDo => ({
+            ...prevAddDo,
+            startTime: timeData[0],
+            endTime: timeData[1]
+        }));
+    }, [timeData]);
 
     // API 연동 함수
     const HandleAddCategory = async (type) => {
@@ -141,13 +153,15 @@ const Pds = () => {
                     });
                     break;
                 default:
-                    await API.post('/do', doPlan);
-                    setDoPlan({
+                    console.log(addDo);
+                    await API.post('/do-controller', addDo);
+                    setAddDo({
                         title: "",
                         startTime: "",
                         endTime: "",
                         categoryId: 0
                     });
+                    alert('작업이 성공적으로 저장되었습니다.'); // 사용자에게 알림 보여주기
                     break;
             }
 
@@ -163,7 +177,6 @@ const Pds = () => {
         setSelectedDay(prevSelectedDay => prevSelectedDay !== value ? value : null);
     };
 
-
     return (
         <CategoryContext.Provider 
         value={{ state, setState, ModalHandler, selectColorCode, 
@@ -173,7 +186,8 @@ const Pds = () => {
                 myCategory, setMyCategory, ShowCategoryList,
                 fixCategory, setFixCategory,
                 addPlan, setAddPlan,
-                doPlan, setDoPlan
+                addDo, setAddDo, today, setToday, 
+                timeData, setTimeData
             }}>
             <PDSTableContext.Provider
                 value={{

@@ -14,6 +14,7 @@ import DragNDrop from "./pages/DragNDrop";
 import Footer from "./components/Footer";
 
 import PastRecords from "./pages/PastRecords";
+import DoModal from "./components/category/categoryModal/DoModal";
 
 function App() {
   let [login, setLogin] = useState(false)
@@ -46,6 +47,7 @@ function App() {
           <Route path='/dragNdrop' element={<DragNDrop />} />
           <Route path='/pds' element={<Pds />} />
           <Route path='/pastrecords' element={<PastRecords />} />
+          <Route path='/domodal' element={<DoModal />} />
         </Routes>
       </div>
       <Footer />

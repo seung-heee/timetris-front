@@ -4,15 +4,15 @@ import { CategoryContext } from '../../../../context/CategoryContext';
 const InputEle = ({type}) => {
     const text = type === 'Plan' ? '할 일(Plan)' : '한 일(Do)'
     const [repeat, setRepeat] = useState(false);
-    const { addPlan, setAddPlan, doPlan, setDoPlan } = useContext(CategoryContext);
+    const { addPlan, setAddPlan, addDo, setAddDo } = useContext(CategoryContext);
 
     return (
         <>
         <div className='mb-6 w-10/12 mx-auto text-start'>
             <input 
                 className='pb-1 mb-1 w-full color-[#cfcfcf] border-b-[1px] border-[#cfcfcf]' type="text" 
-                placeholder={`이곳에 ${text})을 적어주세요.`}
-                value={type==='Plan' ? addPlan.title : doPlan.title}
+                placeholder={`이곳에 ${text}을 적어주세요.`}
+                value={type==='Plan' ? addPlan.text : addDo.text}
                 onChange={(e)=> {
                     if(type==='Plan') {
                         setAddPlan(prevState => ({
@@ -23,7 +23,7 @@ const InputEle = ({type}) => {
                             }
                         }));
                     } else {
-                        setDoPlan(prevState => ({
+                        setAddDo(prevState => ({
                             ...prevState,
                             title: e.target.value
                         }))

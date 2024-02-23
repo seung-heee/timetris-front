@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { CategoryContext } from '../../../../context/CategoryContext';
 
 const CategoryList = ({type}) => {
-    const {myCategory, categoryId, setCategoryId, addPlan, setAddPlan, doPlan, setDoPlan} = useContext(CategoryContext);
+    const {myCategory, categoryId, setCategoryId, addPlan, setAddPlan, addDo, setAddDo} = useContext(CategoryContext);
     
     return (
         <div className="bg-[#f1f1f1] px-[10px] pt-[10px] h-[280px] rounded-[20px] overflow-y-auto">
@@ -22,7 +22,7 @@ const CategoryList = ({type}) => {
                                     }
                                 }));
                             } else if(type === 'Do') {
-                                setDoPlan(prevState => ({
+                                setAddDo(prevState => ({
                                     ...prevState,
                                     categoryId: categoryId
                                 }))

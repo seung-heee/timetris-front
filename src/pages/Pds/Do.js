@@ -60,7 +60,7 @@ const DoClick = styled.button`
 
 const Do = () => {
     const { doData } = useContext(PDSTableContext)
-    const { state, ModalHandler } = useContext(CategoryContext);
+    const { state, ModalHandler, timeData, setTimeData } = useContext(CategoryContext);
 
     const isCheckedCell = () => {
         let normalizedStartHour = doData.startTime.hour;
@@ -106,11 +106,6 @@ const Do = () => {
         tableData.push(rowData);
     }
     const [ref, value] = useTableDragSelect(tableData);
-    // useEffect(() => {
-    //     handleDragEnd();
-    // }, [value]);
-
-    const [timeData, setTimeData] = useState([0, 0]); // 시간 정보 저장
 
     // Do Modal Open 함수
     const handleDragEnd = () => {
@@ -119,14 +114,11 @@ const Do = () => {
         }));
         
         const filteredTimeData = newTimeData.flat().filter(cell => cell !== 0);
-        setTimeData(filteredTimeData);
 
-        const startTime = Math.min(...filteredTimeData); 
-        const endTime = Math.max(...filteredTimeData); 
-        setTimeData([startTime, endTime])
-        
+        const minData = Math.min(...filteredTimeData); 
+        const maxData = Math.max(...filteredTimeData); 
+        setTimeData([minData, maxData])
         ModalHandler("isDoOpen");
-        console.log(timeData)
     };
 
     // 각 행을 나타내는 JSX 배열을 생성
@@ -158,7 +150,7 @@ const Do = () => {
 
     return (
         <DoContainer >
-            {state.isDoOpen && <DoModal timeData={timeData}/>}
+            {state.isDoOpen && <DoModal />}
             <DoClick onClick={()=>{handleDragEnd()}}>DO 드래그 완료하면 이곳을 눌러주세요!</DoClick>
             <DoTable ref={ref}
             //  onMouseUp={(e) => handleMouseUp(e)} onMouseDown={handleMouseDown}
@@ -176,26 +168,28 @@ const Do = () => {
 }
 export default Do
 
-const DoModal = ({timeData}) => {
-    const { state, ModalHandler } = useContext(CategoryContext);
-    
+const DoModal = () => {
+    const { state, ModalHandler, today, timeData, setTimeData } = useContext(CategoryContext);
+
     const num = timeData[0] >= 100 ? 2 : 1;
-    const startHour = timeData[0].toString().substring(0, num);
-    const startMinute = timeData[0].toString().substring(num);
-    const endHour = parseInt(timeData[1].toString().substring(0, num))
-    const endMinute = parseInt(timeData[1].toString().substring(num))
+    const startHour = parseInt(timeData[0].toString().substring(0, num));
+    const startMinute = parseInt(timeData[0].toString().substring(num));
+    const endHour = parseInt(timeData[1].toString().substring(0, num));
+    const endMinute = parseInt(timeData[1].toString().substring(num));
     
-    const startTime = `${startHour}:${startMinute-1}0`;
-    const endTime = endMinute === 6 ? `${endHour+1}:00` : `${endHour}:${endMinute}0`
-    
+   useEffect(()=>{
+        const startTime = `${startHour}:${startMinute - 1}0`;
+        const endTime = endMinute === 6 ? `${endHour + 1}:00` : `${endHour}:${endMinute}0`;
+        setTimeData([startTime, endTime])
+    }, [])
+
     return (
         <>
         {/* <button onClick={()=>{ModalHandler("isDoOpen")}}>Do</button> */}
         {state.isDoOpen && 
             <div className='fixed z-10 flex justify-center items-center bg-[rgba(0,0,0,0.4)] rounded-[10px] top-0 left-0 right-0 bottom-0'>
                 <div onClick={(e) => e.stopPropagation()} className='flex flex-col justify-start items-center rounded-[20px] p-[30px] w-[800px] bg-[#fff]'>
-                    <HeaderModal title={'Do 선택한 날짜'} type={'Do'} startTime={startTime} endTime={endTime}/>
-                    {startTime} ~ {endTime}
+                    <HeaderModal type={'Do'} />
 
                     <InputEle type={'Do'} />
                     <div className='flex justify-between w-11/12 items-center'>
