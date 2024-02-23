@@ -1,7 +1,13 @@
 import styled from "styled-components"
 import * as API from '../../api/API'
 import { PDSTableContext } from '../../context/PDSTableContext';
+import { CategoryContext } from '../../context/CategoryContext';
 import { useContext, useState } from "react";
+import HeaderModal from '../../components/category/categoryModal/ModalElement/HeaderModal';
+import CategoryListBox from '../../components/category/categoryModal/ModalElement/CategoryListBox';
+import SelectedCategory from '../../components/category/categoryModal/ModalElement/SelectedCategory';
+import FooterModal from '../../components/category/categoryModal/ModalElement/FooterModal';
+import InputEle from '../../components/category/categoryModal/ModalElement/InputEle';
 
 const PlanContainer = styled.div`
 
@@ -47,6 +53,7 @@ const PlanTableCell = styled.td`
 
 const Plan = () => {
     const { planData } = useContext(PDSTableContext)
+    const { timeData, state, setTimeData, ModalHandler} = useContext(CategoryContext);
 
     const Time = ["4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM",
         "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM"
@@ -64,6 +71,11 @@ const Plan = () => {
         }
         tableData.push(rowData);
     }
+        // Do Modal Open 함수
+        const handleClickPlan = (Hour) => {
+            setTimeData(Hour+4);            
+            ModalHandler("isPlanOpen");
+        };
 
     const checkColoredCell = () => {
         let normalizedStartHour = planData.startTime.hour;
@@ -104,7 +116,9 @@ const Plan = () => {
                 const isColoredCell = colIndex == 0 && planedCellIndex.includes(rowIndex)
                 const isStartTimeCell = colIndex == 0 && rowIndex == normalizedStartHour;
                 return (
-                    <PlanTableCell key={colIndex} style={{ backgroundColor: isColoredCell ? planData.category.colorCode : '#F6F6F6' }}>
+                    <PlanTableCell 
+                        onClick={()=>{handleClickPlan(rowIndex)}}
+                        key={colIndex} style={{ backgroundColor: isColoredCell ? planData.category.colorCode : '#F6F6F6' }}>
                         {isStartTimeCell
                             ? planData.title : ""
                         }
@@ -117,6 +131,7 @@ const Plan = () => {
 
     return (
         <PlanContainer>
+            {state.isPlanOpen && <PlanModal />}
             <PlanTable>
                 <TableHead>
                     <tr>
@@ -128,20 +143,26 @@ const Plan = () => {
                     {tableRows}
                 </tbody>
             </PlanTable>
-            {/* <CategoryContext.Provider
-                value={{
-                    state, setState, ModalHandler, selectColorCode,
-                    addCategory, setAddCategory, HandleAddCategory,
-                    selectedDay, handleRepeatCheck,
-                    categoryId, setCategoryId,
-                    myCategory, setMyCategory, ShowCategoryList,
-                    fixCategory, setFixCategory,
-                    addPlan, setAddPlan,
-                    doPlan, setDoPlan
-                }}>
-                <PlanModal />
-            </CategoryContext.Provider> */}
         </PlanContainer>
     )
 }
 export default Plan
+
+const PlanModal = () => {
+    const { state, ModalHandler } = useContext(CategoryContext);
+    return (
+        <>
+        <button onClick={() => { ModalHandler("isPlanOpen") }} className='fixed z-10 flex justify-center items-center bg-[rgba(0,0,0,0.4)] rounded-[10px] top-0 left-0 right-0 bottom-0'>
+            <button onClick={(e) => e.stopPropagation()} className='flex flex-col justify-start items-center rounded-[20px] p-[30px] w-[800px] bg-[#fff]'>
+                <HeaderModal title={'Plan 선택한 날짜'} type={'Plan'} />
+                <InputEle type={'Plan'} />
+                <div className='flex justify-between w-11/12 items-center'>
+                    <CategoryListBox text={'카테고리를 선택해주세요.'} type={"Plan"} />
+                    <SelectedCategory type={"Plan"} />
+                </div>
+                <FooterModal type={'Plan'} />
+            </button>
+        </button>
+        </>
+    );
+};

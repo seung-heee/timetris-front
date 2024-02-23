@@ -44,8 +44,6 @@ const FooterModal = ({type}) => {
                     }  else {
                         HandleAddCategory(type)
                     }} else {
-                        console.log('plan', addPlan)
-                        console.log('do', addDo)
                         HandleAddCategory(type);
                     }
                 }}>

@@ -3,24 +3,13 @@ import { CategoryContext } from '../../../../context/CategoryContext';
 import { ExitBtn } from './FooterModal';
 
 const HeaderModal = ({type}) => {
-    const { ModalHandler, today } = useContext(CategoryContext);
-    // const [ time, setTime ] = useState({
-    //     startTime: startTime,
-    //     endTime: endTime,
-    // })
-
-    // const handleTimeChange = (e) =>{
-    //     const { name, value } = e.target;
-    //     setTime(prevState => ({
-    //         ...prevState,
-    //         [name]: value,
-    //     }));
-    // }
+    const { ModalHandler, today, timeData } = useContext(CategoryContext);
 
     return (
         <div className="flex justify-between items-center mb-[10px] w-11/12">
             <div className='text-[28px] text-[#383838] font-bold'>{today}</div>
-            {(type==='Plan' || type ==='Do')&& <SetPlanTime/>}
+            <span className="text-2xl">{timeData}시</span>
+            {type ==='Do'&& <SetPlanTime/>}
             <ExitBtn onClick={()=>{ModalHandler(`is${type}Open`)}}>닫기</ExitBtn>
         </div>
     );

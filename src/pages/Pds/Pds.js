@@ -12,8 +12,16 @@ import AddModal from '../../components/category/categoryModal/AddModal';
 import FixModal from '../../components/category/categoryModal/FixModal';
 import PlanModal from '../../components/category/categoryModal/PlanModal';
 import DoModal from '../../components/category/categoryModal/DoModal';
+import { useNavigate } from 'react-router-dom';
+import App from '../../App';
+import axios from 'axios';
 
 const Pds = () => {
+    // 토큰
+    const headers = {
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcwOTk1NCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.zT5ehvq5n4r_f6OgOdzvslbHFbrOfS0ud5n6hwsAsRD8e_KNtkuFGPSehBRU-vYJaWuIox8PYOuXLrginX4iwA
+        `};
+    const navigate = useNavigate(); // 페이지 이동처리해보려고 추가
     // 1. main data GET!
     // data 박아놓기
     // console.log(data.result.doViewDTOList[0].title)
@@ -46,8 +54,6 @@ const Pds = () => {
     // 색상 코드
     const selectColorCode = ["#e15d5e", "#f0b0a9", "#f3bec7", "#ee82a1", "#edb18c", "#f49963", "#f48068", "#eccd85", "#f3bd72", "#96d4bf", "#79a5c8", "#4692bb", "#53bfcc", "#88d7da", "#d0b8de"]
     
-    
-    
     // 모달 띄우기 state
     const [state, setState] = useState({
         isAddOpen: false,
@@ -69,7 +75,8 @@ const Pds = () => {
     const [myCategory, setMyCategory] = useState([]); // 카테고리 조회
     const [today, setToday] = useState();
     const [timeData, setTimeData] = useState([0, 0]); // 시간 정보 저장
-
+    const [selectedDay, setSelectedDay] = useState();
+    
     // Plan 등록
     const [addPlan, setAddPlan] = useState({
         planRequestDTO: {
@@ -93,7 +100,7 @@ const Pds = () => {
         categoryId: 0
     })
 
-    const [selectedDay, setSelectedDay] = useState();
+    
 
     // 모달 창 열고 닫기
     const ModalHandler = (openState) => {
@@ -133,13 +140,23 @@ const Pds = () => {
                     break;
                 case 'Delete':
                     await API.delete(`/category/${categoryId}`);
+                    setFixCategory({
+                        name: '',
+                        colorCode: '',
+                    });
                     break;
                 case 'Add':
                 case 'AddModal':
                     await API.post('/category', addCategory);
+                    ModalHandler(`isAddOpen`)
+                    setAddCategory({
+                        name: '',
+                        colorCode: '',
+                    });
                     break;
                 case 'Plan':
                     await API.post('/plan', addPlan);
+
                     setAddPlan({
                         planRequestDTO: {
                             title: "",
@@ -153,16 +170,16 @@ const Pds = () => {
                     });
                     break;
                 default:
-                    console.log(addDo);
-                    await API.post('/do-controller', addDo);
+                    console.log(addDo); // 데이터는 잘 감
+                    const response = await axios.post('http://43.203.6.58:8080/do', addDo, { headers });
+                    console.log(response)
                     setAddDo({
                         title: "",
                         startTime: "",
                         endTime: "",
                         categoryId: 0
                     });
-                    alert('작업이 성공적으로 저장되었습니다.'); // 사용자에게 알림 보여주기
-                    break;
+                    navigate('/pds'); // 404로 요청 후 페이지 이동시켜봄
             }
 
             setCategoryId('')
