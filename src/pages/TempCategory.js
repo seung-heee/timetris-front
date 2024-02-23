@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Category from '../components/category/Category';
 import '../css/category.css';
 import { CategoryContext } from '../context/CategoryContext';
@@ -7,14 +7,11 @@ import AddModal from '../components/category/categoryModal/AddModal';
 import FixModal from '../components/category/categoryModal/FixModal';
 import PlanModal from '../components/category/categoryModal/PlanModal';
 import DoModal from '../components/category/categoryModal/DoModal';
-import axios from 'axios';
+import * as API from '../api/API';
 import InputEle from '../components/category/categoryModal/ModalElement/InputEle';
 
 const TempCategory = () => {
-    // 토큰
-    const headers = {
-        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODYyMzU4OCwiZW1haWwiOiJqaWV1bjc3NjEyMUBnbWFpbC5jb20iLCJtZW1iZXJJZCI6Nn0.lon6QThTkqKlyGNtkOGdztIbOoC6_r2D7GNF5ZhpXT4LRTTUrl2jMYjRwUX73imPpFscz3RisxTeVjtmiB41Hg`
-    };
+
     // 색상 코드
     const selectColorCode = ["#e15d5e", "#f0b0a9", "#f3bec7", "#ee82a1", "#edb18c", "#f49963", "#f48068", "#eccd85", "#f3bd72", "#96d4bf", "#79a5c8", "#4692bb", "#53bfcc", "#88d7da", "#d0b8de"]
     // 모달 띄우기 state
@@ -72,8 +69,8 @@ const TempCategory = () => {
 
     const ShowCategoryList = async () => {
         try {
-            const response = await axios.get(`http://43.203.6.58:8080/category`, { headers });
-            setMyCategory(response.data.result);
+            const response = await API.get('/category')
+            setMyCategory(response.result);
         } catch (error) {
             console.error('에러:', error);
         }
@@ -84,25 +81,29 @@ const TempCategory = () => {
         try {
             switch (type) {
                 case 'Fix':
-                    await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, { headers });
+                    await API.put(`/category/${categoryId}`, fixCategory)
+                    // await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, { headers });
                     setFixCategory({
                         name: '',
                         colorCode: '',
                     });
                     break;
                 case 'Delete':
-                    await axios.delete(`http://43.203.6.58:8080/category/${categoryId}`, { headers });
+                    await API.delete(`/category/${categoryId}`);
+                    // await axios.delete(`http://43.203.6.58:8080/category/${categoryId}`, { headers });
                     break;
                 case 'Add':
                 case 'AddModal':
-                    await axios.post('http://43.203.6.58:8080/category', addCategory, { headers });
+                    await API.post('/category', addCategory);
+                    // await axios.post('http://43.203.6.58:8080/category', addCategory, { headers });
                     setAddCategory({
                         name: '',
                         colorCode: '',
                     });
                     break;
                 case 'Plan':
-                    await axios.post('http://43.203.6.58:8080/plan', addPlan, { headers });
+                    await API.post('/plan', addPlan);
+                    // await axios.post('http://43.203.6.58:8080/plan', addPlan, { headers });
                     setAddPlan({
                         planRequestDTO: {
                             title: "",
@@ -116,7 +117,8 @@ const TempCategory = () => {
                     });
                     break;
                 default:
-                    await axios.post('http://43.203.6.58:8080/do', doPlan, { headers });
+                    await API.post('/do', doPlan);
+                    // await axios.post('http://43.203.6.58:8080/do', doPlan, { headers });
                     setDoPlan({
                         title: "",
                         startTime: "",
