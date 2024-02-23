@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { images } from '../../utils/images';
 import styled from 'styled-components'
 import Plan from './Plan';
 import Do from './Do';
 import See from './See';
-// import { PDSTableContext } from '../../context/PDSTableContext';
-// import data from './api연습'
 
 const TableContainer = styled.div`
     display : flex;
@@ -58,14 +56,9 @@ const BottomContainer = styled.div`
 `
 
 const PdsTable = () => {
-    // // 1. main data GET!
-    // // data 박아놓기
-    // console.log(data.result.doViewDTOList[0].title)
-    // const planData = data.result.planViewDTOList[0]
-    // const doData = data.result.doViewDTOList[0]
-    // const seeData = data.result.seeViewDTO[0]
 
     const [showAlert, setShowAlert] = useState(false);
+    // const [planok, setPlanok] = useState(planDatas.length > 0)
 
     // 버튼을 누를 때 알림 보이기
     const handleButtonClick = () => {
@@ -101,7 +94,7 @@ const PdsTable = () => {
                 <Mix>
                     <TopContainer>
                         <Plan />
-                        <Do />
+                        < Do />
                     </TopContainer>
                     <BottomContainer>
                         <See />

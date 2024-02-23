@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import Button from "../../components/Button"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import { PDSTableContext } from '../../context/PDSTableContext';
+import * as API from '../../api/API'
 
 const SeeContainer = styled.div`
     width: 1090.5px;
@@ -45,10 +47,19 @@ const Textarea = styled.textarea`
 `
 
 const See = () => {
+    const { seeData } = useContext(PDSTableContext)
 
+    let content = ""
+    if (seeData.length > 0) {
+        content = seeData[0].content
+    }
     const [activeBtn, setActiveBtn] = useState(false)
     const [writeBtn, setWriteBtn] = useState(false)
-    const [seeContent, setSeeContent] = useState('')
+    const [seeContent, setSeeContent] = useState(content)
+
+    const submitData = {
+        content: seeContent
+    }
 
     const ChangeText = (e) => {
         setSeeContent(e.target.value)
@@ -61,10 +72,10 @@ const See = () => {
             setActiveBtn(false)
         }
     }, [seeContent])
-
-    const submitText = () => {
+    const submitText = async () => {
+        // const data = await API.put('/see/0', submitData)
         setWriteBtn(!writeBtn)
-        console.log(seeContent)
+        // console.log(submitData)
     }
 
     return (
@@ -73,7 +84,7 @@ const See = () => {
             <Text>
                 <Textarea className="content" placeholder="오늘 하루는 어떠셨나요?"
                     disabled={writeBtn}
-                    onChange={ChangeText} />
+                    onChange={ChangeText}>{content}</Textarea>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <></>
                     <Button
