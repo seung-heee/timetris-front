@@ -19,7 +19,7 @@ import axios from 'axios';
 const Pds = () => {
     // 토큰
     const headers = {
-        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcwOTk1NCwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.zT5ehvq5n4r_f6OgOdzvslbHFbrOfS0ud5n6hwsAsRD8e_KNtkuFGPSehBRU-vYJaWuIox8PYOuXLrginX4iwA
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcxMzQ5OSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.9By5maaZAYZRHii8tY723P2YzS-pSnF1Uk4XurgAaHEwVln7rwL0a4XL_xQ3rNz09lZUU-JVYhEQa3JUoloCpQ
         `};
     const navigate = useNavigate(); // 페이지 이동처리해보려고 추가
     // 1. main data GET!
@@ -75,8 +75,8 @@ const Pds = () => {
     const [myCategory, setMyCategory] = useState([]); // 카테고리 조회
     const [today, setToday] = useState();
     const [timeData, setTimeData] = useState([0, 0]); // 시간 정보 저장
-    const [selectedDay, setSelectedDay] = useState();
-    
+    const [selectedDay, setSelectedDay] = useState([]);
+
     // Plan 등록
     const [addPlan, setAddPlan] = useState({
         planRequestDTO: {
@@ -86,9 +86,7 @@ const Pds = () => {
             categoryId: 0
         },
         cycleRequestDTO: {
-            cycling: [
-                ""
-            ]
+            cycling: []
         }
     });
 
@@ -146,7 +144,6 @@ const Pds = () => {
                     });
                     break;
                 case 'Add':
-                case 'AddModal':
                     await API.post('/category', addCategory);
                     ModalHandler(`isAddOpen`)
                     setAddCategory({
@@ -154,9 +151,18 @@ const Pds = () => {
                         colorCode: '',
                     });
                     break;
+                case 'AddModal':
+                    await API.post('/category', addCategory);
+                    setAddCategory({
+                        name: '',
+                        colorCode: '',
+                    });
+                    break;
                 case 'Plan':
-                    await API.post('/plan', addPlan);
-
+                    //await API.post('/plan', addPlan);
+                    console.log(addPlan)
+                    ModalHandler(`isPlanOpen`)
+                    await axios.post('http://43.203.6.58:8080/plan', addPlan, { headers });
                     setAddPlan({
                         planRequestDTO: {
                             title: "",
@@ -165,14 +171,15 @@ const Pds = () => {
                             categoryId: 0
                         },
                         cycleRequestDTO: {
-                            cycling: [""]
+                            cycling: []
                         }
                     });
+                    setSelectedDay([]);
                     break;
                 default:
-                    console.log(addDo); // 데이터는 잘 감
                     const response = await axios.post('http://43.203.6.58:8080/do', addDo, { headers });
                     console.log(response)
+                    ModalHandler(`isDoOpen`)
                     setAddDo({
                         title: "",
                         startTime: "",
@@ -189,9 +196,24 @@ const Pds = () => {
         }
     }
     // 반복일정
-    const handleRepeatCheck = (e) => {
-        const { value } = e.target;
-        setSelectedDay(prevSelectedDay => prevSelectedDay !== value ? value : null);
+    const handleRepeatCheck = (event) => {
+        const { value, checked } = event.target;
+
+        if (checked) {
+            setSelectedDay(prevCheckedDays => [...prevCheckedDays, value]); // 체크된 요일을 배열에 추가
+        } else {
+            setSelectedDay(prevCheckedDays => prevCheckedDays.filter(day => day !== value)); // 체크 해제된 요일을 배열에서 제거
+        }
+        const uniqueSelectedDays = [...new Set(selectedDay)];
+
+        setAddPlan(prevState => ({
+            cycleRequestDTO: {
+                cycling: uniqueSelectedDays
+            },
+            planRequestDTO: {
+                ...prevState.planRequestDTO
+            }
+        }));
     };
 
     return (

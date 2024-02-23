@@ -40,7 +40,7 @@ const InputEle = ({type}) => {
         </div>
 
         {repeat ? <>
-            <RepeatRadio repeat={repeat} setRepeat={setRepeat} />
+            <RepeatRadio  />
         </> : ''}
         </>
     );
@@ -52,15 +52,14 @@ const RepeatRadio = () => {
     const { selectedDay, handleRepeatCheck } = useContext(CategoryContext);
 
     return (
-        <div className='grid grid-cols-8 gap-5 pb-8'>
-            <label><input type="radio" name="repeatDay" value="ALL" checked={selectedDay === "ALL"} onChange={handleRepeatCheck} /> 매일</label>
-            <label><input type="checkbox" name="repeatDay" value="MON" checked={selectedDay === "MON"} onChange={handleRepeatCheck} /> 매주 월</label>
-            <label><input type="checkbox" name="repeatDay" value="TUE" checked={selectedDay === "TUE"} onChange={handleRepeatCheck} /> 매주 화</label>
-            <label><input type="checkbox" name="repeatDay" value="WED" checked={selectedDay === "WED"} onChange={handleRepeatCheck} /> 매주 수</label>
-            <label><input type="checkbox" name="repeatDay" value="THU" checked={selectedDay === "THU"} onChange={handleRepeatCheck} /> 매주 목</label>
-            <label><input type="checkbox" name="repeatDay" value="FRI" checked={selectedDay === "FRI"} onChange={handleRepeatCheck} /> 매주 금</label>
-            <label><input type="checkbox" name="repeatDay" value="SAT" checked={selectedDay === "SAT"} onChange={handleRepeatCheck} /> 매주 토</label>
-            <label><input type="checkbox" name="repeatDay" value="SUN" checked={selectedDay === "SUN"} onChange={handleRepeatCheck} /> 매주 일</label>
-        </div>
+        <div className='grid grid-cols-7 gap-5 pb-8'>
+            <label><input type="checkbox" name="repeatDay" value="MON" onClick={handleRepeatCheck} /> 매주 월</label>
+            <label><input type="checkbox" name="repeatDay" value="TUE" onClick={handleRepeatCheck} /> 매주 화</label>
+            <label><input type="checkbox" name="repeatDay" value="WED" onClick={handleRepeatCheck} /> 매주 수</label>
+            <label><input type="checkbox" name="repeatDay" value="THU" onClick={handleRepeatCheck} /> 매주 목</label>
+            <label><input type="checkbox" name="repeatDay" value="FRI" onClick={handleRepeatCheck} /> 매주 금</label>
+            <label><input type="checkbox" name="repeatDay" value="SAT" onClick={handleRepeatCheck} /> 매주 토</label>
+            <label><input type="checkbox" name="repeatDay" value="SUN" onClick={handleRepeatCheck} /> 매주 일</label>
+         </div>
     );
 }

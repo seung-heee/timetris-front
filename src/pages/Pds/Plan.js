@@ -2,7 +2,7 @@ import styled from "styled-components"
 import * as API from '../../api/API'
 import { PDSTableContext } from '../../context/PDSTableContext';
 import { CategoryContext } from '../../context/CategoryContext';
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import HeaderModal from '../../components/category/categoryModal/ModalElement/HeaderModal';
 import CategoryListBox from '../../components/category/categoryModal/ModalElement/CategoryListBox';
 import SelectedCategory from '../../components/category/categoryModal/ModalElement/SelectedCategory';
@@ -53,7 +53,7 @@ const PlanTableCell = styled.td`
 
 const Plan = () => {
     const { planData } = useContext(PDSTableContext)
-    const { timeData, state, setTimeData, ModalHandler} = useContext(CategoryContext);
+    const { timeData, state, setTimeData, ModalHandler, setAddPlan} = useContext(CategoryContext);
 
     const Time = ["4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM",
         "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM"
@@ -72,10 +72,20 @@ const Plan = () => {
         tableData.push(rowData);
     }
         // Do Modal Open 함수
-        const handleClickPlan = (Hour) => {
-            setTimeData(Hour+4);            
-            ModalHandler("isPlanOpen");
-        };
+    const handleClickPlan = (Hour) => {
+        setTimeData(Hour+4);            
+        ModalHandler("isPlanOpen");
+    };
+
+    useEffect(()=>{
+        setAddPlan(prevState => ({
+            ...prevState,
+            planRequestDTO: {
+                ...prevState.planRequestDTO,
+                startTime: timeData,
+            }
+        }));
+    }, [timeData])
 
     const checkColoredCell = () => {
         let normalizedStartHour = planData.startTime.hour;

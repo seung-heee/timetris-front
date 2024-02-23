@@ -7,9 +7,15 @@ const HeaderModal = ({type}) => {
 
     return (
         <div className="flex justify-between items-center mb-[10px] w-11/12">
-            <div className='text-[28px] text-[#383838] font-bold'>{today}</div>
-            <span className="text-2xl">{timeData}시</span>
-            {type ==='Do'&& <SetPlanTime/>}
+            <div className="flex items-center">
+                <div className='text-[28px] text-[#383838] font-bold mr-4'>{today}</div>
+                    {type ==='Do' && <SetPlanTime/>}
+                    {type ==='Plan' && 
+                    <div className='flex items-center border-[1px] border-[#A8A8A8] p-2 px-4 rounded-[50px]'>
+                        <span className="text-2xl text-[#A8A8A8]">{timeData}시</span>
+                    </div>}
+
+                </div>
             <ExitBtn onClick={()=>{ModalHandler(`is${type}Open`)}}>닫기</ExitBtn>
         </div>
     );
@@ -21,11 +27,11 @@ const SetPlanTime = () => {
     const { timeData, setTimeData } = useContext(CategoryContext);
 
     return (
-        <div className='flex items-center'>
+        <div className='flex items-center border-[1px] border-[#A8A8A8] p-2 px-4 rounded-[50px]'>
         {/* <input type="text" name='startTime' value={time.startTime} onChange={(e)=>{handleTimeChange(e)}}/>
         <div className='mx-3'>~</div>
         <input type="text" name='endTime' value={time.endTime} onChange={(e)=>{handleTimeChange(e)}}/> */}
-        <span className='text-2xl'>{timeData[0]} ~ {timeData[1]}</span>
+            <span className='text-2xl text-[#A8A8A8]'>{timeData[0]} ~ {timeData[1]}</span>
         </div>
 
     )
