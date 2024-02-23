@@ -12,6 +12,8 @@ import TempCategory from "./pages/TempCategory";
 import AddCategory from "./components/category/AddCategory";
 import DragNDrop from "./pages/DragNDrop";
 import Footer from "./components/Footer";
+import NotFound from "./pages/NotFound/NotFound";
+import Unauthorized from './pages/Unauthorized/Unauthorized'
 
 import PastRecords from "./pages/PastRecords";
 
@@ -46,6 +48,9 @@ function App() {
           <Route path='/dragNdrop' element={<DragNDrop />} />
           <Route path='/pds' element={<Pds />} />
           <Route path='/pastrecords' element={<PastRecords />} />
+          <Route path='/notFound' element={<NotFound />} />
+          <Route path='/unauthorized' element={<Unauthorized />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>
