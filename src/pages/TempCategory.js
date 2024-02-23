@@ -11,7 +11,6 @@ import * as API from '../api/API';
 import InputEle from '../components/category/categoryModal/ModalElement/InputEle';
 
 const TempCategory = () => {
-
     // 색상 코드
     const selectColorCode = ["#e15d5e", "#f0b0a9", "#f3bec7", "#ee82a1", "#edb18c", "#f49963", "#f48068", "#eccd85", "#f3bd72", "#96d4bf", "#79a5c8", "#4692bb", "#53bfcc", "#88d7da", "#d0b8de"]
     // 모달 띄우기 state
@@ -82,7 +81,6 @@ const TempCategory = () => {
             switch (type) {
                 case 'Fix':
                     await API.put(`/category/${categoryId}`, fixCategory)
-                    // await axios.put(`http://43.203.6.58:8080/category/${categoryId}`, fixCategory, { headers });
                     setFixCategory({
                         name: '',
                         colorCode: '',
@@ -90,20 +88,13 @@ const TempCategory = () => {
                     break;
                 case 'Delete':
                     await API.delete(`/category/${categoryId}`);
-                    // await axios.delete(`http://43.203.6.58:8080/category/${categoryId}`, { headers });
                     break;
                 case 'Add':
                 case 'AddModal':
                     await API.post('/category', addCategory);
-                    // await axios.post('http://43.203.6.58:8080/category', addCategory, { headers });
-                    setAddCategory({
-                        name: '',
-                        colorCode: '',
-                    });
                     break;
                 case 'Plan':
                     await API.post('/plan', addPlan);
-                    // await axios.post('http://43.203.6.58:8080/plan', addPlan, { headers });
                     setAddPlan({
                         planRequestDTO: {
                             title: "",
@@ -118,7 +109,6 @@ const TempCategory = () => {
                     break;
                 default:
                     await API.post('/do', doPlan);
-                    // await axios.post('http://43.203.6.58:8080/do', doPlan, { headers });
                     setDoPlan({
                         title: "",
                         startTime: "",
@@ -141,9 +131,8 @@ const TempCategory = () => {
     };
 
     return (
-        <CategoryContext.Provider
-            value={{
-                state, setState, ModalHandler, selectColorCode,
+        <CategoryContext.Provider 
+        value={{ state, setState, ModalHandler, selectColorCode, 
                 addCategory, setAddCategory, HandleAddCategory,
                 selectedDay, handleRepeatCheck,
                 categoryId, setCategoryId,

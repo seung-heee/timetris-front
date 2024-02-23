@@ -90,6 +90,26 @@ const Do = () => {
     }
     const [ref, value] = useTableDragSelect(tableData);
 
+    const [timeData, setTimeData] = useState([]); // 시간 정보 저장
+
+    useEffect(() => {
+        handleDragEnd();
+    }, [value]); // 드래그 발생하면
+
+    const handleDragEnd = () => {
+        const newTimeData = value.map((row, rowIdx) => row.map((col, colIdx) => {
+            return col ? `${rowIdx+4}${colIdx+1}`*1 : 0;
+        }));
+        
+        const filteredTimeData = newTimeData.flat().filter(cell => cell !== 0);
+        setTimeData(filteredTimeData);
+
+        const startTime = Math.min(...timeData); 
+        const endTime = Math.max(...timeData); 
+
+        console.log(startTime, endTime)
+        <PlanModal startTime={startTime} endTime={endTime} />
+    };
 
     // 각 행을 나타내는 JSX 배열을 생성
     const tableRows = value.map((rowData, rowIndex) => (
@@ -97,7 +117,7 @@ const Do = () => {
             {rowData.map((colData, colIndex) => {
                 let isChecked = false
                 const [normalizedStartHour, normalizedStartMin, checkedTable] = isCheckedCell()
-                console.log(normalizedStartHour, normalizedStartMin)
+                // console.log(normalizedStartHour, normalizedStartMin)
                 isChecked = checkedTable[rowIndex][colIndex];
                 return (
                     <DoTableCell key={colIndex}

@@ -6,6 +6,7 @@ import Do from './Do';
 import See from './See';
 // import { PDSTableContext } from '../../context/PDSTableContext';
 // import data from './api연습'
+import PlanModal from '../../components/category/categoryModal/PlanModal';
 
 const TableContainer = styled.div`
     display : flex;
@@ -93,7 +94,8 @@ const PdsTable = () => {
                     )}
                 </div>
                 <BtnContainer>
-                    <OKBtn>DO 드래그 완료하면 이곳을 눌러주세요!</OKBtn>
+                    <OKBtn onClick={()=>{
+                        console.log('클릭')}}>DO 드래그 완료하면 이곳을 눌러주세요!</OKBtn>
                 </BtnContainer>
             </ToolTipContainer>
 

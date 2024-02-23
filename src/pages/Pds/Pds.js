@@ -32,7 +32,7 @@ const Pds = () => {
 
     const getToken = async () => {
         const data = await API.get('/main')
-        console.log(data)
+        const userName = data.result.userName
     }
     useEffect(() => { getToken() }, [])
     return (
