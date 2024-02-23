@@ -178,16 +178,26 @@ export default Do
 
 const DoModal = ({timeData}) => {
     const { state, ModalHandler } = useContext(CategoryContext);
-
+    
+    const num = timeData[0] >= 100 ? 2 : 1;
+    const startHour = timeData[0].toString().substring(0, num);
+    const startMinute = timeData[0].toString().substring(num);
+    const endHour = parseInt(timeData[1].toString().substring(0, num))
+    const endMinute = parseInt(timeData[1].toString().substring(num))
+    
+    const startTime = `${startHour}:${startMinute-1}0`;
+    const endTime = endMinute === 6 ? `${endHour+1}:00` : `${endHour}:${endMinute}0`
+    
     return (
         <>
         {/* <button onClick={()=>{ModalHandler("isDoOpen")}}>Do</button> */}
         {state.isDoOpen && 
             <div className='fixed z-10 flex justify-center items-center bg-[rgba(0,0,0,0.4)] rounded-[10px] top-0 left-0 right-0 bottom-0'>
                 <div onClick={(e) => e.stopPropagation()} className='flex flex-col justify-start items-center rounded-[20px] p-[30px] w-[800px] bg-[#fff]'>
-                    <HeaderModal title={'Do 선택한 날짜'} type={'Do'} />
+                    <HeaderModal title={'Do 선택한 날짜'} type={'Do'} startTime={startTime} endTime={endTime}/>
+                    {startTime} ~ {endTime}
+
                     <InputEle type={'Do'} />
-                    tㅅㅂ{timeData}
                     <div className='flex justify-between w-11/12 items-center'>
                         <CategoryListBox text={'카테고리를 선택해주세요.'} type={'Do'}/>
                         <SelectedCategory inputText={'이곳에 할 일(Do)을 적어주세요.'} />
