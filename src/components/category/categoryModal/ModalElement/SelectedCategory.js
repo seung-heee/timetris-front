@@ -48,7 +48,7 @@ const SelectedCategory = ({type}) => {
                     } else if (isAddNameExists) {
                         alert('이미 존재하는 카테고리로 추가할 수 없습니다.');
                     } else {
-                        HandleAddCategory('Add')
+                        HandleAddCategory('AddModal')
                     }
                     }}>카테고리 추가</ExitBtn>}
             </div>

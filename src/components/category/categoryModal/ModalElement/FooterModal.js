@@ -16,7 +16,7 @@ export const ExitBtn = styled.button`
 `;
 
 const FooterModal = ({type}) => {
-    const { myCategory, ModalHandler, HandleAddCategory, addCategory, fixCategory} = useContext(CategoryContext);
+    const { addPlan, addDo, myCategory, ModalHandler, HandleAddCategory, addCategory, fixCategory} = useContext(CategoryContext);
 
     return (
         <div className='flex'>
@@ -28,7 +28,7 @@ const FooterModal = ({type}) => {
                 const isAddNameExists = myCategory.some(category => category.name === addCategory.name);
                 const isFixNameExists = myCategory.some(category => category.name === fixCategory.name);
 
-                if (type === 'Add' ){
+                if (type === 'Add' ) {
                     if (addCategory.name === '' || addCategory.colorCode==='') {
                         alert('추가할 카테고리 이름 또는 색상 코드를 입력하세요.');
                     } else if (isAddNameExists) {
@@ -43,7 +43,9 @@ const FooterModal = ({type}) => {
                         alert('이미 존재하는 카테고리로 수정할 수 없습니다.');
                     }  else {
                         HandleAddCategory(type)
-                    }} 
+                    }} else {
+                        HandleAddCategory(type);
+                    }
                 }}>
                 {type === "Add" ? '추가' : type === "Fix" ? '수정' : "등록"}
             </ExitBtn>

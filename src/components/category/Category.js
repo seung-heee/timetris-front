@@ -21,7 +21,9 @@ const Category = () => {
                 <div className='flex items-center'>
                     <span>나의 카테고리</span>
                     {/* <button onClick={() => { setIsOpen(!isOpen) }} className='addDiamond origin-center rotate-45 w-[11px] h-[11px] bg-[#888888] ml-2'></button> */}
-                    <button onClick={() => { ModalHandler("isAddOpen") }} className='addDiamond origin-center rotate-45 w-[11px] h-[11px] bg-[#888888] ml-2'></button>
+                    <button onClick={() => { 
+                        console.log('ㅎㅇ');
+                        ModalHandler("isAddOpen") }} className='addDiamond origin-center rotate-45 w-[11px] h-[11px] bg-[#888888] ml-2'></button>
                 </div>
                 <button onClick={() => { ModalHandler("isFixOpen") }} className='fixSquare w-[14px] h-[14px] bg-[#888888]'></button>
             </div>

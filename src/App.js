@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import Unauthorized from './pages/Unauthorized/Unauthorized'
 
 import PastRecords from "./pages/PastRecords";
+import DoModal from "./components/category/categoryModal/DoModal";
 
 function App() {
   let [login, setLogin] = useState(false)
@@ -44,10 +45,11 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
           <Route path='/mypage' element={<MyPage />} />
-          <Route path='/tempcategory' element={<TempCategory />} />
+          {/* <Route path='/tempcategory' element={<TempCategory />} /> */}
           <Route path='/dragNdrop' element={<DragNDrop />} />
           <Route path='/pds' element={<Pds />} />
           <Route path='/pastrecords' element={<PastRecords />} />
+          <Route path='/domodal' element={<DoModal />} />
           <Route path='/notFound' element={<NotFound />} />
           <Route path='/unauthorized' element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />

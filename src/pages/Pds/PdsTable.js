@@ -4,6 +4,9 @@ import styled from 'styled-components'
 import Plan from './Plan';
 import Do from './Do';
 import See from './See';
+// import { PDSTableContext } from '../../context/PDSTableContext';
+import { CategoryContext } from '../../context/CategoryContext';
+// import data from './api연습'
 
 const TableContainer = styled.div`
     display : flex;
@@ -56,6 +59,7 @@ const BottomContainer = styled.div`
 `
 
 const PdsTable = () => {
+    const { ModalHandler } = useContext(CategoryContext);
 
     const [showAlert, setShowAlert] = useState(false);
     // const [planok, setPlanok] = useState(planDatas.length > 0)
@@ -71,6 +75,7 @@ const PdsTable = () => {
     };
 
     return (
+        
         <TableContainer>
             <ToolTipContainer>
                 <div style={{ display: "flex", flexDirection: "row" }}>
@@ -86,7 +91,9 @@ const PdsTable = () => {
                     )}
                 </div>
                 <BtnContainer>
-                    <OKBtn>DO 드래그 완료하면 이곳을 눌러주세요!</OKBtn>
+                    {/* <OKBtn onClick={()=>{
+                        console.log('클릭');
+                        }}>DO 드래그 완료하면 이곳을 눌러주세요!</OKBtn> */}
                 </BtnContainer>
             </ToolTipContainer>
 
@@ -101,7 +108,6 @@ const PdsTable = () => {
                     </BottomContainer>
                 </Mix>
             </PDSContainer>
-
         </TableContainer>
     )
 }

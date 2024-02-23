@@ -8,8 +8,10 @@ import styled from 'styled-components';
 import moment from 'moment'; // MomentTypes는 사용하지 않으므로 삭제
 import 'moment/locale/ko'; // 한국어 locale 추가
 import '../../css/pds.css'
-
+import { CategoryContext } from '../../context/CategoryContext';
 const PdsLeft = () => {
+    const { today, setToday } = useContext(CategoryContext);
+
     const { name } = useContext(PDSTableContext);
     const [value, onChange] = useState(new Date());
     const [nowDate, setNowDate] = useState(moment().format("YYYY년 M월 DD일 ddd요일")); // 오늘의 날짜로 초기화
@@ -19,10 +21,11 @@ const PdsLeft = () => {
     useEffect(() => {
         moment.locale('ko'); // 한국어 locale 설정
         document.addEventListener("mousedown", handleClickOutside);
+        setToday(nowDate)
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [nowDate]);
 
     const handleToggleCalendar = () => {
         setIsOpen(!isOpen);
@@ -80,7 +83,8 @@ const PdsLeft = () => {
                     </button>
                 </div>
             </div>
-            <TempCategory />
+            {/* <TempCategory /> */}
+            <Category />
         </div>
     );
 };
