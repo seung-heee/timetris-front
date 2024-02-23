@@ -19,7 +19,7 @@ import Footer from '../../components/Footer';
 const Pds = () => {
     // 토큰
     const headers = {
-        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcxNzMxMiwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.m9xnuzdYhCfvuItIxdilNaQakMJ-FbJ9gU7fiaf0710xSV7VdhmbhHq610b299b0wK4pS0HHKD4QiAmvWMllhQ
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcyMDk2OSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.kFj1gfoo7jo2mfYoUsmpXGSZhv669ws0jCOpb8utgnc-n_-unTYMQT3BngjkB8rHGNsBOlqwdTWoxHGfSjwMsg
         `};
     const navigate = useNavigate(); // 페이지 이동처리해보려고 추가
 
@@ -46,7 +46,6 @@ const Pds = () => {
     //     const userName = data.result.userName
     // }
     // useEffect(() => { getToken() }, [])
-
     
     // 색상 코드
     const selectColorCode = ["#e15d5e", "#f0b0a9", "#f3bec7", "#ee82a1", "#edb18c", "#f49963", "#f48068", "#eccd85", "#f3bd72", "#96d4bf", "#79a5c8", "#4692bb", "#53bfcc", "#88d7da", "#d0b8de"]
@@ -160,6 +159,7 @@ const Pds = () => {
                     console.log(addPlan)
                     ModalHandler(`isPlanOpen`)
                     await axios.post('http://43.203.6.58:8080/plan', addPlan, { headers });
+                    
                     setAddPlan({
                         planRequestDTO: {
                             title: "",
@@ -171,7 +171,7 @@ const Pds = () => {
                             cycling: []
                         }
                     });
-                    setSelectedDay([]);
+                    setSelectedDay([]); // 페이지 새로고침
                     break;
                 default:
                     const response = await axios.post('http://43.203.6.58:8080/do', addDo, { headers });
@@ -183,7 +183,7 @@ const Pds = () => {
                         endTime: "",
                         categoryId: 0
                     });
-                    navigate('/pds'); // 404로 요청 후 페이지 이동시켜봄
+                    window.location.reload(); // 재로딩
             }
 
             setCategoryId('')
