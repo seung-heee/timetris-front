@@ -43,6 +43,7 @@ const PlanTableCell = styled.td`
     font-style: normal;
     font-weight: 400;
     line-height: 48px; /* 200% */
+    color : #424448
 `
 
 const Plan = () => {

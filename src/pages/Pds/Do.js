@@ -42,7 +42,7 @@ const DoTableCell = styled.td`
     text-overflow: ellipsis; /* 넘치는 콘텐츠 생략 부호(...)로 표시 */
     white-space : nowrap;
     padding-left : 15px;
-    color : #DF7285;
+    color : #424448;
     `
 
 const Do = () => {
