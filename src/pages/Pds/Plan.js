@@ -2,13 +2,12 @@ import styled from "styled-components"
 import * as API from '../../api/API'
 import { PDSTableContext } from '../../context/PDSTableContext';
 import { CategoryContext } from '../../context/CategoryContext';
-import { useContext, useState, useEffect } from "react";
 import HeaderModal from '../../components/category/categoryModal/ModalElement/HeaderModal';
 import CategoryListBox from '../../components/category/categoryModal/ModalElement/CategoryListBox';
 import SelectedCategory from '../../components/category/categoryModal/ModalElement/SelectedCategory';
 import FooterModal from '../../components/category/categoryModal/ModalElement/FooterModal';
 import InputEle from '../../components/category/categoryModal/ModalElement/InputEle';
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState, useMemo, useEffect } from "react";
 
 const PlanContainer = styled.div`
 
@@ -54,7 +53,7 @@ const PlanTableCell = styled.td`
 `
 
 const Plan = () => {
-    const { planData } = useContext(PDSTableContext)
+    const { planDatas } = useContext(PDSTableContext);
     const { timeData, state, setTimeData, ModalHandler, setAddPlan} = useContext(CategoryContext);
 
 
@@ -92,57 +91,53 @@ const Plan = () => {
         }));
     }, [timeData])
 
-    const checkColoredCell = () => {
-        let normalizedStartHour = planData.startTime.hour;
-        let normalizedEndHour = planData.endTime.hour;
-
-        if (planData.startTime.hour >= 4 && planData.startTime.hour <= 24) {
-            normalizedStartHour = planData.startTime.hour - 4;
-        } else if (planData.startTime.hour >= 1 && planData.startTime.hour <= 3) {
-            normalizedStartHour = planData.startTime.hour + 20;
-        }
-
-        if (planData.endTime.hour >= 4 && planData.endTime.hour <= 24) {
-            normalizedEndHour = planData.endTime.hour - 4;
-        } else if (planData.endTime.hour >= 1 && planData.endTime.hour <= 3) {
-            normalizedEndHour = planData.endTime.hour + 20;
-        }
-        const planedCellIndex = []
-        if (normalizedStartHour > normalizedEndHour) {
-            for (let i = normalizedStartHour; i < 24; i++) {
-                planedCellIndex.push(i)
-            }
-            for (let j = 0; j <= normalizedEndHour; j++) {
-                planedCellIndex.push(j)
-            }
-        } else {
-            for (let i = normalizedStartHour; i < normalizedEndHour + 1; i++) {
-                planedCellIndex.push(i)
-            }
-        }
-        return [normalizedStartHour, planedCellIndex]
-    }
     // 각 행을 나타내는 JSX 배열을 생성
-    const tableRows = tableData.map((rowData, rowIndex) => (
-        <PlanTableRow key={rowIndex}>
-            {rowData.map((colData, colIndex) => {
-                // 특정 조건에 따라 배경색을 설정
-                let [normalizedStartHour, planedCellIndex] = checkColoredCell()
-                const isColoredCell = colIndex == 0 && planedCellIndex.includes(rowIndex)
-                const isStartTimeCell = colIndex == 0 && rowIndex == normalizedStartHour;
-                return (
-                    <PlanTableCell 
-                        onClick={()=>{handleClickPlan(rowIndex)}}
-                        key={colIndex} style={{ backgroundColor: isColoredCell ? planData.category.colorCode : '#F6F6F6' }}>
-                        {isStartTimeCell
-                            ? planData.title : ""
-                        }
-                        {colData}
-                    </PlanTableCell>
-                );
-            })}
-        </PlanTableRow>
-    ));
+    const tableRows = Time.map((time, rowIndex) => {
+        // 현재 row에 해당하는 모든 일정을 필터링
+        const rowPlanDatas = planDatas.filter(planData => {
+            let normalizedStartHour = planData.startTime.hour;
+            let normalizedEndHour = planData.endTime.hour;
+
+            if (planData.startTime.hour >= 4 && planData.startTime.hour <= 24) {
+                normalizedStartHour = planData.startTime.hour - 4;
+            } else if (planData.startTime.hour >= 1 && planData.startTime.hour <= 3) {
+                normalizedStartHour = planData.startTime.hour + 20;
+            }
+
+            if (planData.endTime.hour >= 4 && planData.endTime.hour <= 24) {
+                normalizedEndHour = planData.endTime.hour - 4;
+            } else if (planData.endTime.hour >= 1 && planData.endTime.hour <= 3) {
+                normalizedEndHour = planData.endTime.hour + 20;
+            }
+
+            // startTime이 endTime보다 작거나 같고, rowIndex가 startTime과 endTime 사이에 있는 경우
+            return normalizedStartHour <= normalizedEndHour
+                ? rowIndex >= normalizedStartHour && rowIndex <= normalizedEndHour
+                : rowIndex >= normalizedStartHour || rowIndex <= normalizedEndHour;
+        });
+
+        // row에 대한 배경색을 저장할 변수
+        let backgroundColor = '#F6F6F6';
+
+        // row에 해당하는 일정이 있다면 첫 번째 일정의 색상을 사용
+        if (rowPlanDatas.length > 0) {
+            backgroundColor = rowPlanDatas[0].category.colorCode;
+        }
+        // row에 해당하는 첫 번째 일정의 제목만 표시
+        const firstPlanData = rowPlanDatas[0];
+        const titleToShow = firstPlanData ? firstPlanData.title : '';
+
+        return (
+            <PlanTableRow key={rowIndex}>
+                <PlanTableCell 
+                onClick={()=>{handleClickPlan(rowIndex)}}
+                style={{ backgroundColor }}>
+                    {titleToShow}
+                </PlanTableCell>
+                <PlanTableCell>{time}</PlanTableCell>
+            </PlanTableRow>
+        );
+    });
 
     return (
         <PlanContainer>

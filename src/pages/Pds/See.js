@@ -66,7 +66,7 @@ const See = () => {
     const ChangeText = (e) => {
         setSeeContent(e.target.value)
     }
-    console.log(seeContent)
+   //  console.log(seeContent)
 
     const submitTextPOST = async () => {
         await API.post(`/see`, submitData)

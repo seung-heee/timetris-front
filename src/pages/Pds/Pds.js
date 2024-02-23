@@ -19,7 +19,7 @@ import Footer from '../../components/Footer';
 const Pds = () => {
     // 토큰
     const headers = {
-        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcxMzQ5OSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.9By5maaZAYZRHii8tY723P2YzS-pSnF1Uk4XurgAaHEwVln7rwL0a4XL_xQ3rNz09lZUU-JVYhEQa3JUoloCpQ
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcxNzMxMiwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.m9xnuzdYhCfvuItIxdilNaQakMJ-FbJ9gU7fiaf0710xSV7VdhmbhHq610b299b0wK4pS0HHKD4QiAmvWMllhQ
         `};
     const navigate = useNavigate(); // 페이지 이동처리해보려고 추가
 

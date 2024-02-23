@@ -5,6 +5,7 @@ import Plan from './Plan';
 import Do from './Do';
 import See from './See';
 // import { PDSTableContext } from '../../context/PDSTableContext';
+import { CategoryContext } from '../../context/CategoryContext';
 // import data from './api연습'
 
 const TableContainer = styled.div`
@@ -59,13 +60,6 @@ const BottomContainer = styled.div`
 
 const PdsTable = () => {
     const { ModalHandler } = useContext(CategoryContext);
-    // // 1. main data GET!
-    // // data 박아놓기
-    // console.log(data.result.doViewDTOList[0].title)
-    // const planData = data.result.planViewDTOList[0]
-    // const doData = data.result.doViewDTOList[0]
-    // const seeData = data.result.seeViewDTO[0]
-    
 
     const [showAlert, setShowAlert] = useState(false);
     // const [planok, setPlanok] = useState(planDatas.length > 0)
