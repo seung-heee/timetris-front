@@ -9,7 +9,6 @@ instance.defaults.baseURL = 'http://43.203.6.58:8080';
 instance.interceptors.request.use(
     (config) => {
         const accessToken = getAccessToken();
-        // const accessToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODM1MDkzMCwiZW1haWwiOiJqaWV1bjc3NjEyMUBnbWFpbC5jb20iLCJtZW1iZXJJZCI6Nn0.dWYS-QhpwDm6xs49Ke82Te-8okWHRyoQ5cGaYQHWOaZKwK92EdzhCEGljICu1lgv5Nj_MTFdpxHrxutk4-NCHg";
 
         if (!accessToken) {
             window.location.href = '/login';
@@ -23,6 +22,7 @@ instance.interceptors.request.use(
     },
     (error) => {
         console.log(error);
+        console.log('실패했음')
         return Promise.reject(error);
     },
 );
