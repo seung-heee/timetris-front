@@ -25,21 +25,23 @@ const Pds = () => {
         setAccessToken(AuthorizationCode);
     }, [accessToken]);
 
+    const fetchData = async () => {
+        const data = await API.get('/main');
+        setPlanDatas(data.result.planViewDTOList);
+        setDoData(data.result.doViewDTOList);
+        setSeeData(data.result.seeViewDTO);
+        setName(data.result.userName);
+        console.log(data)
+    }
+
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await API.get('/main');
-            setPlanDatas(data.result.planViewDTOList);
-            setDoData(data.result.doViewDTOList);
-            setSeeData(data.result.seeViewDTO);
-            setName(data.result.userName);
-        }
         fetchData();
-    }, [planDatas, doData, seeData, name]);
+    }, []);
 
     return (
         <PDSTableContext.Provider
             value={{
-                planDatas, doData, seeData, name
+                planDatas, doData, seeData, name, fetchData
             }}
         >
             <div style={{ display: "flex", justifyContent: "center" }}>
