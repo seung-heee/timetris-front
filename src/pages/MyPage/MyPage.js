@@ -3,6 +3,7 @@ import Profile from "./components/Profile";
 import Withdrawal from "./components/Withdrawal";
 import WithdrawalModal from "./components/WithdrawalModal";
 import { useRef } from "react";
+import FooterNoScroll from "../../components/FooterNoScroll";
 
 const MyPage = () => {
     const dialogRef = useRef(null);
@@ -18,10 +19,13 @@ const MyPage = () => {
     };
 
     return (
-        <div className="App container" >
-            <Profile />
-            <Withdrawal showModal={showModal} />
-            <WithdrawalModal closeModal={closeModal} dialogRef={dialogRef} />
+        <div>
+            <div className="App container" >
+                <Profile />
+                <Withdrawal showModal={showModal} />
+                <WithdrawalModal closeModal={closeModal} dialogRef={dialogRef} />
+            </div>
+            <FooterNoScroll />
         </div>
     )
 }

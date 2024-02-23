@@ -41,6 +41,8 @@ const DoTableCell = styled.td`
     overflow: hidden; /* 넘치는 콘텐츠 숨기기 */
     text-overflow: ellipsis; /* 넘치는 콘텐츠 생략 부호(...)로 표시 */
     white-space : nowrap;
+    padding-left : 15px;
+    color : #DF7285;
     `
 
 const Do = () => {

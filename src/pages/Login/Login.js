@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import FooterNoScroll from "../../components/FooterNoScroll";
 
 const LoginContainer = styled.div`
     display : flex;
@@ -50,6 +51,7 @@ const Login = () => {
             <a href="http://ec2-43-203-6-58.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
                 <GoogleBtn />
             </a>
+            <FooterNoScroll />
         </LoginContainer>
     )
 }

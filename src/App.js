@@ -48,7 +48,6 @@ function App() {
           <Route path='/pastrecords' element={<PastRecords />} />
         </Routes>
       </div>
-      <Footer />
     </div>
   );
 }

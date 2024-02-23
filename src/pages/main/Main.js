@@ -5,6 +5,7 @@ import MainSecond from './MainSecond';
 import MainThird from './MainThird';
 import MainFourth from './MainFourth';
 import MainLast from './MainLast';
+import Footer from '../../components/Footer';
 
 
 const Main = () => {
@@ -15,6 +16,7 @@ const Main = () => {
             <MainThird />
             <MainFourth />
             <MainLast />
+            <Footer />
         </div>
     );
 };

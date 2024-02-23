@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PdsLeft from './PdsLeft';
-// import PdsMiddle from './PdsMiddle';
 import PdsTable from './PdsTable';
 import '../../css/pds.css'
 import * as API from '../../api/API'
 import { PDSTableContext } from '../../context/PDSTableContext';
 import data from './api연습'
+import Footer from '../../components/Footer';
 
 const Pds = () => {
     // 1. main data GET!
@@ -48,6 +48,7 @@ const Pds = () => {
                 </div>
 
             </div>
+            <Footer />
         </PDSTableContext.Provider>
     );
 };
