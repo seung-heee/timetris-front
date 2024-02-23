@@ -6,9 +6,6 @@ import Do from './Do';
 import See from './See';
 // import { PDSTableContext } from '../../context/PDSTableContext';
 // import data from './api연습'
-import PlanModal from '../../components/category/categoryModal/PlanModal';
-import { CategoryContext } from '../../context/CategoryContext';
-import { useTableDragSelect } from 'use-table-drag-select'
 
 const TableContainer = styled.div`
     display : flex;
@@ -71,6 +68,7 @@ const PdsTable = () => {
     
 
     const [showAlert, setShowAlert] = useState(false);
+    // const [planok, setPlanok] = useState(planDatas.length > 0)
 
     // 버튼을 누를 때 알림 보이기
     const handleButtonClick = () => {
@@ -109,7 +107,7 @@ const PdsTable = () => {
                 <Mix>
                     <TopContainer>
                         <Plan />
-                        <Do />
+                        < Do />
                     </TopContainer>
                     <BottomContainer>
                         <See />

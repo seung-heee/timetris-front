@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PdsLeft from './PdsLeft';
-// import PdsMiddle from './PdsMiddle';
 import PdsTable from './PdsTable';
 import '../../css/pds.css'
 import * as API from '../../api/API'
@@ -15,6 +14,7 @@ import DoModal from '../../components/category/categoryModal/DoModal';
 import { useNavigate } from 'react-router-dom';
 import App from '../../App';
 import axios from 'axios';
+import Footer from '../../components/Footer';
 
 const Pds = () => {
     // 토큰
@@ -22,13 +22,6 @@ const Pds = () => {
         'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcxMzQ5OSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.9By5maaZAYZRHii8tY723P2YzS-pSnF1Uk4XurgAaHEwVln7rwL0a4XL_xQ3rNz09lZUU-JVYhEQa3JUoloCpQ
         `};
     const navigate = useNavigate(); // 페이지 이동처리해보려고 추가
-    // 1. main data GET!
-    // data 박아놓기
-    // console.log(data.result.doViewDTOList[0].title)
-    const planData = data.result.planViewDTOList[0]
-    const doData = data.result.doViewDTOList[0]
-    const seeData = data.result.seeViewDTO[0]
-    const name = data.result.userName
 
     const setToken = (key, token) => {
         if (token) {
@@ -36,19 +29,23 @@ const Pds = () => {
         }
     }
     const [accessToken, setAccessToken] = useState(sessionStorage.getItem('Authorization'));
+    const [planDatas, setPlanDatas] = useState([]);
+    const [doData, setDoData] = useState([]);
+    const [seeData, setSeeData] = useState([]);
+    const [name, setName] = useState('');
 
     useEffect(() => {
         const AuthorizationCode = new URL(window.location.href).searchParams.get('accessToken'); //url에서 AuthorizationCode를 가져옴
-
         setToken('Authorization', AuthorizationCode);
         setAccessToken(AuthorizationCode);
     }, [accessToken]);
 
-    const getToken = async () => {
-        const data = await API.get('/main')
-        const userName = data.result.userName
-    }
-    useEffect(() => { getToken() }, [])
+
+    // const getToken = async () => {
+    //     const data = await API.get('/main')
+    //     const userName = data.result.userName
+    // }
+    // useEffect(() => { getToken() }, [])
 
     
     // 색상 코드
@@ -215,6 +212,20 @@ const Pds = () => {
             }
         }));
     };
+    
+    const fetchData = async () => {
+        const data = await API.get('/main');
+        setPlanDatas(data.result.planViewDTOList);
+        setDoData(data.result.doViewDTOList);
+        setSeeData(data.result.seeViewDTO);
+        setName(data.result.userName);
+        console.log(data)
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
 
     return (
         <CategoryContext.Provider 
@@ -228,27 +239,22 @@ const Pds = () => {
                 addDo, setAddDo, today, setToday, 
                 timeData, setTimeData
             }}>
-            <PDSTableContext.Provider
-                value={{
-                    planData, doData, seeData, name
-                }}
-            >
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                        <PdsLeft />
-                        <PdsTable />
-                    </div>
-
+           <PDSTableContext.Provider
+            value={{
+                planDatas, doData, seeData, name, fetchData
+            }}
+        >
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                    <PdsLeft />
+                    <PdsTable />
                 </div>
-            
-            {/* <Category /> */}
+            </div>
+            <Footer />
             <AddModal />
             <FixModal />
-            {/* <PlanModal />
-            <DoModal />  */}
-            </PDSTableContext.Provider>
-        </CategoryContext.Provider>
-    );
+        </PDSTableContext.Provider>
+        </CategoryContext.Provider>)
 };
 
 export default Pds;

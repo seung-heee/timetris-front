@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import Button from "../../components/Button"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import { PDSTableContext } from '../../context/PDSTableContext';
+import * as API from '../../api/API'
 
 const SeeContainer = styled.div`
     width: 1090.5px;
@@ -45,26 +47,40 @@ const Textarea = styled.textarea`
 `
 
 const See = () => {
+    const { seeData, fetchData } = useContext(PDSTableContext)
 
-    const [activeBtn, setActiveBtn] = useState(false)
     const [writeBtn, setWriteBtn] = useState(false)
-    const [seeContent, setSeeContent] = useState('')
+    const [seeContent, setSeeContent] = useState("")
+
+    useEffect(() => {
+        if (seeData.length > 0) {
+            setSeeContent(seeData[0].content);
+            setWriteBtn(true)
+        }
+    }, [seeData]);
+
+    const submitData = {
+        content: seeContent
+    }
 
     const ChangeText = (e) => {
         setSeeContent(e.target.value)
     }
+    console.log(seeContent)
 
-    useEffect(() => {
-        if (seeContent) {
-            setActiveBtn(true)
-        } else {
-            setActiveBtn(false)
-        }
-    }, [seeContent])
-
-    const submitText = () => {
+    const submitTextPOST = async () => {
+        await API.post(`/see`, submitData)
+        localStorage.setItem('seePost', 'yes')
         setWriteBtn(!writeBtn)
-        console.log(seeContent)
+        fetchData(); // 데이터 다시 가져오기
+    }
+    const submitTextPUT = async () => {
+        await API.put(`/see/${seeData[0].id}`, submitData)
+        setWriteBtn(!writeBtn)
+        fetchData(); // 데이터 다시 가져오기
+    }
+    const changeBtn = () => {
+        setWriteBtn(!writeBtn)
     }
 
     return (
@@ -73,6 +89,7 @@ const See = () => {
             <Text>
                 <Textarea className="content" placeholder="오늘 하루는 어떠셨나요?"
                     disabled={writeBtn}
+                    value={seeContent}
                     onChange={ChangeText} />
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <></>
@@ -82,7 +99,7 @@ const See = () => {
                         width={"103px"}
                         text={writeBtn ? "수정하기" : "작성하기"}
                         color={writeBtn ? "black" : "white"}
-                        onClick={submitText}
+                        onClick={writeBtn ? changeBtn : (localStorage.getItem('seePost') ? submitTextPUT : submitTextPOST)}
                     />
                 </div>
             </Text>

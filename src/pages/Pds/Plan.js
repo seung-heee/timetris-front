@@ -8,6 +8,7 @@ import CategoryListBox from '../../components/category/categoryModal/ModalElemen
 import SelectedCategory from '../../components/category/categoryModal/ModalElement/SelectedCategory';
 import FooterModal from '../../components/category/categoryModal/ModalElement/FooterModal';
 import InputEle from '../../components/category/categoryModal/ModalElement/InputEle';
+import { useContext, useState, useMemo } from "react";
 
 const PlanContainer = styled.div`
 
@@ -49,15 +50,19 @@ const PlanTableCell = styled.td`
     font-style: normal;
     font-weight: 400;
     line-height: 48px; /* 200% */
+    color : #424448
 `
 
 const Plan = () => {
     const { planData } = useContext(PDSTableContext)
     const { timeData, state, setTimeData, ModalHandler, setAddPlan} = useContext(CategoryContext);
 
-    const Time = ["4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM",
-        "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM"
-        , "11PM", "12AM", "1AM", "2AM", "3AM"]
+
+    const Time = [
+        "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM",
+        "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM",
+        "11PM", "12AM", "1AM", "2AM", "3AM"
+    ];
 
     const tableData = [];
     for (let i = 0; i < 24; i++) {
@@ -154,7 +159,7 @@ const Plan = () => {
                 </tbody>
             </PlanTable>
         </PlanContainer>
-    )
+    );
 }
 export default Plan
 

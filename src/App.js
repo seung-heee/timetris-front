@@ -12,6 +12,8 @@ import TempCategory from "./pages/TempCategory";
 import AddCategory from "./components/category/AddCategory";
 import DragNDrop from "./pages/DragNDrop";
 import Footer from "./components/Footer";
+import NotFound from "./pages/NotFound/NotFound";
+import Unauthorized from './pages/Unauthorized/Unauthorized'
 
 import PastRecords from "./pages/PastRecords";
 import DoModal from "./components/category/categoryModal/DoModal";
@@ -48,9 +50,11 @@ function App() {
           <Route path='/pds' element={<Pds />} />
           <Route path='/pastrecords' element={<PastRecords />} />
           <Route path='/domodal' element={<DoModal />} />
+          <Route path='/notFound' element={<NotFound />} />
+          <Route path='/unauthorized' element={<Unauthorized />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      <Footer />
     </div>
   );
 }
