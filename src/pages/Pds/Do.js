@@ -1,7 +1,14 @@
 import styled from "styled-components"
 import { useTableDragSelect } from 'use-table-drag-select'
 import { PDSTableContext } from '../../context/PDSTableContext';
+import { CategoryContext } from '../../context/CategoryContext';
 import { useEffect, useState, useContext } from "react"
+// import DoModal from '../../components/category/categoryModal/DoModal';
+import HeaderModal from '../../components/category/categoryModal/ModalElement/HeaderModal';
+import CategoryListBox from '../../components/category/categoryModal/ModalElement/CategoryListBox';
+import SelectedCategory from '../../components/category/categoryModal/ModalElement/SelectedCategory';
+import FooterModal from '../../components/category/categoryModal/ModalElement/FooterModal';
+import InputEle from '../../components/category/categoryModal/ModalElement/InputEle';
 
 const DoContainer = styled.div`
     display : flex;
@@ -43,8 +50,18 @@ const DoTableCell = styled.td`
     white-space : nowrap;
     `
 
+const DoClick = styled.button`
+    position: absolute;
+    top: -50px;
+    right: 0;
+    text-decoration : underline;
+    font-weight: 800;
+`
+
 const Do = () => {
     const { doData } = useContext(PDSTableContext)
+    const { state, ModalHandler } = useContext(CategoryContext);
+
     const isCheckedCell = () => {
         let normalizedStartHour = doData.startTime.hour;
         let normalizedEndHour = doData.endTime.hour;
@@ -89,13 +106,13 @@ const Do = () => {
         tableData.push(rowData);
     }
     const [ref, value] = useTableDragSelect(tableData);
+    // useEffect(() => {
+    //     handleDragEnd();
+    // }, [value]);
 
-    const [timeData, setTimeData] = useState([]); // 시간 정보 저장
+    const [timeData, setTimeData] = useState([0, 0]); // 시간 정보 저장
 
-    useEffect(() => {
-        handleDragEnd();
-    }, [value]); // 드래그 발생하면
-
+    // Do Modal Open 함수
     const handleDragEnd = () => {
         const newTimeData = value.map((row, rowIdx) => row.map((col, colIdx) => {
             return col ? `${rowIdx+4}${colIdx+1}`*1 : 0;
@@ -104,11 +121,12 @@ const Do = () => {
         const filteredTimeData = newTimeData.flat().filter(cell => cell !== 0);
         setTimeData(filteredTimeData);
 
-        const startTime = Math.min(...timeData); 
-        const endTime = Math.max(...timeData); 
-
-        console.log(startTime, endTime)
-        <PlanModal startTime={startTime} endTime={endTime} />
+        const startTime = Math.min(...filteredTimeData); 
+        const endTime = Math.max(...filteredTimeData); 
+        setTimeData([startTime, endTime])
+        
+        ModalHandler("isDoOpen");
+        console.log(timeData)
     };
 
     // 각 행을 나타내는 JSX 배열을 생성
@@ -117,9 +135,10 @@ const Do = () => {
             {rowData.map((colData, colIndex) => {
                 let isChecked = false
                 const [normalizedStartHour, normalizedStartMin, checkedTable] = isCheckedCell()
-                // console.log(normalizedStartHour, normalizedStartMin)
+             //    console.log(normalizedStartHour, normalizedStartMin)
                 isChecked = checkedTable[rowIndex][colIndex];
                 return (
+                    <>
                     <DoTableCell key={colIndex}
                         bg={
                             colData ? "#616161" :
@@ -131,6 +150,7 @@ const Do = () => {
                                 doData.title : null
                         }
                     </DoTableCell>
+                    </>
                 )
             })}
         </DoTableRow>
@@ -138,6 +158,8 @@ const Do = () => {
 
     return (
         <DoContainer >
+            {state.isDoOpen && <DoModal timeData={timeData}/>}
+            <DoClick onClick={()=>{handleDragEnd()}}>DO 드래그 완료하면 이곳을 눌러주세요!</DoClick>
             <DoTable ref={ref}
             //  onMouseUp={(e) => handleMouseUp(e)} onMouseDown={handleMouseDown}
             >
@@ -153,3 +175,27 @@ const Do = () => {
     )
 }
 export default Do
+
+const DoModal = ({timeData}) => {
+    const { state, ModalHandler } = useContext(CategoryContext);
+
+    return (
+        <>
+        {/* <button onClick={()=>{ModalHandler("isDoOpen")}}>Do</button> */}
+        {state.isDoOpen && 
+            <div className='fixed z-10 flex justify-center items-center bg-[rgba(0,0,0,0.4)] rounded-[10px] top-0 left-0 right-0 bottom-0'>
+                <div onClick={(e) => e.stopPropagation()} className='flex flex-col justify-start items-center rounded-[20px] p-[30px] w-[800px] bg-[#fff]'>
+                    <HeaderModal title={'Do 선택한 날짜'} type={'Do'} />
+                    <InputEle type={'Do'} />
+                    tㅅㅂ{timeData}
+                    <div className='flex justify-between w-11/12 items-center'>
+                        <CategoryListBox text={'카테고리를 선택해주세요.'} type={'Do'}/>
+                        <SelectedCategory inputText={'이곳에 할 일(Do)을 적어주세요.'} />
+                    </div>
+                    <FooterModal type={'Do'} />
+                </div>
+            </div>
+        }
+        </>
+    );
+};

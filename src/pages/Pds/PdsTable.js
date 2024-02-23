@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { images } from '../../utils/images';
 import styled from 'styled-components'
 import Plan from './Plan';
@@ -7,6 +7,8 @@ import See from './See';
 // import { PDSTableContext } from '../../context/PDSTableContext';
 // import data from './api연습'
 import PlanModal from '../../components/category/categoryModal/PlanModal';
+import { CategoryContext } from '../../context/CategoryContext';
+import { useTableDragSelect } from 'use-table-drag-select'
 
 const TableContainer = styled.div`
     display : flex;
@@ -59,12 +61,14 @@ const BottomContainer = styled.div`
 `
 
 const PdsTable = () => {
+    const { ModalHandler } = useContext(CategoryContext);
     // // 1. main data GET!
     // // data 박아놓기
     // console.log(data.result.doViewDTOList[0].title)
     // const planData = data.result.planViewDTOList[0]
     // const doData = data.result.doViewDTOList[0]
     // const seeData = data.result.seeViewDTO[0]
+    
 
     const [showAlert, setShowAlert] = useState(false);
 
@@ -79,6 +83,7 @@ const PdsTable = () => {
     };
 
     return (
+        
         <TableContainer>
             <ToolTipContainer>
                 <div style={{ display: "flex", flexDirection: "row" }}>
@@ -94,8 +99,9 @@ const PdsTable = () => {
                     )}
                 </div>
                 <BtnContainer>
-                    <OKBtn onClick={()=>{
-                        console.log('클릭')}}>DO 드래그 완료하면 이곳을 눌러주세요!</OKBtn>
+                    {/* <OKBtn onClick={()=>{
+                        console.log('클릭');
+                        }}>DO 드래그 완료하면 이곳을 눌러주세요!</OKBtn> */}
                 </BtnContainer>
             </ToolTipContainer>
 
@@ -110,7 +116,6 @@ const PdsTable = () => {
                     </BottomContainer>
                 </Mix>
             </PDSContainer>
-
         </TableContainer>
     )
 }

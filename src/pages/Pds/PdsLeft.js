@@ -80,7 +80,8 @@ const PdsLeft = () => {
                     </button>
                 </div>
             </div>
-            <TempCategory />
+            {/* <TempCategory /> */}
+            <Category />
         </div>
     );
 };

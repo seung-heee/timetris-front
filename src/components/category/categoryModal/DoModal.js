@@ -8,7 +8,7 @@ import InputEle from './ModalElement/InputEle';
 
 const DoModal = () => {
     const { state, ModalHandler } = useContext(CategoryContext);
-
+    
     return (
         <>
         <button onClick={()=>{ModalHandler("isDoOpen")}}>Do</button>

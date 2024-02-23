@@ -42,7 +42,7 @@ function App() {
           <Route path='/' element={<Main />} />
           <Route path='/login' element={<Login />} />
           <Route path='/mypage' element={<MyPage />} />
-          <Route path='/tempcategory' element={<TempCategory />} />
+          {/* <Route path='/tempcategory' element={<TempCategory />} /> */}
           <Route path='/dragNdrop' element={<DragNDrop />} />
           <Route path='/pds' element={<Pds />} />
           <Route path='/pastrecords' element={<PastRecords />} />
