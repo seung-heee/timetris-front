@@ -18,7 +18,6 @@ const HeaderModal = ({type}) => {
                     <div className='flex items-center border-[1px] border-[#A8A8A8] p-2 px-4 rounded-[50px]'>
                         <span className="text-2xl text-[#A8A8A8]">{timeData[0]}시</span>
                     </div>}
-
                 </div>
             <ExitBtn onClick={()=>{ModalHandler(`is${type}Open`)}}>닫기</ExitBtn>
         </div>

@@ -76,11 +76,16 @@ const Plan = () => {
         tableData.push(rowData);
     }
         // Do Modal Open 함수
-    const handleClickPlan = (Hour) => {
-        const startTime = `${Hour+4}:00`
-        const endTime = `${Hour+4}:00`
-        setTimeData([startTime, endTime]);           
-        ModalHandler("isPlanOpen");
+    const handleClickPlan = (Hour, backgroundColor) => {
+        if (backgroundColor === '#F6F6F6') {
+            const startTime = `${Hour+4}:00`
+            const endTime = `${Hour+4}:00`
+            setTimeData([startTime, endTime]);           
+            ModalHandler("isPlanOpen");
+        } else {
+            ModalHandler("isPlanOpen");
+        }
+
     };
 
     useEffect(()=>{
@@ -133,7 +138,9 @@ const Plan = () => {
         return (
             <PlanTableRow key={rowIndex}>
                 <PlanTableCell 
-                onClick={()=>{handleClickPlan(rowIndex)}}
+                onClick={()=>{
+                    handleClickPlan(rowIndex, backgroundColor)
+                }}
                 style={{ backgroundColor }}>
                     {titleToShow}
                 </PlanTableCell>
@@ -162,7 +169,7 @@ const Plan = () => {
 export default Plan
 
 const PlanModal = () => {
-    const { state, ModalHandler } = useContext(CategoryContext);
+    const { state, ModalHandler} = useContext(CategoryContext);
     return (
         <>
         <button onClick={() => { ModalHandler("isPlanOpen") }} className='fixed z-10 flex justify-center items-center bg-[rgba(0,0,0,0.4)] rounded-[10px] top-0 left-0 right-0 bottom-0'>
