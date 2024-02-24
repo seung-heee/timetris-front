@@ -19,8 +19,7 @@ import Footer from '../../components/Footer';
 const Pds = () => {
     // 토큰
     const headers = {
-        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODcyMDk2OSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.kFj1gfoo7jo2mfYoUsmpXGSZhv669ws0jCOpb8utgnc-n_-unTYMQT3BngjkB8rHGNsBOlqwdTWoxHGfSjwMsg
-        `};
+        'Authorization': `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTcwODc0MTE4NSwiZW1haWwiOiJzaHRtZGdtbDI1OTVAZ21haWwuY29tIiwibWVtYmVySWQiOjJ9.lBkViKImCorjDAbAfOWVHw_mYIpolC9IOFRh6itFV1qjS0Jxdp2DvB3-nFlz1L6K-_KwjR8DQl5FzfChBroSoQ`};
     const navigate = useNavigate(); // 페이지 이동처리해보려고 추가
 
     const setToken = (key, token) => {
@@ -155,11 +154,10 @@ const Pds = () => {
                     });
                     break;
                 case 'Plan':
-                    //await API.post('/plan', addPlan);
                     console.log(addPlan)
+                    //await API.post('/plan', addPlan);
                     ModalHandler(`isPlanOpen`)
                     await axios.post('http://43.203.6.58:8080/plan', addPlan, { headers });
-                    
                     setAddPlan({
                         planRequestDTO: {
                             title: "",
@@ -171,7 +169,7 @@ const Pds = () => {
                             cycling: []
                         }
                     });
-                    setSelectedDay([]); // 페이지 새로고침
+                    window.location.reload(); // 재로딩
                     break;
                 default:
                     const response = await axios.post('http://43.203.6.58:8080/do', addDo, { headers });

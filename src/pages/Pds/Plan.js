@@ -77,7 +77,9 @@ const Plan = () => {
     }
         // Do Modal Open 함수
     const handleClickPlan = (Hour) => {
-        setTimeData(Hour+4);            
+        const startTime = `${Hour+4}:00`
+        const endTime = `${Hour+4}:00`
+        setTimeData([startTime, endTime]);           
         ModalHandler("isPlanOpen");
     };
 
@@ -86,7 +88,8 @@ const Plan = () => {
             ...prevState,
             planRequestDTO: {
                 ...prevState.planRequestDTO,
-                startTime: timeData,
+                startTime: timeData[0],
+                endTime: timeData[1],
             }
         }));
     }, [timeData])
