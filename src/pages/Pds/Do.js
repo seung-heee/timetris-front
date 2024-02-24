@@ -129,7 +129,7 @@ const Do = () => {
 
                 return (
                     <DoTableCell 
-                        onClick={()=>{console.log(checkedTable[0][rowIndex][colIndex])}}
+                        onClick={()=>{console.log(title)}}
                         key={colIndex} bg={colData ? "#616161" : backgroundColor}>
                         {/* {colData ? "" : title} */}
                     </DoTableCell>
