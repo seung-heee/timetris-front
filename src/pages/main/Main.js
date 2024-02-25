@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../css/main.css'
 import MainFirst from './MainFirst';
 import MainSecond from './MainSecond';
 import MainThird from './MainThird';
 import MainFourth from './MainFourth';
 import MainLast from './MainLast';
+import Footer from '../../components/Footer';
+
 
 const Main = () => {
     return (
@@ -14,6 +16,7 @@ const Main = () => {
             <MainThird />
             <MainFourth />
             <MainLast />
+            <Footer />
         </div>
     );
 };

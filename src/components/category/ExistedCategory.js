@@ -5,10 +5,6 @@ import axios from 'axios';
 const ExistedCategory = () => {
     const {myCategory, addCategory, setMyCategory, ShowCategoryList} = useContext(CategoryContext);
 
-    useEffect(() => {
-        ShowCategoryList();
-    }, [myCategory]);
-
     return (
         <div className='flex justify-center items-center px-3 pt-3 my-2 h-3/4 overflow-auto'>
             <div className='grid grid-cols-2 w-full'>
