@@ -19,7 +19,7 @@
 
 | **노승희** | **임지은** | **박소은** | 
 | :------: |  :------: | :------: | 
-| [<img src="https://github.com/seung-heee/hola/blob/main/public/assets/images/about/likelion/seunghee.png" height=150 width=150> <br/> @seung-heee](https://github.com/seung-heee) | [<img src="지은미모티콘" height=150 width=150> <br/> @Imjieunn](https://github.com/Imjieunn) | [<img src="소은미모티콘" height=150 width=150> <br/> @ssorni](https://github.com/ssorni) |
+| [<img src="https://github.com/seung-heee/hola/blob/main/public/assets/images/about/likelion/seunghee.png" height=150 width=150> <br/> @seung-heee](https://github.com/seung-heee) | [<img src="https://github.com/Timetris-Trendithon/timetris-front/blob/dev/public/img/jieun.jpg" height=150 width=150> <br/> @Imjieunn](https://github.com/Imjieunn) | [<img src="https://github.com/Timetris-Trendithon/timetris-front/blob/dev/public/img/ssorni1.jpg" height=150 width=150> <br/> @ssorni](https://github.com/ssorni) |
 </div>
 
 <br>
